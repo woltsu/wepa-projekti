@@ -24,8 +24,8 @@ public class DefaultController {
         model.addAttribute("name", "olli");
         
         Statement statement = (Statement) dataSource.getConnection().createStatement();
-        String insert = "INSERT INTO User VALUES ('Pekka');";
-        String get = "SELECT name FROM User;";
+        String insert = "INSERT INTO Account VALUES ('Pekka');";
+        String get = "SELECT name FROM Account;";
         
         statement.executeUpdate(insert);
         ResultSet rs = statement.executeQuery(get);
