@@ -24,7 +24,7 @@ public class DefaultController {
     
     @RequestMapping(method = RequestMethod.GET)
     public String home(Model model) {
-        model.addAttribute("name", "illo");
+        model.addAttribute("name", "testttt");
         model.addAttribute("users", accountDatabase.getUsers());
         return "index";
     }
