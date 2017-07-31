@@ -36,6 +36,8 @@ public class DefaultController {
         }
         
         model.addAttribute("users", users);
+        statement.close();
+        rs.close();
         
         return "index";
     }
