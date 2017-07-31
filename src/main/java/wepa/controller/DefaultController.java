@@ -13,38 +13,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import wepa.database.AccountDatabase;
 
 @Controller
 @RequestMapping("*")
 public class DefaultController {
     
     @Autowired
-    private BasicDataSource dataSource;
-    
-    @PostConstruct
-    public void init() {
-        try (Connection conn = dataSource.getConnection() ) {
-            Statement st = conn.createStatement();
-            st.executeUpdate("CREATE TABLE Account (name varchar(25));");
-            st.executeUpdate("INSERT INTO Account (name) VALUES ('testi');");
-        } catch (Exception e) {
-        }
-    }
+    private AccountDatabase accountDatabase;
     
     @RequestMapping(method = RequestMethod.GET)
     public String home(Model model) throws SQLException {
         model.addAttribute("name", "olli");
-        
-        Connection conn = dataSource.getConnection();
-        Statement st = conn.createStatement();
-        st.executeUpdate("INSERT INTO Account (name) VALUES ('kekkonen');");
-        ResultSet rs = st.executeQuery("SELECT * FROM Account;");
-        ArrayList<String> users = new ArrayList();
-        while (rs.next()) {
-            users.add(rs.getString("name"));
-        }
-        model.addAttribute("users", users);
-        
+        model.addAttribute("users", accountDatabase.getUsers());
         return "index";
     }
     
