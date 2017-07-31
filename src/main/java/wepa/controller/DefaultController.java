@@ -1,9 +1,11 @@
 package wepa.controller;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.annotation.PostConstruct;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,26 +21,19 @@ public class DefaultController {
     @Autowired
     private BasicDataSource dataSource;
     
+    @PostConstruct
+    public void init() {
+        try (Connection conn = dataSource.getConnection() ) {
+            Statement st = conn.createStatement();
+            st.executeUpdate("CREATE TABLE Account (name varchar(25));");
+            st.executeUpdate("INSERT INTO Account (name) VALUES ('testi');");
+        } catch (Exception e) {
+        }
+    }
+    
     @RequestMapping(method = RequestMethod.GET)
     public String home(Model model) throws SQLException {
         model.addAttribute("name", "olli");
-        
-        Statement statement = (Statement) dataSource.getConnection().createStatement();
-        String insert = "INSERT INTO Account VALUES ('Pekka');";
-        String get = "SELECT name FROM Account;";
-        
-        statement.executeUpdate(insert);
-        ResultSet rs = statement.executeQuery(get);
-        
-        ArrayList<String> users = new ArrayList();
-        while (rs.next()) {
-            users.add(rs.getString("name"));
-        }
-        
-        model.addAttribute("users", users);
-        statement.close();
-        rs.close();
-        
         return "index";
     }
     
