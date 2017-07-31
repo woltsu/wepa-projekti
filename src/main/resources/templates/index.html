@@ -7,11 +7,16 @@
     <body>
 
 
-        <h1>Hello, <span th:text="${name}">insert name here</span></h1>
+        <h1>Names</h1>
         
         <div th:each="user : ${users}">
             <p th:text="${user}">username</p>
         </div>
+        
+        <form th:action="@{/account}" th:method="post">
+            <input type="text" name="name"/>
+            <input type="submit"/>
+        </form>
 
     </body>
 </html>

@@ -14,7 +14,7 @@ public class AccountDatabase {
 
     @Autowired
     private BasicDataSource dataSource;
-    
+
     public ArrayList<String> getUsers() throws SQLException {
         Connection conn = dataSource.getConnection();
         Statement st = conn.createStatement();
@@ -25,5 +25,11 @@ public class AccountDatabase {
         }
         return users;
     }
-    
+
+    public void create(String name) throws SQLException {
+        Connection conn = dataSource.getConnection();
+        Statement st = conn.createStatement();
+        st.executeUpdate("INSERT INTO Account (name) VALUES ('" + name + "');");
+    }
+
 }
