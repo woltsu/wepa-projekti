@@ -37,6 +37,7 @@ public class DefaultController {
         
         Connection conn = dataSource.getConnection();
         Statement st = conn.createStatement();
+        st.executeUpdate("INSERT INTO Account ('kekkonen');");
         ResultSet rs = st.executeQuery("SELECT * FROM Account;");
         ArrayList<String> users = new ArrayList();
         while (rs.next()) {
