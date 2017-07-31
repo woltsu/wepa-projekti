@@ -12,12 +12,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("*")
 public class DefaultController {
     
-//    @Autowired
-//    private BasicDataSource dataSource;
-//    
+    @Autowired
+    private BasicDataSource dataSource;
+    
     @RequestMapping(method = RequestMethod.GET)
     public String home(Model model) {
         model.addAttribute("name", "olli");
+        
+        
+        
         return "index";
     }
     
