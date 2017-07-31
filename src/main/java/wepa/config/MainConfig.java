@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile("productin")
+@Profile("production")
 public class MainConfig {
 
     @Bean
