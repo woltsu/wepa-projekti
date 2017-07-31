@@ -8,6 +8,10 @@
 
 
         <h1>Hello, <span th:text="${name}">insert name here</span></h1>
+        
+        <div th:each="user : ${users}">
+            <p th:text="${user}">username</p>
+        </div>
 
     </body>
 </html>
