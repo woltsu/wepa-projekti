@@ -34,6 +34,16 @@ public class DefaultController {
     @RequestMapping(method = RequestMethod.GET)
     public String home(Model model) throws SQLException {
         model.addAttribute("name", "olli");
+        
+        Connection conn = dataSource.getConnection();
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery("SELECT * FROM Account;");
+        ArrayList<String> users = new ArrayList();
+        while (rs.next()) {
+            users.add(rs.getString("name"));
+        }
+        model.addAttribute("users", users);
+        
         return "index";
     }
     
