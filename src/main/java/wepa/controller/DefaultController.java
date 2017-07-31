@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class DefaultController {
     
     @RequestMapping(method = RequestMethod.GET)
-    @ResponseBody
     public String home() {
-        return "hellö wörld";
+        return "index";
     }
     
 }
