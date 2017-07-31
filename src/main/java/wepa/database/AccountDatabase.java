@@ -15,21 +15,29 @@ public class AccountDatabase {
     @Autowired
     private BasicDataSource dataSource;
 
-    public ArrayList<String> getUsers() throws SQLException {
-        Connection conn = dataSource.getConnection();
-        Statement st = conn.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM Account;");
+    public ArrayList<String> getUsers() {
         ArrayList<String> users = new ArrayList();
-        while (rs.next()) {
-            users.add(rs.getString("name"));
+        try {
+            Connection conn = dataSource.getConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM Account;");
+            while (rs.next()) {
+                users.add(rs.getString("name"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return users;
     }
 
-    public void create(String name) throws SQLException {
-        Connection conn = dataSource.getConnection();
-        Statement st = conn.createStatement();
-        st.executeUpdate("INSERT INTO Account (name) VALUES ('" + name + "');");
+    public void create(String name) {
+        try {
+            Connection conn = dataSource.getConnection();
+            Statement st = conn.createStatement();
+            st.executeUpdate("INSERT INTO Account (name) VALUES ('" + name + "');");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

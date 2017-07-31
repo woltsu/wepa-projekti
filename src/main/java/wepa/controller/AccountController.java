@@ -16,7 +16,7 @@ public class AccountController {
     private AccountDatabase accountDatabase;
     
     @RequestMapping(method = RequestMethod.POST)
-    public String postAccount(@RequestParam String name) throws SQLException {
+    public String postAccount(@RequestParam String name) {
         accountDatabase.create(name);
         return "redirect:/";
     }

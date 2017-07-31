@@ -22,6 +22,7 @@ public class InitDatabase {
             st.executeUpdate("INSERT INTO Account (name) VALUES ('pekka');");
             st.executeUpdate("INSERT INTO Account (name) VALUES ('juuso');");
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     

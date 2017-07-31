@@ -23,7 +23,7 @@ public class DefaultController {
     private AccountDatabase accountDatabase;
     
     @RequestMapping(method = RequestMethod.GET)
-    public String home(Model model) throws SQLException {
+    public String home(Model model) {
         model.addAttribute("name", "olli");
         model.addAttribute("users", accountDatabase.getUsers());
         return "index";
