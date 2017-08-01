@@ -3,14 +3,17 @@ var drawing = false;
 $(document).ready(function () {
     var canvas = document.getElementById("myCanvas");
     canvas.style.cursor = "crosshair";
-    canvas.addEventListener("touchstart", touchHandler, false);
+    if (is_touch_device()) {
+        canvas.addEventListener("touchstart", touchHandler, false);
+    }
 });
 
+function is_touch_device() {
+    return 'ontouchstart' in window;
+}
+
 function touchHandler(event) {
-    var x = event.touches[0].pageX;
-    var y = event.touches[0].pageY;
-    alert("x: " + x + "\n\
-           y: " + y);
+    draw();
 }
 
 function drawingTrue() {
@@ -29,11 +32,18 @@ function test() {
 }
 
 function draw() {
+    var x = 0;
+    var y = 0;
+    if (is_touch_device()) {
+        x = event.touches[0].pageX;
+        y = event.touches[0].pageY;
+    } else {
+        x = event.clientX;
+        y = event.clientY;
+    }
     if (drawing) {
         var canvas = document.getElementById("myCanvas");
         var context = canvas.getContext("2d");
-        var x = event.clientX;
-        var y = event.clientY;
         var offsetY = getOffset(canvas).top;
         var offsetX = getOffset(canvas).left;
 
