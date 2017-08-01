@@ -7,7 +7,10 @@ $(document).ready(function () {
 });
 
 function touchHandler(event) {
-    alert("koskettu");
+    var x = event.touches[0].pageX;
+    var y = event.touches[0].pageY;
+    alert("x: " + x + "\n\
+           y: " + y);
 }
 
 function drawingTrue() {
