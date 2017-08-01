@@ -5,6 +5,7 @@ $(document).ready(function () {
     canvas.style.cursor = "crosshair";
     if (is_touch_device()) {
         canvas.addEventListener("touchstart", touchHandler, false);
+        canvas.addEventListener("touchmove", touchHandler, false);
     }
 });
 
