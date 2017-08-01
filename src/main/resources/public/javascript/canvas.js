@@ -1,3 +1,5 @@
+var drawing = false;
+
 $(document).ready(function () {
     document.getElementById("myCanvas").style.cursor = "crosshair";
 });
@@ -10,21 +12,31 @@ function onClickAlert() {
            y: " + y);
 }
 
-function draw() {
-    var canvas = document.getElementById("myCanvas");
-    var context = canvas.getContext("2d");
-    var x = event.clientX;
-    var y = event.clientY;
-    var offsetY = getOffset(canvas).top;
-    var offsetX = getOffset(canvas).left;
+function drawingTrue() {
+    drawing = true;
+}
 
-    context.beginPath();
-    context.arc(x - offsetX, y - offsetY, 10, 0, 2 * Math.PI, false);
-    context.fillStyle = 'green';
-    context.fill();
-    context.lineWidth = 5;
-    context.strokeStyle = '#003300';
-    context.stroke();
+function drawingFalse() {
+    drawing = false;
+}
+
+function draw() {
+    if (drawing) {
+        var canvas = document.getElementById("myCanvas");
+        var context = canvas.getContext("2d");
+        var x = event.clientX;
+        var y = event.clientY;
+        var offsetY = getOffset(canvas).top;
+        var offsetX = getOffset(canvas).left;
+
+        context.beginPath();
+        context.arc(x - offsetX, y - offsetY, 5, 0, 2 * Math.PI, false);
+        context.fillStyle = 'green';
+        context.fill();
+        context.lineWidth = 1;
+        context.strokeStyle = '#003300';
+        context.stroke();
+    }
 
 }
 
