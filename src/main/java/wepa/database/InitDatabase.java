@@ -5,9 +5,11 @@ import java.sql.Statement;
 import javax.annotation.PostConstruct;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile("production")
 public class InitDatabase {
     
     @Autowired

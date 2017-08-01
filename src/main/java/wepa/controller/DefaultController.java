@@ -19,13 +19,8 @@ import wepa.database.AccountDatabase;
 @RequestMapping("*")
 public class DefaultController {
     
-    @Autowired
-    private AccountDatabase accountDatabase;
-    
     @RequestMapping(method = RequestMethod.GET)
     public String home(Model model) {
-        model.addAttribute("name", "testttt");
-        model.addAttribute("users", accountDatabase.getUsers());
         return "index";
     }
     
