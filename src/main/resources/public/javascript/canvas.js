@@ -3,7 +3,7 @@ var drawing = false;
 $(document).ready(function () {
     var canvas = document.getElementById("myCanvas");
     canvas.style.cursor = "crosshair";
-    canvas.addEventListener("touchstart", touchHandler, false);
+    canvas.addEventListener("ontouchstart", touchHandler, false);
 });
 
 function touchHandler(event) {
