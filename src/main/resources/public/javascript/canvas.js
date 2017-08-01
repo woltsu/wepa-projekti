@@ -13,10 +13,8 @@ function is_touch_device() {
 }
 
 function touchHandler(event) {
-    var x = event.touches[0].pageX;
-    var y = event.touches[0].pageY;
-    alert("x: " + x + "\n\
-           y: " + y);
+    drawingTrue();
+    draw();
 }
 
 function drawingTrue() {
