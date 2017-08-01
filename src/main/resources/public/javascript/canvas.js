@@ -1,15 +1,20 @@
 var drawing = false;
 
 $(document).ready(function () {
-    document.getElementById("myCanvas").style.cursor = "crosshair";
+    var canvas = document.getElementById("myCanvas");
+    canvas.style.cursor = "crosshair";
+    canvas.addEventListener("touchstart", touchHandler, false);
 });
 
-function onClickAlert() {
-    var x = event.clientX;
-    var y = event.clientY;
-    alert("clicked!\n\
-           x: " + x + "\n\
-           y: " + y);
+function touchHandler(event) {
+    var artikkeli = $("<article/>");
+    var teksti1 = $("<p/>");
+    var x = event.touches[0].pageX;
+    var y = event.touched[0].pageY;
+    teksti1.text("x: " + x + "\n\
+                  y: " + y);
+    artikkeli.append(teksti1);
+    $("#body").append(artikkeli);
 }
 
 function drawingTrue() {
@@ -22,17 +27,6 @@ function drawingFalse() {
 
 function test() {
     alert("kosketettu");
-}
-
-function testMove() {
-    var artikkeli = $("<article/>");
-    var teksti1 = $("<p/>");
-    var x = event.clientX;
-    var y = event.clientY;
-    teksti1.text("x: " + x + "\n\
-                  y: " + y);
-    artikkeli.append(teksti1);
-    $("#body").append(artikkeli);
 }
 
 function draw() {
