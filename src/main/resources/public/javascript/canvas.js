@@ -20,6 +20,10 @@ function drawingFalse() {
     drawing = false;
 }
 
+function test() {
+    alert("kosketettu");
+}
+
 function draw() {
     if (drawing) {
         var canvas = document.getElementById("myCanvas");
