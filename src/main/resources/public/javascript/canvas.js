@@ -33,23 +33,20 @@ function testMove() {
 }
 
 function draw() {
-    if (drawing) {
-        var canvas = document.getElementById("myCanvas");
-        var context = canvas.getContext("2d");
-        var x = event.clientX;
-        var y = event.clientY;
-        var offsetY = getOffset(canvas).top;
-        var offsetX = getOffset(canvas).left;
+    var canvas = document.getElementById("myCanvas");
+    var context = canvas.getContext("2d");
+    var x = event.clientX;
+    var y = event.clientY;
+    var offsetY = getOffset(canvas).top;
+    var offsetX = getOffset(canvas).left;
 
-        context.beginPath();
-        context.arc(x - offsetX, y - offsetY, 5, 0, 2 * Math.PI, false);
-        context.fillStyle = 'green';
-        context.fill();
-        context.lineWidth = 1;
-        context.strokeStyle = '#003300';
-        context.stroke();
-    }
-
+    context.beginPath();
+    context.arc(x - offsetX, y - offsetY, 5, 0, 2 * Math.PI, false);
+    context.fillStyle = 'green';
+    context.fill();
+    context.lineWidth = 1;
+    context.strokeStyle = '#003300';
+    context.stroke();
 }
 
 function getOffset(el) {
