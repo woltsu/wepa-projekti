@@ -24,6 +24,14 @@ function test() {
     alert("kosketettu");
 }
 
+function testMove() {
+    var artikkeli = $("<article/>");
+    var teksti1 = $("<p/>");
+    teksti1.text("Lorem ipsum... 1");
+    artikkeli.append(teksti1);
+    $("#body").append(artikkeli);
+}
+
 function draw() {
     if (drawing) {
         var canvas = document.getElementById("myCanvas");

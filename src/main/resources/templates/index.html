@@ -5,7 +5,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
-    <body>
+    <body id="body">
 
 
         <h1>Hello world!</h1>
@@ -22,7 +22,11 @@
         <div>
             <canvas id="myCanvas"
                     style="border:1px solid #c3c3c3;"
-                    ontouchstart="test();"
+                    onmousedown="drawingTrue(); draw();"
+                    onmouseup="drawingFalse();"
+                    onmousemove="draw();"
+                    ontouchstart=""
+                    ontouchmove="testMove();"
                     >
                 Your browser does not support the canvas element.
             </canvas>
