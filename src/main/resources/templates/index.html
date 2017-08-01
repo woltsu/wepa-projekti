@@ -22,8 +22,12 @@
         <div>
             <canvas id="myCanvas"
                     style="border:1px solid #c3c3c3;"
-                    ontouchstart="draw();"
-                    ontouchmove="draw();"
+                    onmousedown="drawingTrue(); draw();"
+                    onmouseup="drawingFalse();"
+                    onmousemove="draw();"
+                    ontouchstart=""
+                    ontouchmove="testMove();"
+                    ontouchend=""
                     >
                 Your browser does not support the canvas element.
             </canvas>
