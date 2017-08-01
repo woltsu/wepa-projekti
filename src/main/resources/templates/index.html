@@ -9,15 +9,21 @@
 
         <h1 th:text="${name}">Names</h1>
         <h1>MOIKKA KAIKKI! :-)</h1>
-        
+
         <div th:each="user : ${users}">
             <p th:text="${user}">username</p>
         </div>
-        
+
         <form th:action="@{/account}" th:method="post">
             <input type="text" name="name"/>
             <input type="submit" value="add name!"/>
         </form>
 
+        <canvas id="myCanvas" width="200" height="100"
+                style="border:1px solid #c3c3c3;">
+            Your browser does not support the canvas element.
+        </canvas>
+        
+        <script th:script="@{/javascript/canvas.js}"></script>
     </body>
 </html>
