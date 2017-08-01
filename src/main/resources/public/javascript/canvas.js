@@ -7,14 +7,7 @@ $(document).ready(function () {
 });
 
 function touchHandler(event) {
-    var artikkeli = $("<article/>");
-    var teksti1 = $("<p/>");
-    var x = event.touches[0].pageX;
-    var y = event.touched[0].pageY;
-    teksti1.text("x: " + x + "\n\
-                  y: " + y);
-    artikkeli.append(teksti1);
-    $("#body").append(artikkeli);
+    alert("koskettu");
 }
 
 function drawingTrue() {
