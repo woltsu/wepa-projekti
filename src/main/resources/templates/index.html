@@ -24,7 +24,10 @@
                     style="border:1px solid #c3c3c3;"
                     onmousedown="drawingTrue(); draw();"
                     onmouseup="drawingFalse();"
-                    onmousemove="draw();">
+                    onmousemove="draw();"
+                    touchstart="drawingTrue(); draw();"
+                    touchend="drawingFalse();"
+                    touchmove="draw();">
                 Your browser does not support the canvas element.
             </canvas>
         </div>
