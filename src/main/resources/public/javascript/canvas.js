@@ -6,6 +6,12 @@ $(document).ready(function () {
     if (is_touch_device()) {
         canvas.addEventListener("touchstart", touchHandler, false);
         canvas.addEventListener("touchmove", touchHandler, false);
+        drawing = true;
+    } else {
+        canvas.addEventListener("mousedown", mouseDownHandler, false);
+        canvas.addEventListener("mouseup", mouseUpHandler, false);
+        canvas.addEventListener("mousemove", mouseMoveHandler, false);
+        canvas.addEventListener("mouseleave", mouseUpHandler, false);
     }
 });
 
@@ -14,15 +20,27 @@ function is_touch_device() {
 }
 
 function touchHandler(event) {
-    drawingTrue();
     draw();
 }
 
-function drawingTrue() {
+function mouseDownHandler() {
+    setDrawingTrue();
+    draw();
+}
+
+function mouseUpHandler() {
+    setDrawingFalse();
+}
+
+function mouseMoveHandler() {
+    draw();
+}
+
+function setDrawingTrue() {
     drawing = true;
 }
 
-function drawingFalse() {
+function setDrawingFalse() {
     drawing = false;
 }
 
