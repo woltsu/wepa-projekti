@@ -23,7 +23,7 @@ public class AccountDatabase {
     public void init() {
         try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
-            st.executeUpdate("CREATE TABLE account (username varchar(100), password varchar(1000);");
+            st.executeUpdate("CREATE TABLE Account (username varchar(300), password varchar(300)");
             create("user", "user");
             create("HELLO", "passu");
         } catch (Exception e) {
@@ -35,7 +35,7 @@ public class AccountDatabase {
         Account result = new Account();
         try {
             Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM account WHERE username = ?");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Account WHERE username = ?");
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -57,8 +57,8 @@ public class AccountDatabase {
         ArrayList<Account> users = new ArrayList();
         try {
             Connection conn = dataSource.getConnection();
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM account");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Account");
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Account a = new Account();
                 a.setUsername(rs.getString("username"));
@@ -74,7 +74,7 @@ public class AccountDatabase {
     public void create(String username, String password) {
         try {
             Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO account (username, password) VALUES (?, ?)");
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Account (username, password) VALUES (?, ?)");
             Account a = new Account();
             a.setUsername(username);
             a.setPassword(password);
