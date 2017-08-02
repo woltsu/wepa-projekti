@@ -43,6 +43,7 @@ public class DefaultController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model) {
         model.addAttribute("user", accountDatabase.findByUsername("HELLO").getUsername());
+        model.addAttribute("users", accountDatabase.getUsers());
         return "login";
     }
     

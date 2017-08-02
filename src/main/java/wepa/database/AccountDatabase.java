@@ -40,14 +40,17 @@ public class AccountDatabase {
         return result;
     }
 
-    public ArrayList<String> getUsers() {
-        ArrayList<String> users = new ArrayList();
+    public ArrayList<Account> getUsers() {
+        ArrayList<Account> users = new ArrayList();
         try {
             Connection conn = dataSource.getConnection();
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM Account;");
             while (rs.next()) {
-                users.add(rs.getString("name"));
+                Account a = new Account();
+                a.setUsername(rs.getString("username"));
+                a.setPassword(rs.getString("password"));
+                users.add(a);
             }
         } catch (Exception e) {
             e.printStackTrace();
