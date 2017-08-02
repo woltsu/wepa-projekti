@@ -73,17 +73,14 @@ public class AccountDatabase {
 
     public void create(String username, String password) {
         try {
-//            Connection conn = dataSource.getConnection();
-//            PreparedStatement ps = conn.prepareStatement("INSERT INTO Account (username, password) VALUES (?, ?)");
-//            Account a = new Account();
-//            a.setUsername(username);
-//            a.setPassword(password);
-//            ps.setString(1, username);
-//            ps.setString(2, a.getPassword());
-//            ps.executeQuery();
             Connection conn = dataSource.getConnection();
-            Statement st = conn.createStatement();
-            st.executeUpdate("INSERT INTO Account (username, password) VALUES ('ookoo', 'ookoo');");
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Account (username, password) VALUES (?, ?)");
+            Account a = new Account();
+            a.setUsername(username);
+            a.setPassword(password);
+            ps.setString(1, username);
+            ps.setString(2, a.getPassword());
+            ps.executeQuery();
         } catch (Exception e) {
             e.printStackTrace();
         }
