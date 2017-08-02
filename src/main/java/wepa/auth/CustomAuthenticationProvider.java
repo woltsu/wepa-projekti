@@ -34,10 +34,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             };
         }
 
-        if (!BCrypt.hashpw(password, account.getSalt()).equals(account.getPassword())) {
-            throw new AuthenticationException("Unable to authenticate user " + username) {
-            };
-        }
+//        if (!BCrypt.hashpw(password, account.getSalt()).equals(account.getPassword())) {
+//            throw new AuthenticationException("Unable to authenticate user " + username) {
+//            };
+//        }
 
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
         grantedAuths.add(new SimpleGrantedAuthority("USER"));
