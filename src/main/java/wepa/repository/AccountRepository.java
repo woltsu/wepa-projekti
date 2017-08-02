@@ -1,9 +1,9 @@
 package wepa.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import wepa.domain.Account;
+import wepa.domain.TestAccount;
 
-public interface AccountRepository extends JpaRepository<Account, Long> {
+public interface AccountRepository extends JpaRepository<TestAccount, Long> {
 
-    Account findByUsername(String username);
+    TestAccount findByUsername(String username);
 }

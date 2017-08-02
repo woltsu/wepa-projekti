@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import wepa.database.AccountDatabase;
-import wepa.domain.Account;
+import wepa.domain.TestAccount;
 import wepa.repository.AccountRepository;
 
 @Controller

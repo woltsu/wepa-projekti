@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import wepa.database.AccountDatabase;
 import wepa.domain.Account;
+import wepa.domain.TestAccount;
 
 @Service
 @Profile("production")

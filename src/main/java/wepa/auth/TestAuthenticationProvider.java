@@ -13,7 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 import wepa.database.AccountDatabase;
-import wepa.domain.Account;
+import wepa.domain.TestAccount;
 import wepa.repository.AccountRepository;
 
 @Component
@@ -28,7 +28,7 @@ public class TestAuthenticationProvider implements AuthenticationProvider {
         String username = a.getPrincipal().toString();
         String password = a.getCredentials().toString();
 
-        Account account = accountRepository.findByUsername(username);
+        TestAccount account = accountRepository.findByUsername(username);
 
         if (account == null) {
             throw new AuthenticationException("Unable to authenticate user " + username) {

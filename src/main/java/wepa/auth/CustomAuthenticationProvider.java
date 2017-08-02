@@ -14,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 import wepa.database.AccountDatabase;
 import wepa.domain.Account;
-import wepa.repository.AccountRepository;
 
 @Component
 @Profile("production")
