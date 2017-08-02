@@ -22,7 +22,7 @@ public class AccountDatabase {
         try {
             Connection conn = dataSource.getConnection();
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM Account WHERE username = '" + username + "';");
+            ResultSet rs = st.executeQuery("SELECT * FROM Account WHERE username = 'HELLO';");
             while (rs.next()) {
                 result.setUsername(rs.getString("username"));
                 result.setPassword(rs.getString("password"));
