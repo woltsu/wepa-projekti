@@ -21,16 +21,16 @@ import wepa.repository.AccountRepository;
 @RequestMapping("*")
 public class DefaultController {
     
-    @Autowired
-    private AccountRepository accountRepository;
-    
-    @PostConstruct
-    public void init() {
-        Account a = new Account();
-        a.setUsername("user");
-        a.setPassword("user");
-        accountRepository.save(a);
-    }
+//    @Autowired
+//    private AccountRepository accountRepository;
+//    
+//    @PostConstruct
+//    public void init() {
+//        Account a = new Account();
+//        a.setUsername("user");
+//        a.setPassword("user");
+//        accountRepository.save(a);
+//    }
     
     @RequestMapping(method = RequestMethod.GET)
     public String home(Model model) {
