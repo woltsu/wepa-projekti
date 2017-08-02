@@ -14,12 +14,9 @@ import wepa.database.AccountDatabase;
 @RequestMapping("/account")
 public class AccountController {
 
-    @Autowired
-    private AccountDatabase accountDatabase;
-    
     @RequestMapping(method = RequestMethod.POST)
     public String postAccount(@RequestParam String name) {
-        accountDatabase.create(name);
+//        accountDatabase.create(name);
         return "redirect:/";
     }
     

@@ -17,8 +17,8 @@ import wepa.domain.Account;
 import wepa.repository.AccountRepository;
 
 @Component
-@Profile("production")
-public class CustomAuthenticationProvider implements AuthenticationProvider {
+@Profile("default")
+public class TestAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
     private AccountRepository accountRepository;
