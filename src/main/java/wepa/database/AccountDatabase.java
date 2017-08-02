@@ -57,7 +57,7 @@ public class AccountDatabase {
         ArrayList<Account> users = new ArrayList();
         try {
             Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Account");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM 'Account'");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Account a = new Account();
