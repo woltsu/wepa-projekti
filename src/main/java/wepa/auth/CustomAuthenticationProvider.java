@@ -21,14 +21,14 @@ import wepa.repository.AccountRepository;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountDatabase accountDatabase;
 
     @Override
     public Authentication authenticate(Authentication a) throws AuthenticationException {
         String username = a.getPrincipal().toString();
         String password = a.getCredentials().toString();
 
-        Account account = accountRepository.findByUsername(username);
+        Account account = accountDatabase.findByUsername(username);
 
         if (account == null) {
             throw new AuthenticationException("Unable to authenticate user " + username) {
