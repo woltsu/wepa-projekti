@@ -36,7 +36,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .invalidateHttpSession(true);
     }
-    }
 
     @Configuration
     protected static class AuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
