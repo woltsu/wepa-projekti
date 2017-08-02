@@ -59,9 +59,12 @@ public class AccountDatabase {
         try {
             Connection conn = dataSource.getConnection();
             Statement st = conn.createStatement();
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Account (username, password) VALUES (?, ?);");
             Account a = new Account();
             a.setUsername(username);
             a.setPassword(password);
+            ps.setString(1, username);
+            ps.setString(2, a.getPassword());
             st.executeUpdate("INSERT INTO Account (username, password) VALUES ('" + a.getUsername() + "', '" + a.getPassword() + "');");
         } catch (Exception e) {
             e.printStackTrace();
