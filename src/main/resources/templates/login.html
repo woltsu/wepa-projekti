@@ -25,6 +25,7 @@
 
             <button type="submit" class="btn btn-primary" style="display: inline-block; margin-right: 10px;">Login</button>
         </form>
+        <h2>Hello <span th:text="${user}">user's name</span></h2>
         <h1>USERS</h1>
         <div th:each="account : ${users}">
             <span th:text="${account.username}">o</span>
