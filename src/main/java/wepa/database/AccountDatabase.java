@@ -31,7 +31,9 @@ public class AccountDatabase {
             e.printStackTrace();
         }
         if (result.getUsername() == null) {
-            return null;
+            Account r = new Account();
+            r.setUsername("error");
+            r.setPassword("error");
         }
         return result;
     }
