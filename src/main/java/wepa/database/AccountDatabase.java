@@ -23,7 +23,7 @@ public class AccountDatabase {
     public void init() {
         try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
-            st.executeUpdate("CREATE TABLE Account (username, password);");
+            st.executeUpdate("CREATE TABLE Account (username varchar(100), password varchar(1000);");
             create("user", "user");
             create("HELLO", "passu");
         } catch (Exception e) {
