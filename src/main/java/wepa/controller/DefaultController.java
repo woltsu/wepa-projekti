@@ -38,7 +38,7 @@ public class DefaultController {
     
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String test() {
-        accountDatabase.create("test", "test");
+        accountDatabase.create("TOIMII", "JES!!");
         return "redirect:/login";
     }
     
