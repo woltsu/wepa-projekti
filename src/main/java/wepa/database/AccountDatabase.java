@@ -58,7 +58,7 @@ public class AccountDatabase {
         try {
             Connection conn = dataSource.getConnection();
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM Account;");
+            ResultSet rs = st.executeQuery("SELECT * FROM Account");
             while (rs.next()) {
                 Account a = new Account();
                 a.setUsername(rs.getString("username"));
