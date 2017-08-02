@@ -21,17 +21,6 @@ import wepa.repository.AccountRepository;
 @RequestMapping("*")
 public class DefaultController {
     
-//    @Autowired
-//    private AccountRepository accountRepository;
-//    
-//    @PostConstruct
-//    public void init() {
-//        Account a = new Account();
-//        a.setUsername("user");
-//        a.setPassword("user");
-//        accountRepository.save(a);
-//    }
-    
     @Autowired
     private AccountDatabase accountDatabase;
     
@@ -42,7 +31,7 @@ public class DefaultController {
     
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model) {
-        model.addAttribute("user", accountDatabase.findByUsername("HELLO").getUsername());
+        model.addAttribute("user", accountDatabase.findByUsername("testi").getUsername());
         model.addAttribute("users", accountDatabase.getUsers());
         return "login";
     }

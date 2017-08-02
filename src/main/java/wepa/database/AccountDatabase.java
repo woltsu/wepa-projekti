@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.annotation.PostConstruct;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -17,6 +18,18 @@ public class AccountDatabase {
 
     @Autowired
     private BasicDataSource dataSource;
+
+    @PostConstruct
+    public void init() {
+        try (Connection conn = dataSource.getConnection()) {
+            Statement st = conn.createStatement();
+            st.executeUpdate("CREATE TABLE Account (username varchar(25), password varchar(25));");
+            create("user", "user");
+            create("HELLO", "passu");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public Account findByUsername(String username) {
         Account result = new Account();
