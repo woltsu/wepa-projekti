@@ -24,6 +24,7 @@ public class InitDatabase {
             Statement st = conn.createStatement();
             st.executeUpdate("CREATE TABLE Account (username varchar(25), password varchar(25));");
             this.accountDatabase.create("user", "user");
+            this.accountDatabase.create("HELLO", "passu");
         } catch (Exception e) {
             e.printStackTrace();
         }
