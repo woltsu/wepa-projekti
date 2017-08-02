@@ -30,6 +30,9 @@ public class AccountDatabase {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (result.getUsername() == null) {
+            return null;
+        }
         return result;
     }
 
