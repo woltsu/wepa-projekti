@@ -23,7 +23,7 @@ public class AccountDatabase {
     public void init() {
         try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
-            st.executeUpdate("CREATE TABLE Account (username varchar(300), password varchar(300)");
+            st.executeUpdate("CREATE TABLE Account (username, password)");
             create("user", "user");
             create("HELLO", "passu");
         } catch (Exception e) {
@@ -57,7 +57,7 @@ public class AccountDatabase {
         ArrayList<Account> users = new ArrayList();
         try {
             Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM 'Account'");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Account");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Account a = new Account();
