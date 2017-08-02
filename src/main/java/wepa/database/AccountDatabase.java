@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import wepa.domain.Account;
 
 @Component
-//@Profile("production")
+@Profile("production")
 public class AccountDatabase {
 
     @Autowired
