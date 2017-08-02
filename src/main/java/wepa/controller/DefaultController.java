@@ -32,13 +32,17 @@ public class DefaultController {
 //        accountRepository.save(a);
 //    }
     
+    @Autowired
+    private AccountDatabase accountDatabase;
+    
     @RequestMapping(method = RequestMethod.GET)
     public String home(Model model) {
         return "index";
     }
     
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
+    public String login(Model model) {
+        model.addAttribute("user", accountDatabase.findByUsername("user"));
         return "login";
     }
     

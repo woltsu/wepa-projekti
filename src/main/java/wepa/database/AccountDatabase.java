@@ -48,11 +48,14 @@ public class AccountDatabase {
         return users;
     }
 
-    public void create(String name) {
+    public void create(String username, String password) {
         try {
             Connection conn = dataSource.getConnection();
             Statement st = conn.createStatement();
-            st.executeUpdate("INSERT INTO Account (name) VALUES ('" + name + "');");
+            Account a = new Account();
+            a.setUsername(username);
+            a.setPassword(password);
+            st.executeUpdate("INSERT INTO Account (username, password) VALUES ('" + a.getUsername() + "', '" + a.getPassword() + "');");
         } catch (Exception e) {
             e.printStackTrace();
         }
