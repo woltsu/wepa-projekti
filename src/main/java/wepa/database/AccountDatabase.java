@@ -67,7 +67,7 @@ public class AccountDatabase {
             a.setPassword(password);
             ps.setString(1, username);
             ps.setString(2, a.getPassword());
-            ps.executeUpdate("INSERT INTO Account (username, password) VALUES ('" + a.getUsername() + "', '" + a.getPassword() + "');");
+            ps.executeQuery();
         } catch (Exception e) {
             e.printStackTrace();
         }
