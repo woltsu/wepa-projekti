@@ -27,8 +27,8 @@
         </form>
         <h1>Hello <a th:text="${user}">ookoo</a></h1>
         <h1>USERS</h1>
-        <div th:each="user : ${users}">
-            <span th:text="${user.username}">ookoo</span>
+        <div th:each="account : ${users}">
+            <span th:text="${account.username}">o</span>
         </div>
         <form method="post" th:action="@{/login}">
             <input type="submit" value="test"/>
