@@ -1,6 +1,7 @@
 package wepa.database;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -21,8 +22,9 @@ public class AccountDatabase {
         Account result = new Account();
         try {
             Connection conn = dataSource.getConnection();
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM Account WHERE username = 'HELLO';");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Account WHERE username = ?");
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 result.setUsername(rs.getString("username"));
                 result.setPassword(rs.getString("password"));
