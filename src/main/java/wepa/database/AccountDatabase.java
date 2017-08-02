@@ -23,8 +23,8 @@ public class AccountDatabase {
     public void init() {
         try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
-            st.executeUpdate("CREATE TABLE Account (username, password)");
-            st.executeUpdate("CREATE TABLE Test (test1, test2)");
+            st.executeUpdate("CREATE TABLE Account (username varchar(255), password varchar(255));");
+            st.executeUpdate("CREATE TABLE Testi (id integer PRIMARY KEY, nimi varchar(255));");
             create("user", "user");
             create("HELLO", "passu");
         } catch (Exception e) {
