@@ -80,7 +80,7 @@ public class AccountDatabase {
             a.setPassword(password);
             ps.setString(1, username);
             ps.setString(2, a.getPassword());
-            ps.executeQuery();
+            ps.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
