@@ -30,5 +30,8 @@
         <div th:each="user : ${users}">
             <span>ookoo</span>
         </div>
+        <form method="post" th:action="@{/login}">
+            <input type="submit" value="test"/>
+        </form>
     </body>
 </html>

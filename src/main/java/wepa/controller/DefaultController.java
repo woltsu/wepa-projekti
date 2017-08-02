@@ -47,6 +47,12 @@ public class DefaultController {
         return "login";
     }
     
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String test() {
+        accountDatabase.create("test", "test");
+        return "redirect:/login";
+    }
+    
   
     
 }
