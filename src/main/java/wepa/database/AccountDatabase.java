@@ -22,9 +22,11 @@ public class AccountDatabase {
         try {
             Connection conn = dataSource.getConnection();
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM Account WHERE username = " + username + " LIMIT 1;");
-            result.setUsername(rs.getString("username"));
-            result.setPassword(rs.getString("password"));
+            ResultSet rs = st.executeQuery("SELECT * FROM Account WHERE username = " + username + ";");
+            while (rs.next()) {
+                result.setUsername(rs.getString("username"));
+                result.setPassword(rs.getString("password"));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
