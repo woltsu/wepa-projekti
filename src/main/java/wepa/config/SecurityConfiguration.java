@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import wepa.auth.CustomAuthenticationProvider;
-import wepa.auth.TestAuthenticationProvider;
 
 @Configuration
 @EnableWebSecurity
