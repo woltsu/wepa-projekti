@@ -25,7 +25,7 @@ public class AccountValidator {
         if (username == null || username.length() < 3) {
             errors.add("Username must be at least 3 characters long!");
         }
-        if (accountDatabase.findByUsername(username) != null) {
+        if (accountDatabase.findByUsername(username).getUsername() != null) {
             errors.add("Username taken!");
         }
         return errors;
