@@ -8,10 +8,15 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="../../css/style.css" th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
     </head>
 
     <body>
         <div th:replace="fragments/navbar :: navbar"></div>
+        <div class="success" th:if="${success}">
+            <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+            <span th:text="${success}">success</span>
+        </div>
         <div style="margin: 3% 1% 3% 1%;">
             <form method="post" th:action="@{/authenticate}">
                 <div class="form-group">

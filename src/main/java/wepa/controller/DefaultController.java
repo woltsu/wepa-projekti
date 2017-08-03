@@ -14,9 +14,6 @@ import wepa.service.AccountService;
 public class DefaultController {
 
     @Autowired
-    private AccountDatabase accountDatabase;
-
-    @Autowired
     private AccountService accountService;
 
     @RequestMapping(method = RequestMethod.GET)
@@ -25,29 +22,6 @@ public class DefaultController {
         return "index";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
-        return "login";
-    }
 
-    @RequestMapping(value = "/signup", method = RequestMethod.GET)
-    public String getSignup() {
-        return "signup";
-    }
-
-    @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String postSignup(Model model, @RequestParam String username, 
-                                          @RequestParam String password,
-                                          @RequestParam String passwordAgain) {
-        
-        if (!password.equals(passwordAgain)) {
-            model.addAttribute("error", "passwords didn't match!");
-            model.addAttribute("username", username);
-            return "signup";
-        }
-        
-        accountDatabase.create(username, password);
-        return "redirect:/login";
-    }
 
 }
