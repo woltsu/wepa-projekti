@@ -43,6 +43,7 @@ public class DefaultController {
         if (!password.equals(passwordAgain)) {
             model.addAttribute("error", "passwords didn't match!");
             model.addAttribute("username", username);
+            return "signup";
         }
         
         accountDatabase.create(username, password);
