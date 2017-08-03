@@ -15,7 +15,7 @@
 
     <body>
         <div th:replace="fragments/navbar :: navbar"></div>
-        <div class="alert" th:if="${errors}">
+        <div class="alert" th:if="${error}">
             <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
             <span th:text="${error}">error</span>
         </div>
