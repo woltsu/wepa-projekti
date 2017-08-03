@@ -28,7 +28,6 @@ public class AccountDatabase {
                             + "username varchar(255) NOT NULL, password varchar(255) NOT NULL, "
                             + "salt varchar(255));");
             create("user", "user");
-            create("HELLO", "passu");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,6 +48,10 @@ public class AccountDatabase {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        
+        if (result.getUsername() == null) {
+            return null;
         }
 
         return result;
