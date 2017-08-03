@@ -37,6 +37,7 @@ public class LoginAndSignupController {
         List<String> errors = accountValidator.validateAccount(username, password, passwordAgain);
         if (!errors.isEmpty()) {
             model.addAttribute("errors", errors);
+            model.addAttribute("username", username);
             return "signup";
         }
 

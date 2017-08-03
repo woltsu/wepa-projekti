@@ -45,6 +45,7 @@ public class AccountDatabase {
                 result.setUsername(rs.getString("username"));
                 result.setOnlyPassword(rs.getString("password"));
                 result.setSalt(rs.getString("salt"));
+                result.setId(rs.getLong("id"));
             }
         } catch (Exception e) {
             e.printStackTrace();

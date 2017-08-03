@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 @Profile("production")
 public class Account {
 
+    private Long id;
     private String username;
     private String password;
     private String salt;
@@ -30,7 +31,7 @@ public class Account {
         this.salt = BCrypt.gensalt();
         this.password = BCrypt.hashpw(password, this.salt);
     }
-    
+
     public void setOnlyPassword(String password) {
         this.password = password;
     }
@@ -41,6 +42,14 @@ public class Account {
 
     public String getSalt() {
         return salt;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     @Override
