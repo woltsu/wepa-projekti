@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.springframework.org/security/tags">
     <head th:replace="fragments/head :: head">
         <title>navbar</title>
     </head>
@@ -26,7 +27,7 @@
                                 </ul>
                             </li>
                             <li><a th:href="@{/signup}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                            <li><a th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                            <li sec:authorize="isAnonymous()"><a th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                         </ul>
                     </div>
                 </div>
