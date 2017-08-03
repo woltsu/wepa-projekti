@@ -17,14 +17,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.csrf().disable().authorizeRequests().antMatchers("/login", "/signup",
-//                "/css/**", "/fonts/**", "/images/**", "/js/**", "/media/**").permitAll()
-//                .antMatchers(HttpMethod.POST, "/persons").permitAll()
-//                .antMatchers(HttpMethod.POST, "/signup").permitAll()
-//                .anyRequest().authenticated();
+        
+        http.csrf().disable().authorizeRequests().antMatchers("/login", "/signup",
+                "/css/**", "/fonts/**", "/images/**", "/js/**", "/media/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/persons").permitAll()
+                .antMatchers(HttpMethod.POST, "/signup").permitAll()
+                .anyRequest().authenticated();
 
-        http.csrf().disable().authorizeRequests().anyRequest().permitAll();
-                
         http.formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/authenticate")
