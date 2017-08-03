@@ -1,6 +1,7 @@
 package wepa.controller;
 
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +21,10 @@ public class LoginAndSignupController {
     private AccountValidator accountValidator;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
+    public String login(Model model, @RequestParam Map<String, String> params) {
+        if (!params.isEmpty()) {
+            model.addAttribute("error", "Wrong username or password!");
+        }
         return "login";
     }
 
