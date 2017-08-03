@@ -45,11 +45,7 @@ public class AccountDatabase {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (result.getUsername() == null) {
-            Account r = new Account();
-            r.setUsername("error");
-            r.setPassword("error");
-        }
+
         return result;
     }
 
