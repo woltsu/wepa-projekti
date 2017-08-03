@@ -14,7 +14,7 @@
         <div th:replace="fragments/navbar :: navbar"></div>
 
         <div class="container">
-            <h3>Front page</h3>
+            <h3>Hello, <span th:text="${user.username}">user</span></h3>
         </div>
     </body>
 </html>
