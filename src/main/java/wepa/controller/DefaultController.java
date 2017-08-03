@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import wepa.database.AccountDatabase;
 import wepa.service.AccountService;
 
@@ -35,8 +36,17 @@ public class DefaultController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String postSignup(Model model) {
-        return "redirect:/signup";
+    public String postSignup(Model model, @RequestParam String username, 
+                                          @RequestParam String password,
+                                          @RequestParam String passwordAgain) {
+        
+        if (!password.equals(passwordAgain)) {
+            model.addAttribute("error", "passwords didn't match!");
+            model.addAttribute("username", username);
+        }
+        
+        accountDatabase.create(username, password);
+        return "redirect:/login";
     }
 
 }
