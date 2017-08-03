@@ -24,7 +24,9 @@ public class AccountDatabase {
     public void init() {
         try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
-            st.executeUpdate("CREATE TABLE Account (username varchar(255), password varchar(255), salt varchar(255));");
+            st.executeUpdate("CREATE TABLE Account (id SERIAL PRIMARY KEY, "
+                            + "username varchar(255) NOT NULL, password varchar(255) NOT NULL, "
+                            + "salt varchar(255));");
             create("user", "user");
             create("HELLO", "passu");
         } catch (Exception e) {
