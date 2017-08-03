@@ -27,8 +27,9 @@ public class Account {
     }
 
     public void setPassword(String password) {
-        this.salt = BCrypt.gensalt();
-        this.password = BCrypt.hashpw(password, this.salt);
+//        this.salt = BCrypt.gensalt();
+//        this.password = BCrypt.hashpw(password, this.salt);
+        this.password = password;
     }
 
     public void setSalt(String salt) {
