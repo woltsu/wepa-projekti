@@ -23,7 +23,7 @@ public class AccountDatabase {
     public void init() {
         try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
-            st.executeUpdate("CREATE TABLE Account (username varchar(255), password varchar(255));");
+            st.executeUpdate("CREATE TABLE Account (username varchar(255), password varchar(255), salt varchar(255));");
             create("user", "user");
             create("HELLO", "passu");
         } catch (Exception e) {
@@ -40,7 +40,8 @@ public class AccountDatabase {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 result.setUsername(rs.getString("username"));
-                result.setPassword(rs.getString("password"));
+                result.setOnlyPassword(rs.getString("password"));
+                result.setSalt(rs.getString("salt"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,7 +59,8 @@ public class AccountDatabase {
             while (rs.next()) {
                 Account a = new Account();
                 a.setUsername(rs.getString("username"));
-                a.setPassword(rs.getString("password"));
+                a.setOnlyPassword(rs.getString("password"));
+                a.setSalt(rs.getString("salt"));
                 users.add(a);
             }
         } catch (Exception e) {
@@ -70,12 +72,13 @@ public class AccountDatabase {
     public void create(String username, String password) {
         try {
             Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Account (username, password) VALUES (?, ?)");
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Account (username, password, salt) VALUES (?, ?, ?)");
             Account a = new Account();
             a.setUsername(username);
             a.setPassword(password);
             ps.setString(1, username);
             ps.setString(2, a.getPassword());
+            ps.setString(3, a.getSalt());
             ps.execute();
         } catch (Exception e) {
             e.printStackTrace();

@@ -33,8 +33,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new AuthenticationException("Unable to authenticate user " + username) {
             };
         }
-        //TODO: Get salt to work
-        if (!password.equals(account.getPassword())) {
+
+        if (!BCrypt.hashpw(password, account.getSalt()).equals(account.getPassword())) {
             throw new AuthenticationException("Unable to authenticate user " + username) {
             };
         }
