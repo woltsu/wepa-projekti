@@ -12,18 +12,20 @@
 
     <body>
         <div th:replace="fragments/navbar :: navbar"></div>
-        <form method="post" th:action="@{/authenticate}">
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" class="form-control" name="username"/>
-            </div>
+        <div>
+            <form method="post" th:action="@{/authenticate}">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" name="username"/>
+                </div>
 
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" class="form-control" name="password"/>
-            </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="password"/>
+                </div>
 
-            <button type="submit" class="btn btn-primary" style="display: inline-block; margin-right: 10px;">Login</button>
-        </form>
+                <button type="submit" class="btn btn-primary" style="display: inline-block; margin-right: 10px;">Login</button>
+            </form>
+        </div>
     </body>
 </html>

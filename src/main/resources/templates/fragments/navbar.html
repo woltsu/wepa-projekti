@@ -27,8 +27,8 @@
                                 </ul>
                             </li>
                             <li><a th:href="@{/signup}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                            <li sec:authorize="isAnonymous()"><a th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
-                            <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
+                            <li sec:authorize="isAnonymous()"><a th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                            <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
                         </ul>
                     </div>
                 </div>
