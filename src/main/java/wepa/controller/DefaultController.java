@@ -14,7 +14,7 @@ public class DefaultController {
 
     @Autowired
     private AccountDatabase accountDatabase;
-    
+
     @Autowired
     private AccountService accountService;
 
@@ -27,6 +27,16 @@ public class DefaultController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "login";
+    }
+
+    @RequestMapping(value = "/signup", method = RequestMethod.GET)
+    public String getSignup() {
+        return "signup";
+    }
+
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public String postSignup(Model model) {
+        return "redirect:/signup";
     }
 
 }
