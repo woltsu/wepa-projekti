@@ -8,13 +8,13 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 
 @Profile("default")
 @Entity
-public class Account extends AbstractPersistable<Long> {
+public class LocalAccount extends AbstractPersistable<Long> {
 
     private String username;
     private String password;
     private String salt;
 
-    public Account() {
+    public LocalAccount() {
     }
 
     public String getUsername() {
@@ -64,7 +64,7 @@ public class Account extends AbstractPersistable<Long> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Account other = (Account) obj;
+        final LocalAccount other = (LocalAccount) obj;
         if (!Objects.equals(this.username, other.username)) {
             return false;
         }

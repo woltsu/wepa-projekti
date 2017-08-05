@@ -6,15 +6,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import wepa.local.service.AccountService;
+import wepa.local.service.LocalAccountService;
 
 @Profile("default")
 @Controller
 @RequestMapping("*")
-public class DefaultController {
+public class LocalDefaultController {
 
     @Autowired
-    private AccountService accountService;
+    private LocalAccountService accountService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String home(Model model) {

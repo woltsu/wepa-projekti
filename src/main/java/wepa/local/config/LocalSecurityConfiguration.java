@@ -9,12 +9,12 @@ import org.springframework.security.config.annotation.authentication.configurers
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import wepa.local.auth.JpaAuthenticationProvider;
+import wepa.local.auth.LocalJpaAuthenticationProvider;
 
 @Configuration
 @Profile("default")
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class LocalSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -45,7 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected static class AuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
         @Autowired
-        private JpaAuthenticationProvider jpaAuthenticationProvider;
+        private LocalJpaAuthenticationProvider jpaAuthenticationProvider;
 
         @Override
         public void init(AuthenticationManagerBuilder auth) throws Exception {

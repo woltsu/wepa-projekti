@@ -9,19 +9,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import wepa.local.domain.Account;
-import wepa.local.repository.AccountRepository;
-import wepa.local.validator.AccountValidator;
+import wepa.local.domain.LocalAccount;
+import wepa.local.validator.LocalAccountValidator;
+import wepa.local.repository.LocalAccountRepository;
 
 @Profile("default")
 @Controller
-public class LoginAndSignupController {
+public class LocalLoginAndSignupController {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private LocalAccountRepository accountRepository;
 
     @Autowired
-    private AccountValidator accountValidator;
+    private LocalAccountValidator accountValidator;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, @RequestParam Map<String, String> params) {
@@ -48,7 +48,7 @@ public class LoginAndSignupController {
             return "signup";
         }
 
-        Account account = new Account();
+        LocalAccount account = new LocalAccount();
         account.setUsername(username);
         account.setPassword(password);
         accountRepository.save(account);

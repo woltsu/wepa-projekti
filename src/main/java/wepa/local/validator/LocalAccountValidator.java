@@ -3,14 +3,16 @@ package wepa.local.validator;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import wepa.local.repository.AccountRepository;
+import wepa.local.repository.LocalAccountRepository;
 
 @Component
-public class AccountValidator {
+@Profile("default")
+public class LocalAccountValidator {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private LocalAccountRepository accountRepository;
 
     public List<String> validateAccount(String username, String password, String passwordAgain) {
         List<String> errors = new ArrayList();

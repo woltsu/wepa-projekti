@@ -12,22 +12,22 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
-import wepa.local.domain.Account;
-import wepa.local.repository.AccountRepository;
+import wepa.local.domain.LocalAccount;
+import wepa.local.repository.LocalAccountRepository;
 
 @Profile("default")
 @Component
-public class JpaAuthenticationProvider implements AuthenticationProvider {
+public class LocalJpaAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private LocalAccountRepository accountRepository;
     
     @Override
     public Authentication authenticate(Authentication a) throws AuthenticationException {
         String username = a.getPrincipal().toString();
         String password = a.getCredentials().toString();
 
-        Account account = accountRepository.findByUsername(username);
+        LocalAccount account = accountRepository.findByUsername(username);
 
         if (account == null) {
             throw new AuthenticationException("Unable to authenticate user " + username) {
