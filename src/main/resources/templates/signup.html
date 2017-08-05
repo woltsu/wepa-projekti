@@ -28,17 +28,17 @@
             <form method="post" th:action="@{/signup}">
                 <div class="form-group">
                     <label>Username</label>
-                    <input type="text" class="form-control" name="username" th:value="${username}"/>
+                    <input id="username" type="text" class="form-control" name="username" th:value="${username}"/>
                 </div>
 
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control" name="password"/>
+                    <input id="password" type="password" class="form-control" name="password"/>
                 </div>
 
                 <div class="form-group">
                     <label>Password again</label>
-                    <input type="password" class="form-control" name="passwordAgain"/>
+                    <input id="passwordAgain" type="password" class="form-control" name="passwordAgain"/>
                 </div>
 
                 <button type="submit" class="btn btn-primary" style="display: inline-block; margin-right: 10px;">Login</button>

@@ -13,11 +13,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class DefaultControllerTest extends FluentTest {
+public class LoginAndSignupControllerTest extends FluentTest {
 
     public WebDriver webDriver = new HtmlUnitDriver();
     private final String localHost = "http://localhost:";
-    
+
     @Override
     public WebDriver getDefaultDriver() {
         return webDriver;
@@ -25,12 +25,23 @@ public class DefaultControllerTest extends FluentTest {
 
     @LocalServerPort
     private Integer port;
-    
+
     @Test
-    public void canSignUp() {
+    public void canSignUpAndLogin() {
         goTo(localHost + port);
         click(find("#signup"));
         assertTrue(pageSource().contains("Password again"));
+
+        fill(find("#username")).with("test");
+        fill(find("#password")).with("test");
+        fill(find("#passwordAgain")).with("test");
+        submit(find("form").first());
+        assertTrue(pageSource().contains("succesfully!"));
+
+        fill(find("#username")).with("test");
+        fill(find("#password")).with("test");
+        submit(find("form").first());
+        assertTrue(pageSource().contains("Hello, "));
     }
 
 }
