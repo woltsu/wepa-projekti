@@ -1,4 +1,4 @@
-package wepa.controller;
+package wepa.local.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -6,11 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import wepa.database.AccountDatabase;
-import wepa.service.AccountService;
+import wepa.local.service.AccountService;
 
-@Profile("production")
+@Profile("default")
 @Controller
 @RequestMapping("*")
 public class DefaultController {
@@ -23,7 +21,5 @@ public class DefaultController {
         model.addAttribute("user", accountService.getAuthenticatedAccount());
         return "index";
     }
-
-
 
 }

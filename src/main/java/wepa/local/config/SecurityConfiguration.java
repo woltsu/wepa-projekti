@@ -1,4 +1,4 @@
-package wepa.config;
+package wepa.local.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -9,16 +9,15 @@ import org.springframework.security.config.annotation.authentication.configurers
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import wepa.auth.CustomAuthenticationProvider;
+import wepa.local.auth.JpaAuthenticationProvider;
 
 @Configuration
-@Profile("production")
+@Profile("default")
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        
         http.csrf().disable().authorizeRequests().antMatchers("/login", "/signup",
                 "/css/**", "/fonts/**", "/images/**", "/js/**", "/media/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/persons").permitAll()
@@ -38,18 +37,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login")
                 .permitAll()
                 .invalidateHttpSession(true);
+
     }
 
-    @Profile("production")
+    @Profile("default")
     @Configuration
     protected static class AuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
         @Autowired
-        private CustomAuthenticationProvider authenticationProvider;
+        private JpaAuthenticationProvider jpaAuthenticationProvider;
 
         @Override
         public void init(AuthenticationManagerBuilder auth) throws Exception {
-            auth.authenticationProvider(authenticationProvider);
+            auth.authenticationProvider(jpaAuthenticationProvider);
         }
     }
 }

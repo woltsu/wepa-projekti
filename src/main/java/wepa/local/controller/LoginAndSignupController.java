@@ -1,4 +1,4 @@
-package wepa.controller;
+package wepa.local.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -9,16 +9,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import wepa.database.AccountDatabase;
-import wepa.validator.AccountValidator;
+import wepa.local.domain.Account;
+import wepa.local.repository.AccountRepository;
+import wepa.local.validator.AccountValidator;
 
-@Profile("production")
+@Profile("default")
 @Controller
 public class LoginAndSignupController {
 
     @Autowired
-    private AccountDatabase accountDatabase;
-    
+    private AccountRepository accountRepository;
+
     @Autowired
     private AccountValidator accountValidator;
 
@@ -47,7 +48,10 @@ public class LoginAndSignupController {
             return "signup";
         }
 
-        accountDatabase.create(username, password);
+        Account account = new Account();
+        account.setUsername(username);
+        account.setPassword(password);
+        accountRepository.save(account);
         model.addAttribute("success", "Account created succesfully!");
         return "login";
     }

@@ -1,19 +1,16 @@
-package wepa.validator;
+package wepa.local.validator;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import wepa.database.AccountDatabase;
-import wepa.domain.Account;
+import wepa.local.repository.AccountRepository;
 
 @Component
-@Profile("production")
 public class AccountValidator {
 
     @Autowired
-    private AccountDatabase accountDatabase;
+    private AccountRepository accountRepository;
 
     public List<String> validateAccount(String username, String password, String passwordAgain) {
         List<String> errors = new ArrayList();
@@ -27,7 +24,7 @@ public class AccountValidator {
         if (username == null || username.length() < 3) {
             errors.add("Username must be at least 3 characters long!");
         }
-        if (accountDatabase.findByUsername(username) != null) {
+        if (accountRepository.findByUsername(username) != null) {
             errors.add("Username taken!");
         }
         return errors;

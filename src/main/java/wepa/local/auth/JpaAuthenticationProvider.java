@@ -1,4 +1,4 @@
-package wepa.auth;
+package wepa.local.auth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,22 +12,22 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
-import wepa.database.AccountDatabase;
-import wepa.domain.Account;
+import wepa.local.domain.Account;
+import wepa.local.repository.AccountRepository;
 
-@Profile("production")
+@Profile("default")
 @Component
-public class CustomAuthenticationProvider implements AuthenticationProvider {
+public class JpaAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    private AccountDatabase accountDatabase;
-
+    private AccountRepository accountRepository;
+    
     @Override
     public Authentication authenticate(Authentication a) throws AuthenticationException {
         String username = a.getPrincipal().toString();
         String password = a.getCredentials().toString();
 
-        Account account = accountDatabase.findByUsername(username);
+        Account account = accountRepository.findByUsername(username);
 
         if (account == null) {
             throw new AuthenticationException("Unable to authenticate user " + username) {
@@ -49,4 +49,5 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     public boolean supports(Class<?> type) {
         return true;
     }
+
 }

@@ -19,5 +19,5 @@ public class AccountController {
 //        accountDatabase.create(name);
         return "redirect:/";
     }
-    
+
 }
