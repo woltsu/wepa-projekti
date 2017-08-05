@@ -43,5 +43,7 @@ public class LoginAndSignupControllerTest extends FluentTest {
         submit(find("form").first());
         assertTrue(pageSource().contains("Hello, "));
     }
+    
+    //TODO: testing validators
 
 }
