@@ -11,8 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import wepa.local.auth.LocalJpaAuthenticationProvider;
 
-@Configuration
 @Profile("local")
+@Configuration
 @EnableWebSecurity
 public class LocalSecurityConfiguration extends WebSecurityConfigurerAdapter {
 

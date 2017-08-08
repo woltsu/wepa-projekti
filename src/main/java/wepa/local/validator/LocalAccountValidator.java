@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import wepa.local.repository.LocalAccountRepository;
 
-@Component
 @Profile("local")
+@Component
 public class LocalAccountValidator {
 
     @Autowired

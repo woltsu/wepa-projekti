@@ -13,8 +13,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import wepa.domain.Account;
 
-@Component
 @Profile("production")
+@Component
 public class AccountDatabase {
 
     @Autowired

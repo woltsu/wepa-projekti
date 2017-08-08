@@ -11,8 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import wepa.auth.CustomAuthenticationProvider;
 
-@Configuration
 @Profile("production")
+@Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -21,7 +21,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         
         http.csrf().disable().authorizeRequests().antMatchers("/login", "/signup",
                 "/css/**", "/fonts/**", "/images/**", "/js/**", "/media/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/persons").permitAll()
                 .antMatchers(HttpMethod.POST, "/signup").permitAll()
                 .anyRequest().authenticated();
 

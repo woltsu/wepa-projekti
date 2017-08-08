@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import wepa.database.AccountDatabase;
 import wepa.domain.Account;
 
-@Service
 @Profile("production")
+@Service
 public class AccountService {
 
     @Autowired

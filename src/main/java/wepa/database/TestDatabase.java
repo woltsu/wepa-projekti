@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import wepa.domain.Test;
 
-@Component
 @Profile("production")
+@Component
 public class TestDatabase {
 
     @Autowired

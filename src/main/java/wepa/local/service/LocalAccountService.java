@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import wepa.local.domain.LocalAccount;
 import wepa.local.repository.LocalAccountRepository;
 
-@Service
 @Profile("local")
+@Service
 public class LocalAccountService {
 
     @Autowired

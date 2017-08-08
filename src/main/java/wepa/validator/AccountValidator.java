@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 import wepa.database.AccountDatabase;
 import wepa.domain.Account;
 
-@Component
 @Profile("production")
+@Component
 public class AccountValidator {
 
     @Autowired
