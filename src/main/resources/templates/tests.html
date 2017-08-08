@@ -16,7 +16,7 @@
         <div th:replace="fragments/navbar :: navbar"></div>
         <div class='container'>
             <div class="3-cols">
-                <div class='col-1 col-md-4'>
+                <div class='col-1 col-md-4 col-xs-4'>
                     <h2><span th:text="${user.username}"></span>'s tests</h2>
 
                     <label>New test</label>
@@ -26,7 +26,7 @@
                     </form>
 
                 </div>
-                <div class="col-2 col-md-6">
+                <div class="col-2 col-md-6 col-xs-8">
                     
                     <div class='' style='margin: 1% 0% 0% 0%' th:each="test : ${tests}">
                         <a id="link" th:href="@{/tests/{id}(id=${test.id})}">
