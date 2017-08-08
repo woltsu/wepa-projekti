@@ -11,7 +11,7 @@ import wepa.local.domain.LocalTest;
 import wepa.local.repository.LocalTestRepository;
 import wepa.local.service.LocalAccountService;
 
-@Profile("default")
+@Profile("local")
 @Controller
 @RequestMapping("/tests")
 public class LocalTestController {

@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
-@Profile("default")
-//@Entity
+@Profile("local")
+@Entity
 public class LocalAccount extends AbstractPersistable<Long> {
 
     private String username;

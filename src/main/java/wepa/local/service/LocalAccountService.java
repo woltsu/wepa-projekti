@@ -9,7 +9,7 @@ import wepa.local.domain.LocalAccount;
 import wepa.local.repository.LocalAccountRepository;
 
 @Service
-@Profile("default")
+@Profile("local")
 public class LocalAccountService {
 
     @Autowired

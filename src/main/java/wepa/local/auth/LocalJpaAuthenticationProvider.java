@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import wepa.local.domain.LocalAccount;
 import wepa.local.repository.LocalAccountRepository;
 
-@Profile("default")
+@Profile("local")
 @Component
 public class LocalJpaAuthenticationProvider implements AuthenticationProvider {
 
