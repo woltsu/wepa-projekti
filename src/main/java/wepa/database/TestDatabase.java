@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import wepa.domain.Test;
 
@@ -25,8 +26,8 @@ public class TestDatabase {
         try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
             st.executeUpdate("CREATE TABLE Test (id SERIAL PRIMARY KEY, "
-                    + "name varchar(255) NOT NULL, account_id integer NOT NULL, "
-                    + "FOREIGN KEY (account_id) REFERENCES account (id));");
+                    + "name varchar(50) NOT NULL, account_id integer NOT NULL, "
+                    + "FOREIGN KEY (account_id) REFERENCES Account (id));");
 //            create("test", 1);
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,8 +37,8 @@ public class TestDatabase {
     public List<Test> findByAccount(int account_id) {
         List<Test> tests = new ArrayList();
         try (Connection conn = dataSource.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Test WHERE account_id = 1");
-//            ps.setInt(1, account_id);
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Test WHERE account_id = ?");
+            ps.setInt(1, account_id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Test t = new Test();
@@ -52,6 +53,7 @@ public class TestDatabase {
         return tests;
     }
 
+    @Async
     public void create(String name, int account_id) {
         try {
             Connection conn = dataSource.getConnection();

@@ -76,7 +76,7 @@ public class AccountDatabase {
         return users;
     }
     
-//    @Async
+    @Async
     public void create(String username, String password) {
         try {
             Connection conn = dataSource.getConnection();

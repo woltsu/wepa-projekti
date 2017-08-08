@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import wepa.database.TestDatabase;
+import wepa.domain.Account;
 import wepa.service.AccountService;
 
 @Profile("production")
 @Controller
-@RequestMapping("/tests")
+@RequestMapping(value = "/tests")
 public class TestController {
     
     @Autowired
@@ -20,17 +21,19 @@ public class TestController {
     
     @Autowired
     private AccountService accountService;
+    
+    private Account self = this.accountService.getAuthenticatedAccount();
 
     @RequestMapping(method = RequestMethod.GET)
     public String getTests(Model model) {
         model.addAttribute("user", accountService.getAuthenticatedAccount());
-        model.addAttribute("tests", testDatabase.findByAccount(accountService.getAuthenticatedAccount().getId()));
+        model.addAttribute("tests", testDatabase.findByAccount(self.getId()));
         return "tests";
     }
     
     @RequestMapping(method = RequestMethod.POST)
     public String postTests(@RequestParam String name) {
-       testDatabase.create(name, accountService.getAuthenticatedAccount().getId());
+       testDatabase.create(name, self.getId());
        return "redirect:/tests";
     }
     
