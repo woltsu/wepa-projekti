@@ -20,9 +20,9 @@
                     <h2><span th:text="${user.username}"></span>'s tests</h2>
 
                     <label>New test</label>
-                    <form class="form-inline" th:method='post' th:action='@{/tests}'>
+                    <form class="form-group" th:method='post' th:action='@{/tests}'>
                         <input class="form-control" type="text" placeholder="name" name="name"/>
-                        <input class="form-control btn btn-success" type="submit" value="+"/>
+                        <input class="btn btn-success" type="submit" value="New test"/>
                     </form>
 
                 </div>
