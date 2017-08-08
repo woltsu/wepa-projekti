@@ -3,13 +3,13 @@ package wepa.domain;
 import org.springframework.context.annotation.Profile;
 
 @Profile("production")
-public class Test {
+public class Question {
 
     private int id;
     private String name;
     private int account_id;
 
-    public Test() {
+    public Question() {
     }
 
     public int getId() {

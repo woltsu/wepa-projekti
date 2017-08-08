@@ -16,7 +16,7 @@ public class LocalAccount extends AbstractPersistable<Long> {
     private String password;
     private String salt;
     @OneToMany
-    private List<LocalTest> tests;
+    private List<LocalQuestion> tests;
     
 
     public LocalAccount() {

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Profile("default")
 //@Entity
-public class LocalTest extends AbstractPersistable<Long> {
+public class LocalQuestion extends AbstractPersistable<Long> {
 
     private String name;
     @ManyToOne

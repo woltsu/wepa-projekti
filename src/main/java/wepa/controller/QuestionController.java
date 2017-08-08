@@ -5,37 +5,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import wepa.database.TestDatabase;
+import wepa.database.QuestionDatabase;
 import wepa.domain.Account;
 import wepa.service.AccountService;
 
 @Profile("production")
 @Controller
-@RequestMapping(value = "/tests")
-public class TestController {
+@RequestMapping(value = "/questions")
+public class QuestionController {
 
     @Autowired
-    private TestDatabase testDatabase;
+    private QuestionDatabase questionDatabase;
 
     @Autowired
     private AccountService accountService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getTests(Model model) {
+    public String getQuestions(Model model) {
         Account self = accountService.getAuthenticatedAccount();
         model.addAttribute("user", self);
-        model.addAttribute("tests", testDatabase.findByAccount(self.getId()));
+        model.addAttribute("questions", questionDatabase.findByAccount(self.getId()));
         return "tests";
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String postTests(@RequestParam String name) {
+    public String postQuestions(@RequestParam String name) {
         Account self = accountService.getAuthenticatedAccount();
-        testDatabase.create(name, self.getId());
-        return "redirect:/tests";
+        questionDatabase.create(name, self.getId());
+        return "redirect:/questions";
+    }
+    
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String getQuestion(Model model, @PathVariable int id) {
+        model.addAttribute("question", questionDatabase.findOne(id));
+        return "question";
     }
 
 }

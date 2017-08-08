@@ -19,21 +19,21 @@
                 <div class='col-1 col-md-6 col-xs-6'>
                     <h2><span th:text="${user.username}"></span>'s tests</h2>
 
-                    <label>New test</label>
-                    <form class="form-inline" th:method='post' th:action='@{/tests}'>
+                    <label>New question</label>
+                    <form class="form-inline" th:method='post' th:action='@{/questions}'>
                         <div class="form-group">
                             <input class="form-control" type="text" placeholder="name" name="name"/>
                         </div>
-                        <input class="btn btn-success" type="submit" value="New test"/>
+                        <input class="btn btn-success" type="submit" value="Create a new question"/>
                     </form>
 
                 </div>
                 <div class="col-2 col-md-6 col-xs-6">
 
-                    <div class='text-center' style='margin: 1% 0% 0% 0%' th:each="test : ${tests}">
-                        <a id="link" th:href="@{/tests/{id}(id=${test.id})}">
+                    <div class='text-center' style='margin: 1% 0% 1% 0%' th:each="question : ${questions}">
+                        <a id="link" th:href="@{/questions/{id}(id=${question.id})}">
                             <div class="panel panel-default" th:href='@{/index}' style='margin: 0% 2% 0% 2%'>
-                                <div class="panel-body" th:text='${test.name}'>test's name</div>
+                                <div class="panel-body" th:text='${question.name}'>test's name</div>
                             </div>
                         </a>
                     </div>

@@ -4,10 +4,10 @@ import java.util.List;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import wepa.local.domain.LocalAccount;
-import wepa.local.domain.LocalTest;
+import wepa.local.domain.LocalQuestion;
 
 @Profile("default")
-public interface LocalTestRepository extends JpaRepository<LocalTest, Long> {
+public interface LocalQuestionRepository extends JpaRepository<LocalQuestion, Long> {
 
-    List<LocalTest> findByLocalAccount(LocalAccount a);
+    List<LocalQuestion> findByLocalAccount(LocalAccount a);
 }

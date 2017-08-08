@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Choices</title>
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="../../css/style.css" th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'  type='text/css'/>
+    </head>
+
+    <body>
+        <div th:replace="fragments/navbar :: navbar"></div>
+
+        <div class='container'>
+            <div class="3-cols">
+                <div class='col-2 col-md-10 col-xs-10'>
+                    <h2 th:text="${question.name}"></h2>
+                    
+<!--                    <div th:each="">
+                        
+                    </div>-->
+                    
+                    <label>New option</label>
+                    <form class="form-inline" th:method='post' th:action='@{/questions/{id}(id=${question.id})}'>
+                        <div class="form-group">
+                            <input class="form-control" type="text" placeholder="value" name="option"/>
+                        </div>
+                        <input class="btn btn-success" type="submit" value="+"/>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+
+    </body>
+</html>
