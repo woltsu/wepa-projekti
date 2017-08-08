@@ -95,6 +95,9 @@ public class QuestionDatabase {
             q.setId(id);
             q.setName(name);
             q.setAccount(account);
+            rs.close();
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
