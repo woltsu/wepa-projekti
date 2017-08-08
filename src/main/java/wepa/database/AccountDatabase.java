@@ -44,7 +44,7 @@ public class AccountDatabase {
                 result.setUsername(rs.getString("username"));
                 result.setOnlyPassword(rs.getString("password"));
                 result.setSalt(rs.getString("salt"));
-                result.setId(rs.getLong("id"));
+                result.setId(rs.getInt("id"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,7 +76,7 @@ public class AccountDatabase {
         return users;
     }
     
-    @Async
+//    @Async
     public void create(String username, String password) {
         try {
             Connection conn = dataSource.getConnection();

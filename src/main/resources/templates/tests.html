@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Choices</title>
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="../../css/style.css" th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'  type='text/css'/>
+    </head>
+
+    <body>
+        <div th:replace="fragments/navbar :: navbar"></div>
+        <div class='container'>
+            <div class="row">
+                <div class='col align-self-center'>
+                    <h2><span th:text="${user.username}"></span>'s tests</h2>
+                    <label>New test</label>
+                    <form class="form-inline" th:method='post' th:action='@{/tests}'>
+                        <input class="form-control" type="text" placeholder="name" name="name"/>
+                        <input class="form-control btn btn-success" type="submit" value="+"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class='container'>
+            <div class='col-xs-12 align-self-center' style='margin: 1% 0% 0% 0%' th:each="test : ${tests}">
+                <div class="col align-self-center">
+                    <a id="link" th:href="@{/tests/{id}(id=${test.id})}">
+                        <div class="panel panel-default" th:href='@{/index}' style='margin: 0% 2% 0% 2%'>
+                            <div class="panel-body" th:text='${test.name}'>test's name</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

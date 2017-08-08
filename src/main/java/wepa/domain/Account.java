@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 @Profile("production")
 public class Account {
 
-    private Long id;
+    private int id;
     private String username;
     private String password;
     private String salt;
@@ -44,11 +44,11 @@ public class Account {
         return salt;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 

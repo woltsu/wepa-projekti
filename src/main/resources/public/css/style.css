@@ -30,3 +30,9 @@
 .closebtn:hover {
     color: black;
 }
+
+#link {
+    color: black;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+}

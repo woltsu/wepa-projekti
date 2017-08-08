@@ -1,7 +1,9 @@
 package wepa.local.domain;
 
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -13,6 +15,9 @@ public class LocalAccount extends AbstractPersistable<Long> {
     private String username;
     private String password;
     private String salt;
+    @OneToMany
+    private List<LocalTest> tests;
+    
 
     public LocalAccount() {
     }
