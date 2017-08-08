@@ -26,19 +26,16 @@
                 </div>
             </div>
         </div>
-        <!--        <div class='container'>
-                    <div class='col-xs-12 align-self-center' style='margin: 1% 0% 0% 0%' th:each="test : ${tests}">
-                        <div class="col align-self-center">
-                            <a id="link" th:href="@{/tests/{id}(id=${test.id})}">
-                                <div class="panel panel-default" th:href='@{/index}' style='margin: 0% 2% 0% 2%'>
-                                    <div class="panel-body" th:text='${test.name}'>test's name</div>
-                                </div>
-                            </a>
+        <div class='container'>
+            <div class='col-xs-12 align-self-center' style='margin: 1% 0% 0% 0%' th:each="test : ${tests}">
+                <div class="col align-self-center">
+                    <a id="link" th:href="@{/tests/{id}(id=${test.id})}">
+                        <div class="panel panel-default" th:href='@{/index}' style='margin: 0% 2% 0% 2%'>
+                            <div class="panel-body" th:text='${test.name}'>test's name</div>
                         </div>
-                    </div>
-                </div>-->
-        <div th:each="test : ${tests}">
-            <span th:text="${test.name}"></span>
+                    </a>
+                </div>
+            </div>
         </div>
     </body>
 </html>
