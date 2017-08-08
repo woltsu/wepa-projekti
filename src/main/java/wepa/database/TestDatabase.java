@@ -36,8 +36,8 @@ public class TestDatabase {
     public List<Test> findByAccount(int account_id) {
         List<Test> tests = new ArrayList();
         try (Connection conn = dataSource.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Test WHERE account_id = ?");
-            ps.setInt(1, account_id);
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Test WHERE account_id = 1");
+//            ps.setInt(1, account_id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Test t = new Test();
