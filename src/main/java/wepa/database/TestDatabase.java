@@ -38,7 +38,7 @@ public class TestDatabase {
             st.close();
             conn.close();
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
