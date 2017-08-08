@@ -28,6 +28,8 @@ public class AccountDatabase {
                             + "username varchar(255) NOT NULL, password varchar(255) NOT NULL, "
                             + "salt varchar(255));");
             create("user", "user");
+            st.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -46,6 +48,9 @@ public class AccountDatabase {
                 result.setSalt(rs.getString("salt"));
                 result.setId(rs.getInt("id"));
             }
+            rs.close();
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,13 +75,16 @@ public class AccountDatabase {
                 a.setSalt(rs.getString("salt"));
                 users.add(a);
             }
+            rs.close();
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return users;
     }
     
-    @Async
+//    @Async
     public void create(String username, String password) {
         try {
             Connection conn = dataSource.getConnection();
@@ -88,6 +96,8 @@ public class AccountDatabase {
             ps.setString(2, a.getPassword());
             ps.setString(3, a.getSalt());
             ps.execute();
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

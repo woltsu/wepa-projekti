@@ -21,6 +21,12 @@ public class TestDatabase {
     @Autowired
     private BasicDataSource dataSource;
 
+    private Connection conn;
+
+    public TestDatabase() {
+//        this.conn = dataSource.getConnection();
+    }
+
     @PostConstruct
     public void init() {
         try (Connection conn = dataSource.getConnection()) {
@@ -29,11 +35,13 @@ public class TestDatabase {
                     + "name varchar(50) NOT NULL, account_id integer NOT NULL, "
                     + "FOREIGN KEY (account_id) REFERENCES Account (id));");
 //            create("test", 1);
+            st.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     public List<Test> findByAccount(int account_id) {
         List<Test> tests = new ArrayList();
         try (Connection conn = dataSource.getConnection()) {
@@ -47,13 +55,16 @@ public class TestDatabase {
                 t.setName(rs.getString("name"));
                 tests.add(t);
             }
+            rs.close();
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return tests;
     }
 
-    @Async
+//    @Async
     public void create(String name, int account_id) {
         try {
             Connection conn = dataSource.getConnection();
@@ -61,6 +72,8 @@ public class TestDatabase {
             ps.setString(1, name);
             ps.setInt(2, account_id);
             ps.execute();
+            conn.close();
+            ps.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
