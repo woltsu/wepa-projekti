@@ -15,7 +15,7 @@
     <body>
         <div th:replace="fragments/navbar :: navbar"></div>
         <div class='container'>
-            <div class="3-cols">
+            <div class="2-cols">
                 <div class='col-1 col-md-6 col-xs-6'>
                     <h2><span th:text="${user.username}"></span>'s tests</h2>
 
@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-2 col-md-6 col-xs-6">
                     
-                    <div class='' style='margin: 1% 0% 0% 0%' th:each="test : ${tests}">
+                    <div class='text-center' style='margin: 1% 0% 0% 0%' th:each="test : ${tests}">
                         <a id="link" th:href="@{/tests/{id}(id=${test.id})}">
                             <div class="panel panel-default" th:href='@{/index}' style='margin: 0% 2% 0% 2%'>
                                 <div class="panel-body" th:text='${test.name}'>test's name</div>
