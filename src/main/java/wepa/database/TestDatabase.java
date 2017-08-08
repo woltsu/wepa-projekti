@@ -25,9 +25,9 @@ public class TestDatabase {
         try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
             st.executeUpdate("CREATE TABLE Test (id SERIAL PRIMARY KEY, "
-                    + "name varchar(255) NOT NULL, account_id int NOT NULL, "
+                    + "name varchar(255) NOT NULL, account_id integer NOT NULL, "
                     + "FOREIGN KEY (account_id) REFERENCES account (id));");
-            create("test", 1);
+//            create("test", 1);
         } catch (Exception e) {
             e.printStackTrace();
         }
