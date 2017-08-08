@@ -13,7 +13,7 @@ import wepa.local.domain.LocalAccount;
 import wepa.local.validator.LocalAccountValidator;
 import wepa.local.repository.LocalAccountRepository;
 
-@Profile("local")
+@Profile("default")
 @Controller
 public class LocalLoginAndSignupController {
 

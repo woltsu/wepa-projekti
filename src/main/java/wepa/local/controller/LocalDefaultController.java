@@ -11,7 +11,7 @@ import wepa.local.domain.LocalAccount;
 import wepa.local.repository.LocalAccountRepository;
 import wepa.local.service.LocalAccountService;
 
-@Profile("local")
+@Profile("default")
 @Controller
 @RequestMapping("*")
 public class LocalDefaultController {

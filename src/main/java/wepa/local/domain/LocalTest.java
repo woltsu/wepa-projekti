@@ -5,7 +5,7 @@ import javax.persistence.ManyToOne;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-@Profile("local")
+@Profile("default")
 //@Entity
 public class LocalTest extends AbstractPersistable<Long> {
 
