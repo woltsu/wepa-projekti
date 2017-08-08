@@ -20,14 +20,16 @@
                     <h2><span th:text="${user.username}"></span>'s tests</h2>
 
                     <label>New test</label>
-                    <form class="form-group" th:method='post' th:action='@{/tests}'>
-                        <input class="form-control" type="text" placeholder="name" name="name"/>
+                    <form class="form-inline" th:method='post' th:action='@{/tests}'>
+                        <div class="form-group">
+                            <input class="form-control" type="text" placeholder="name" name="name"/>
+                        </div>
                         <input class="btn btn-success" type="submit" value="New test"/>
                     </form>
 
                 </div>
                 <div class="col-2 col-md-6 col-xs-6">
-                    
+
                     <div class='text-center' style='margin: 1% 0% 0% 0%' th:each="test : ${tests}">
                         <a id="link" th:href="@{/tests/{id}(id=${test.id})}">
                             <div class="panel panel-default" th:href='@{/index}' style='margin: 0% 2% 0% 2%'>
@@ -35,7 +37,7 @@
                             </div>
                         </a>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
