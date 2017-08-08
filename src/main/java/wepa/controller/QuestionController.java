@@ -29,7 +29,7 @@ public class QuestionController {
         Account self = accountService.getAuthenticatedAccount();
         model.addAttribute("user", self);
         model.addAttribute("questions", questionDatabase.findByAccount(self.getId()));
-        return "tests";
+        return "questions";
     }
 
     @RequestMapping(method = RequestMethod.POST)
