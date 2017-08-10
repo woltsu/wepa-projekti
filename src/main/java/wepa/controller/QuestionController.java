@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import wepa.database.OptionDatabase;
 import wepa.database.QuestionDatabase;
 import wepa.domain.Account;
 import wepa.service.AccountService;
@@ -23,6 +24,9 @@ public class QuestionController {
 
     @Autowired
     private AccountService accountService;
+    
+    @Autowired
+    private OptionDatabase optionDatabase;
 
     @RequestMapping(method = RequestMethod.GET)
     public String getQuestions(Model model, @PathVariable String user) {
@@ -53,6 +57,7 @@ public class QuestionController {
         }
         model.addAttribute("question", questionDatabase.findOne(id));
         model.addAttribute("user", self);
+        model.addAttribute("options", optionDatabase.findByQuestion(id));
         return "question";
     }
 
