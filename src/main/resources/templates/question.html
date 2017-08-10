@@ -16,22 +16,31 @@
         <div th:replace="fragments/navbar :: navbar"></div>
 
         <div class='container'>
-            <div class="3-cols">
-                <div class='col-2 col-md-10 col-xs-10'>
-                    <h2 th:text="${question.name}"></h2>
-                    
-<!--                    <div th:each="">
-                        
-                    </div>-->
-                    
+            <div class="2-cols">
+                <div class='col-2 col-md-6 col-xs-6'>
                     <label>New option</label>
                     <form class="form-inline" th:method='post' th:action='@{/questions/{id}(id=${question.id})}'>
                         <div class="form-group">
-                            <input class="form-control" type="text" placeholder="value" name="option"/>
+                            <input class="form-control" type="text" placeholder="option" name="value"/>
                         </div>
                         <input class="btn btn-success" type="submit" value="+"/>
+                        <br/>
+                        <div class="radio">
+                            <label><input type="radio" value="1" name="correct"/>true</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" value="0" name="correct"/>false</label>
+                        </div>
                     </form>
+                </div>
 
+                <div class='col-2 col-md-6 col-xs-6'>
+                    <h2 th:text="${question.name}"></h2>
+
+                    <div th:each="option : ${options}">
+                        <p th:text="${option.value}"></p>
+                        <label th:text="${option.correct}"></label>
+                    </div>
                 </div>
 
             </div>

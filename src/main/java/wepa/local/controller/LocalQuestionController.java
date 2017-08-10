@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import wepa.local.domain.LocalAccount;
 import wepa.local.domain.LocalQuestion;
+import wepa.local.repository.LocalAccountRepository;
+import wepa.local.repository.LocalOptionRepository;
 import wepa.local.service.LocalAccountService;
 import wepa.local.repository.LocalQuestionRepository;
 
@@ -22,7 +25,13 @@ public class LocalQuestionController {
     @Autowired
     private LocalAccountService accountService;
     
-    @RequestMapping(value = "/questions",method = RequestMethod.GET)
+    @Autowired
+    private LocalAccountRepository accountRepository;
+    
+    @Autowired
+    private LocalOptionRepository optionRepository;
+    
+    @RequestMapping(value = "/{user}/questions",method = RequestMethod.GET)
     public String getQuestions(Model model) {
         model.addAttribute("user", accountService.getAuthenticatedAccount());
         model.addAttribute("questions", questionRepository.findByLocalAccount(accountService.getAuthenticatedAccount()));
@@ -35,12 +44,17 @@ public class LocalQuestionController {
         q.setName(name);
         q.setLocalAccount(accountService.getAuthenticatedAccount());
         q = questionRepository.save(q);
-        return "redirect:/questions/" + q.getId();
+        LocalAccount self = accountService.getAuthenticatedAccount();
+        self.addQuestion(q);
+        accountRepository.save(self);
+        return "redirect:/" + self.getUsername() + "/questions/" + q.getId();
     }
     
-    @RequestMapping(value = "/questions/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{user}/questions/{id}", method = RequestMethod.GET)
     public String getQuestion(Model model, @PathVariable Long id) {
         model.addAttribute("question", questionRepository.findOne(id));
+        model.addAttribute("options", optionRepository.findByLocalQuestion(questionRepository.findOne(id)));
+        model.addAttribute("user", accountService.getAuthenticatedAccount());
         return "question";
     }
     

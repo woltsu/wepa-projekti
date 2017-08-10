@@ -15,7 +15,7 @@ import wepa.service.AccountService;
 
 @Profile("production")
 @Controller
-@RequestMapping(value = "/questions")
+@RequestMapping(value = "/{user}/questions")
 public class QuestionController {
 
     @Autowired
@@ -36,12 +36,13 @@ public class QuestionController {
     public String postQuestions(@RequestParam String name) {
         Account self = accountService.getAuthenticatedAccount();
         questionDatabase.create(name, self.getId());
-        return "redirect:/questions";
+        return "redirect:/" + self.getUsername() + "questions";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getQuestion(Model model, @PathVariable int id) {
         model.addAttribute("question", questionDatabase.findOne(id));
+        model.addAttribute("user", accountService.getAuthenticatedAccount());
         return "question";
     }
 

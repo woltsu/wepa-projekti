@@ -1,5 +1,6 @@
 package wepa.local.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -9,15 +10,14 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 @Profile("default")
-//@Entity
+@Entity
 public class LocalAccount extends AbstractPersistable<Long> {
 
     private String username;
     private String password;
     private String salt;
     @OneToMany
-    private List<LocalQuestion> tests;
-    
+    private List<LocalQuestion> questions;
 
     public LocalAccount() {
     }
@@ -49,6 +49,17 @@ public class LocalAccount extends AbstractPersistable<Long> {
 
     public String getSalt() {
         return salt;
+    }
+
+    public void addQuestion(LocalQuestion question) {
+        if (this.questions == null) {
+            this.questions = new ArrayList();
+        }
+        this.questions.add(question);
+    }
+
+    public List<LocalQuestion> getQuestions() {
+        return questions;
     }
 
     @Override
