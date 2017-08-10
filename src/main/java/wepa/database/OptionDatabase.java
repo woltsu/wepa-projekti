@@ -59,7 +59,7 @@ public class OptionDatabase {
 
     public void create(String value, boolean correct, int question_id) {
         try (Connection conn = dataSource.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Option (value, correct, account_id) VALUES (?, ?, ?)");
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Option (value, correct, question_id) VALUES (?, ?, ?)");
             ps.setString(1, value);
             ps.setBoolean(2, correct);
             ps.setInt(3, question_id);
