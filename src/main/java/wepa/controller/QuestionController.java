@@ -36,7 +36,7 @@ public class QuestionController {
     public String postQuestions(@RequestParam String name) {
         Account self = accountService.getAuthenticatedAccount();
         questionDatabase.create(name, self.getId());
-        return "redirect:/" + self.getUsername() + "questions";
+        return "redirect:/" + self.getUsername() + "/questions";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
