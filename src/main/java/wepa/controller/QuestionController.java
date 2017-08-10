@@ -25,24 +25,34 @@ public class QuestionController {
     private AccountService accountService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getQuestions(Model model) {
+    public String getQuestions(Model model, @PathVariable String user) {
         Account self = accountService.getAuthenticatedAccount();
+        if (!user.equals(self.getUsername())) {
+            return "redirect:/";
+        }
         model.addAttribute("user", self);
         model.addAttribute("questions", questionDatabase.findByAccount(self.getId()));
         return "questions";
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String postQuestions(@RequestParam String name) {
+    public String postQuestions(@RequestParam String name, @PathVariable String user) {
         Account self = accountService.getAuthenticatedAccount();
+        if (!user.equals(self.getUsername())) {
+            return "redirect:/";
+        }
         questionDatabase.create(name, self.getId());
         return "redirect:/" + self.getUsername() + "/questions";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String getQuestion(Model model, @PathVariable int id) {
+    public String getQuestion(Model model, @PathVariable int id, @PathVariable String user) {
+        Account self = accountService.getAuthenticatedAccount();
+        if (!user.equals(self.getUsername())) {
+            return "redirect:/";
+        }
         model.addAttribute("question", questionDatabase.findOne(id));
-        model.addAttribute("user", accountService.getAuthenticatedAccount());
+        model.addAttribute("user", self);
         return "question";
     }
 

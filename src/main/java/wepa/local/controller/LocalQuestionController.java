@@ -18,44 +18,55 @@ import wepa.local.repository.LocalQuestionRepository;
 @Profile("default")
 @Controller
 public class LocalQuestionController {
-    
+
     @Autowired
     private LocalQuestionRepository questionRepository;
-    
+
     @Autowired
     private LocalAccountService accountService;
-    
+
     @Autowired
     private LocalAccountRepository accountRepository;
-    
+
     @Autowired
     private LocalOptionRepository optionRepository;
-    
-    @RequestMapping(value = "/{user}/questions",method = RequestMethod.GET)
-    public String getQuestions(Model model) {
-        model.addAttribute("user", accountService.getAuthenticatedAccount());
+
+    @RequestMapping(value = "/{user}/questions", method = RequestMethod.GET)
+    public String getQuestions(Model model, @PathVariable String user) {
+        LocalAccount self = accountService.getAuthenticatedAccount();
+        if (!user.equals(self.getUsername())) {
+            return "redirect:/";
+        }
+        model.addAttribute("user", self);
         model.addAttribute("questions", questionRepository.findByLocalAccount(accountService.getAuthenticatedAccount()));
         return "questions";
     }
-    
+
     @RequestMapping(value = "/{user}/questions", method = RequestMethod.POST)
-    public String postQuestions(@RequestParam String name) {
+    public String postQuestions(@RequestParam String name, @PathVariable String user) {
+        LocalAccount self = accountService.getAuthenticatedAccount();
+        if (!user.equals(self.getUsername())) {
+            return "redirect:/";
+        }
         LocalQuestion q = new LocalQuestion();
         q.setName(name);
         q.setLocalAccount(accountService.getAuthenticatedAccount());
         q = questionRepository.save(q);
-        LocalAccount self = accountService.getAuthenticatedAccount();
         self.addQuestion(q);
         accountRepository.save(self);
         return "redirect:/" + self.getUsername() + "/questions/" + q.getId();
     }
-    
+
     @RequestMapping(value = "/{user}/questions/{id}", method = RequestMethod.GET)
-    public String getQuestion(Model model, @PathVariable Long id) {
+    public String getQuestion(Model model, @PathVariable Long id, @PathVariable String user) {
+        LocalAccount self = accountService.getAuthenticatedAccount();
+        if (!user.equals(self.getUsername())) {
+            return "redirect:/";
+        }
         model.addAttribute("question", questionRepository.findOne(id));
         model.addAttribute("options", optionRepository.findByLocalQuestion(questionRepository.findOne(id)));
-        model.addAttribute("user", accountService.getAuthenticatedAccount());
+        model.addAttribute("user", self);
         return "question";
     }
-    
+
 }
