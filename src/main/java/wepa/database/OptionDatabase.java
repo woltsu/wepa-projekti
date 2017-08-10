@@ -21,7 +21,9 @@ public class OptionDatabase {
             Statement st = conn.createStatement();
             st.executeUpdate("CREATE TABLE Option (id SERIAL PRIMARY KEY, "
                     + "value varchar(100), correct boolean, "
-                    + "question_id integer REFERENCES Question ON DELETE CASCADE);");            
+                    + "question_id integer REFERENCES Question ON DELETE CASCADE);");    
+            st.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
