@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import wepa.local.domain.LocalOption;
 import wepa.local.repository.LocalOptionRepository;
 import wepa.local.repository.LocalQuestionRepository;
+import wepa.local.service.LocalOptionService;
 
 @Profile("default")
 @Controller
@@ -22,11 +23,17 @@ public class LocalOptionController {
     @Autowired
     private LocalQuestionRepository questionRepository;
     
+    @Autowired
+    private LocalOptionService optionService;
+    
     @RequestMapping(value = "/{user}/questions/{id}", method = RequestMethod.POST)
-    public String postOption(Model model, @PathVariable Long id, LocalOption option) {
+    public String postOption(Model model, @PathVariable Long id, LocalOption option, @PathVariable String user) {
+        if ((optionService.hasAlreadyACorrectOption(id) && option.isCorrect()) || (optionService.hasMaxFalseOptions(id) && !option.isCorrect())) {
+            return "redirect:/" + user + "/questions/" + id;
+        }
         option.setLocalQuestion(questionRepository.findOne(id));
         optionRepository.save(option);
-        return "redirect:/questions/" + id;
+        return "redirect:/" + user + "/questions/" + id;
     }
     
 }

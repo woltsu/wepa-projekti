@@ -38,8 +38,15 @@
                     <h2 th:text="${question.name}"></h2>
 
                     <div th:each="option : ${options}">
-                        <p th:text="${option.value}"></p>
-                        <label th:text="${option.correct}"></label>
+                        <!--                        <p th:text="${option.value}"></p>
+                                                <label th:text="${option.correct}"></label>-->
+
+                        <div th:if="${option.correct}">
+                            <p style="color: green;" th:text="${option.value}"></p>
+                        </div>
+                        <div th:unless="${option.correct}">
+                            <p style="color: red;" th:text="${option.value}"></p>
+                        </div>
                     </div>
                 </div>
 

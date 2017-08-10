@@ -21,7 +21,7 @@ public class AccountDatabase {
     private BasicDataSource dataSource;
 
     @PostConstruct
-    public void init() {
+    private void init() {
         try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
             st.executeUpdate("CREATE TABLE Account (id SERIAL PRIMARY KEY, "

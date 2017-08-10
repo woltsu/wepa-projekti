@@ -28,12 +28,12 @@ public class QuestionDatabase {
     }
 
     @PostConstruct
-    public void init() {
+    private void init() {
         try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
             st.executeUpdate("CREATE TABLE Question (id SERIAL PRIMARY KEY, "
-                    + "name varchar(50) NOT NULL, account_id integer NOT NULL, "
-                    + "FOREIGN KEY (account_id) REFERENCES Account (id));");
+                    + "name varchar(100) NOT NULL, "
+                    + "account_id integer REFERENCES Account ON DELETE CASCADE);");
 //            create("test", 1);
             st.close();
             conn.close();
