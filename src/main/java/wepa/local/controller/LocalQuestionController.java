@@ -38,7 +38,7 @@ public class LocalQuestionController {
         return "questions";
     }
     
-    @RequestMapping(value = "/questions", method = RequestMethod.POST)
+    @RequestMapping(value = "/{user}/questions", method = RequestMethod.POST)
     public String postQuestions(@RequestParam String name) {
         LocalQuestion q = new LocalQuestion();
         q.setName(name);

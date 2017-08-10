@@ -20,7 +20,7 @@
                     <h2><span th:text="${user.username}"></span>'s tests</h2>
 
                     <label>New question</label>
-                    <form class="form-inline" th:method='post' th:action='@{/questions}'>
+                    <form class="form-inline" th:method='post' th:action='@{/{user}/questions(user=${user.username})}'>
                         <div class="form-group">
                             <input class="form-control" type="text" placeholder="name" name="name"/>
                         </div>
