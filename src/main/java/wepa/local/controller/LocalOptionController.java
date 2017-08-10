@@ -36,4 +36,10 @@ public class LocalOptionController {
         return "redirect:/" + user + "/questions/" + id;
     }
     
+    @RequestMapping(value = "/{user}/questions/{id}", method = RequestMethod.DELETE)
+    public String deleteOption(Model model, @PathVariable Long id, @RequestParam Long option_id, @PathVariable String user) {
+        optionRepository.delete(option_id);
+        return "redirect:/" + user + "/questions/" + id;
+    }
+    
 }

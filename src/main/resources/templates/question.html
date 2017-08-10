@@ -16,8 +16,8 @@
         <div th:replace="fragments/navbar :: navbar"></div>
 
         <div class='container'>
-            <div class="2-cols">
-                <div class='col-2 col-md-6 col-xs-6'>
+            <div class="3-cols">
+                <div class='col-1 col-md-6 col-xs-6'>
                     <label>New option</label>
                     <form class="form-inline" th:method='post' th:action='@{/{user}/questions/{id}(user=${user.username}, id=${question.id})}'>
                         <div class="form-group">
@@ -35,23 +35,28 @@
                 </div>
 
                 <div class='col-2 col-md-6 col-xs-6'>
-                    <h2 th:text="${question.name}"></h2>
-
-                    <div th:each="option : ${options}">
-                        <!--                        <p th:text="${option.value}"></p>
-                                                <label th:text="${option.correct}"></label>-->
-
-                        <div th:if="${option.correct}">
-                            <p style="color: green;" th:text="${option.value}"></p>
+                    <h2 th:text="${question.name}" style="overflow: auto; margin-bottom: 6%"></h2>
+                    <div th:each="option : ${options}" style="margin-bottom: 3%">
+                        <div class="panel panel-default" style="overflow: auto;">
+                            <div class="panel-body">
+                                <div th:if="${option.correct}">
+                                    <p style="color: green;" th:text="${option.value}"></p>
+                                </div>
+                                <div th:unless="${option.correct}">
+                                    <p style="color: red;" th:text="${option.value}"></p>
+                                </div>
+                            </div>
+                            <div style="float: right">
+                                <form th:method="delete" th:action='@{/{user}/questions/{id}(user=${user.username}, id=${question.id})}'>
+                                    <input type='hidden' th:value='${option.id}' name='option_id'/>
+                                    <input type='submit' class="btn btn-danger" value='X'/>
+                                </form>
+                            </div>
                         </div>
-                        <div th:unless="${option.correct}">
-                            <p style="color: red;" th:text="${option.value}"></p>
-                        </div>
+                        <br/>
                     </div>
                 </div>
-
             </div>
         </div>
-
     </body>
 </html>

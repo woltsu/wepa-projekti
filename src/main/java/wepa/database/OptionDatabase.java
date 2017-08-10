@@ -70,5 +70,17 @@ public class OptionDatabase {
             e.printStackTrace();
         }
     }
+    
+    public void delete(int option_id) {
+        try (Connection conn = dataSource.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM Option WHERE id = ?");
+            ps.setInt(1, option_id);
+            ps.executeUpdate();
+            ps.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
