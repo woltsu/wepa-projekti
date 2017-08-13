@@ -32,8 +32,16 @@
 
                     <div class='text-center' style='margin: 1% 0% 1% 0%' th:each="question : ${questions}">
                         <a id="link" th:href="@{/{user}/questions/{id}(user=${user.username}, id=${question.id})}">
-                            <div class="panel panel-default" th:href='@{/index}' style='margin: 0% 2% 0% 2%'>
-                                <div class="panel-body" th:text='${question.name}' style="overflow: auto">test's name</div>
+                            <div class="panel panel-default" th:href='@{/index}' style='margin: 0% 2% 0% 2%; overflow: auto'>
+                                <div class="panel-body">
+                                    <p th:text="${question.name}"></p>
+                                </div>
+                                <div style="float: right">
+                                    <form th:method="delete" th:action='@{/{user}/questions(user=${user.username}, id=${question.id})}'>
+                                        <input type='hidden' th:value='${question.id}' name='question_id'/>
+                                        <input type='submit' class="btn btn-danger" value='X'/>
+                                    </form>
+                                </div>
                             </div>
                         </a>
                     </div>

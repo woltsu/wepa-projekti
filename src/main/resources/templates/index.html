@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.springframework.org/security/tags">
-    
+
     <head>
         <title>Choices</title>
         <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -17,9 +17,17 @@
 
         <div class="container">
             <h2>Hello, <span th:text="${user.username}">user</span></h2>
-            <h4>Latest questions:</h4>
+            <div th:if="${not #lists.isEmpty(questions)}" style="margin-top: 2%">
+                <h4>Latest questions:</h4>
+                <hr/>
+            </div>
             <div th:each='question : ${questions}'>
-                <p th:text='${question.name}'></p>
+                <div style="margin-top: 1%">
+                    <p th:text='${question.name}'>question's name</p>
+                    <p th:text="${question.publisher.username}">publisher's name</p>
+                    <p th:text='${question.date}'>date</p>
+                </div>
+                <hr/>
             </div>
         </div>
     </body>

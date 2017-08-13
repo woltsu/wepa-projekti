@@ -34,6 +34,24 @@ public class AccountDatabase {
 //            e.printStackTrace();
         }
     }
+    
+    public Account findOne(int account_id) {
+        Account result = new Account();
+        try (Connection conn = dataSource.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Account WHERE id = ?");
+            ps.setInt(1, account_id);
+            ResultSet rs = ps.executeQuery();
+            boolean hasOne = rs.next();
+            if (!hasOne) {
+                return null;
+            }
+            result.setId(account_id);
+            result.setUsername(rs.getString("username"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
     public Account findByUsername(String username) {
         Account result = new Account();
