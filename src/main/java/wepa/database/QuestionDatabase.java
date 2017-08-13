@@ -63,7 +63,7 @@ public class QuestionDatabase {
         try {
             Connection conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Question (name, account_id, published, date) "
-                    + "VALUES (?, ?, false, current_timestamp)");
+                    + "VALUES (?, ?, false, null)");
             ps.setString(1, name);
             ps.setInt(2, account_id);
             ps.execute();
@@ -103,7 +103,7 @@ public class QuestionDatabase {
 
     public void save(Question q) {
         try (Connection conn = dataSource.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement("UPDATE Question SET published = ? where id = ?");
+            PreparedStatement ps = conn.prepareStatement("UPDATE Question SET published = ? WHERE id = ?");
             ps.setBoolean(1, q.isPublished());
             ps.setInt(2, q.getId());
             ps.execute();
