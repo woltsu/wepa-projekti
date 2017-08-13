@@ -60,8 +60,8 @@ public class Question {
         this.published = published;
     }
     
-    public int getPublisher() {
-        return account_id;
+    public Account getPublisher() {
+        return accountDatabase.findOne(account_id);
     }
     
 }
