@@ -53,6 +53,7 @@ public class LocalQuestionController {
         q.setLocalAccount(accountService.getAuthenticatedAccount());
         q = questionRepository.save(q);
         self.addQuestion(q);
+        q.setPublished(false);
         accountRepository.save(self);
         return "redirect:/" + self.getUsername() + "/questions/" + q.getId();
     }
@@ -67,6 +68,18 @@ public class LocalQuestionController {
         model.addAttribute("options", optionRepository.findByLocalQuestion(questionRepository.findOne(id)));
         model.addAttribute("user", self);
         return "question";
+    }
+
+    @RequestMapping(value = "/{user}/questions/{id}/toggle", method = RequestMethod.POST)
+    public String toggleQuestion(@RequestParam Long question_id, @PathVariable String user) {
+        LocalAccount self = accountService.getAuthenticatedAccount();
+        if (!user.equals(self.getUsername())) {
+            return "redirect:/";
+        }
+        LocalQuestion q = questionRepository.findOne(question_id);
+        q.setPublished(!q.isPublished());
+        questionRepository.save(q);
+        return "redirect:/" + self.getUsername() + "/questions/" + q.getId();
     }
 
 }

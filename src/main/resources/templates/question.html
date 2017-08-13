@@ -10,6 +10,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link href="../../css/style.css" th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'  type='text/css'/>
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"/>
     </head>
 
     <body>
@@ -25,19 +26,32 @@
                         </div>
                         <input class="btn btn-success" type="submit" value="+"/>
                         <br/>
-                        <div class="radio">
-                            <label><input type="radio" value="1" name="correct"/>true</label>
-                        </div>
-                        <div class="radio">
-                            <label><input type="radio" value="0" name="correct"/>false</label>
+                        <div style="margin-top: 2%">
+                            <div class="radio" style="margin-right: 2%">
+                                <label><input type="radio" value="1" name="correct"/>true</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" value="0" name="correct"/>false</label>
+                            </div>
                         </div>
                     </form>
                 </div>
 
                 <div class='col-2 col-md-6 col-xs-6'>
-                    <h2 th:text="${question.name}" style="overflow: auto; margin-bottom: 6%"></h2>
-                    <div th:each="option : ${options}" style="margin-bottom: 3%">
-                        <div class="panel panel-default" style="overflow: auto;">
+                    <div class="Row">
+                        <h2 class="Column" th:text="${question.name}" style="overflow: auto; margin-bottom: 6%"></h2>
+                        <form th:method='post' th:action='@{/{user}/questions/{id}/toggle(user=${user.username}, id=${question.id})}'>
+                            <input type='hidden' th:value='${question.id}' name='question_id'/>
+                            <div th:if='${question.published}'>
+                                <input type='submit' class='btn btn-danger' value='set private'/>
+                            </div>
+                            <div th:unless='${question.published}'>
+                                <input type='submit' class='btn btn-primary' value='set public'/>
+                            </div>
+                        </form>
+                    </div>
+                    <div th:each="option : ${options}">
+                        <div class="panel panel-default" style="overflow: auto; margin-bottom: 1%;">
                             <div class="panel-body">
                                 <div th:if="${option.correct}">
                                     <p style="color: green;" th:text="${option.value}"></p>

@@ -32,7 +32,7 @@ public class QuestionDatabase {
         try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
             st.executeUpdate("CREATE TABLE Question (id SERIAL PRIMARY KEY, "
-                    + "name varchar(100) NOT NULL, "
+                    + "name varchar(100) NOT NULL, published boolean, date timestamp, "
                     + "account_id integer REFERENCES Account ON DELETE CASCADE);");
 //            create("test", 1);
             st.close();
@@ -43,32 +43,27 @@ public class QuestionDatabase {
     }
 
     public List<Question> findByAccount(int account_id) {
-        List<Question> tests = new ArrayList();
+        List<Question> questions = new ArrayList();
         try (Connection conn = dataSource.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Question WHERE account_id = ?");
             ps.setInt(1, account_id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Question t = new Question();
-                t.setAccount(account_id);
-                t.setId(rs.getInt("id"));
-                t.setName(rs.getString("name"));
-                tests.add(t);
-            }
+            questions = createQuestions(rs);
             rs.close();
             ps.close();
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return tests;
+        return questions;
     }
 
 //    @Async
     public void create(String name, int account_id) {
         try {
             Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Question (name, account_id) VALUES (?, ?)");
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Question (name, account_id, published, date) "
+                    + "VALUES (?, ?, false, current_timestamp)");
             ps.setString(1, name);
             ps.setInt(2, account_id);
             ps.execute();
@@ -78,7 +73,7 @@ public class QuestionDatabase {
             e.printStackTrace();
         }
     }
-    
+
     public Question findOne(int id) {
         Question q = new Question();
         try (Connection conn = dataSource.getConnection()) {
@@ -95,6 +90,8 @@ public class QuestionDatabase {
             q.setId(id);
             q.setName(name);
             q.setAccount(account);
+            q.setDate(rs.getTimestamp("date"));
+            q.setPublished(rs.getBoolean("published"));
             rs.close();
             ps.close();
             conn.close();
@@ -102,6 +99,52 @@ public class QuestionDatabase {
             e.printStackTrace();
         }
         return q;
+    }
+
+    public void save(Question q) {
+        try (Connection conn = dataSource.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement("UPDATE Question SET published = ? where id = ?");
+            ps.setBoolean(1, q.isPublished());
+            ps.setInt(2, q.getId());
+            ps.execute();
+            ps.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Question> getTenPublishedLatest() {
+        List<Question> questions = new ArrayList();
+        try (Connection conn = dataSource.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Question WHERE published = true ORDER BY date DESC");
+            ResultSet rs = ps.executeQuery();
+            questions = createQuestions(rs);
+            rs.close();
+            ps.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return questions;
+    }
+
+    private List<Question> createQuestions(ResultSet rs) {
+        List<Question> questions = new ArrayList();
+        try {
+            while (rs.next()) {
+                Question q = new Question();
+                q.setAccount(rs.getInt("account_id"));
+                q.setId(rs.getInt("id"));
+                q.setName(rs.getString("name"));
+                q.setDate(rs.getTimestamp("date"));
+                q.setPublished(rs.getBoolean("published"));
+                questions.add(q);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return questions;
     }
 
 }
