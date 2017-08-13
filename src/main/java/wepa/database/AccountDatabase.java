@@ -37,6 +37,7 @@ public class AccountDatabase {
     
     public Account findOne(int account_id) {
         Account result = new Account();
+        result.setUsername("test");
         try (Connection conn = dataSource.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Account WHERE id = ?");
             ps.setInt(1, account_id);
