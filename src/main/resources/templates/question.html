@@ -40,7 +40,7 @@
                 <div class='col-2 col-md-6 col-xs-6'>
                     <div class="Row">
                         <h2 class="Column" th:text="${question.name}" style="overflow: auto; margin-bottom: 6%"></h2>
-                        <form th:method='put' th:action='@{/{user}/questions/{id}(user=${user.username}, id=${question.id})}'>
+                        <form th:action='@{/{user}/questions/{id}/toggle(user=${user.username}, id=${question.id})}' th:method='post'>
                             <input type='hidden' th:value='${question.id}' name='question_id'/>
                             <div th:if='${question.published}'>
                                 <input type='submit' class='btn btn-danger' value='set private'/>

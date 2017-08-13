@@ -70,7 +70,7 @@ public class LocalQuestionController {
         return "question";
     }
 
-    @RequestMapping(value = "/{user}/questions/{id}/toggle", method = RequestMethod.POST)
+    @RequestMapping(value = "/{user}/questions/{id}", method = RequestMethod.PUT)
     public String toggleQuestion(@RequestParam Long question_id, @PathVariable String user) {
         LocalAccount self = accountService.getAuthenticatedAccount();
         if (!user.equals(self.getUsername())) {

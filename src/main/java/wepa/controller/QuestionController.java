@@ -62,7 +62,7 @@ public class QuestionController {
         return "question";
     }
 
-    @RequestMapping(value = "/{user}/questions/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{user}/questions/{id}/toggle", method = RequestMethod.POST)
     public String toggleQuestion(@RequestParam int question_id, @PathVariable String user) {
         Account self = accountService.getAuthenticatedAccount();
         if (!user.equals(self.getUsername())) {
