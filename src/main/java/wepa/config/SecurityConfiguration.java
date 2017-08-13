@@ -22,7 +22,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests().antMatchers("/login", "/signup",
                 "/css/**", "/fonts/**", "/images/**", "/js/**", "/media/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/signup").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated().and().rememberMe();
 
         http.formLogin()
                 .loginPage("/login")

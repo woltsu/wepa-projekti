@@ -21,20 +21,26 @@
             <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
             <span th:text="${error}">error</span>
         </div>
-        <div style="margin: 3% 1% 3% 1%;">
-            <form method="post" th:action="@{/authenticate}">
-                <div class="form-group">
-                    <label>Username</label>
-                    <input id="username" type="text" class="form-control" name="username"/>
-                </div>
+        <div class="container">
+            <div style="margin: 3% 1% 3% 1%;">
+                <form method="post" th:action="@{/authenticate}" class="">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input id="username" type="text" class="form-control" name="username" placeholder="username"/>
+                    </div>
 
-                <div class="form-group">
-                    <label>Password</label>
-                    <input id="password" type="password" class="form-control" name="password"/>
-                </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input id="password" type="password" class="form-control" name="password" placeholder="password"/>
+                    </div>
 
-                <button type="submit" class="btn btn-primary" style="display: inline-block; margin-right: 10px;">Login</button>
-            </form>
+                    <div class="form-group">
+                        <label class="">Remember me?</label>
+                        <input id="remember" type="checkbox" class="checkbox" name="remember-me"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="display: inline-block; margin-top: 1%;">Login</button>
+                </form>
+            </div>
         </div>
     </body>
 </html>
