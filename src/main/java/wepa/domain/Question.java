@@ -60,10 +60,8 @@ public class Question {
         this.published = published;
     }
     
-    public Account getPublisher() {
-        Account a = new Account();
-        a.setUsername("ookoo");
-        return a;
+    public int getPublisher() {
+        return account_id;
     }
     
 }
