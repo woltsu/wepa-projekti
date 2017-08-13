@@ -47,6 +47,9 @@ public class AccountDatabase {
             }
             result.setId(account_id);
             result.setUsername(rs.getString("username"));
+            rs.close();
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
