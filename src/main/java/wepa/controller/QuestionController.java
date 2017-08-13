@@ -63,12 +63,12 @@ public class QuestionController {
     }
 
     @RequestMapping(value = "/{user}/questions/{id}/toggle", method = RequestMethod.POST)
-    public String toggleQuestion(@RequestParam int question_id, @PathVariable String user) {
+    public String toggleQuestion(@RequestParam int id, @PathVariable String user) {
         Account self = accountService.getAuthenticatedAccount();
         if (!user.equals(self.getUsername())) {
             return "redirect:/";
         }
-        Question q = questionDatabase.findOne(question_id);
+        Question q = questionDatabase.findOne(id);
         q.setPublished(!q.isPublished());
         questionDatabase.save(q);
         return "redirect:/" + self.getUsername() + "/questions/" + q.getId();
