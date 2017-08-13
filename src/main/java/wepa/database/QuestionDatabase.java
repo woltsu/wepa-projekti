@@ -63,7 +63,7 @@ public class QuestionDatabase {
         try {
             Connection conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Question (name, account_id, published, date) "
-                    + "VALUES (?, ?, false, null)");
+                    + "VALUES (?, ?, true, CURRENT_TIMESTAMP)");
             ps.setString(1, name);
             ps.setInt(2, account_id);
             ps.execute();
