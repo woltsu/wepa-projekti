@@ -22,7 +22,7 @@
                 <hr/>
             </div>
             <div th:each='question : ${questions}'>
-                <a th:href="@{/question/{id}(id=${question.id})}">
+                <a id="link" th:href="@{/question/{id}(id=${question.id})}">
                     <div style="margin-top: 1%">
                         <p th:text='${question.name}'>question's name</p>
                         <p th:text="${question.publisher.username}">publisher's name</p>
