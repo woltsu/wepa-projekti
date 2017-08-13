@@ -61,7 +61,9 @@ public class Question {
     }
     
     public Account getPublisher() {
-        return accountDatabase.findOne(this.account_id);
+        Account a = new Account();
+        a.setUsername("ookoo");
+        return a;
     }
     
 }
