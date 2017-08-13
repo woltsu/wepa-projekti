@@ -39,6 +39,16 @@ public class QuestionController {
         model.addAttribute("questions", questionDatabase.findByAccount(self.getId()));
         return "questions";
     }
+    
+    @RequestMapping(method = RequestMethod.DELETE)
+    public String deleteQuestion(@PathVariable String user, @RequestParam int id) {
+        Account self = accountService.getAuthenticatedAccount();
+        if (!user.equals(self.getUsername())) {
+            return "redirect:/";
+        }
+        questionDatabase.delete(id);
+        return "redirect:/" + self.getUsername() + "/questions";
+    }
 
     @RequestMapping(method = RequestMethod.POST)
     public String postQuestions(@RequestParam String name, @PathVariable String user) {

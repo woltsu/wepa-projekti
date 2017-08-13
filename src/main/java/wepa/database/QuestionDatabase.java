@@ -147,4 +147,16 @@ public class QuestionDatabase {
         return questions;
     }
 
+    public void delete(int question_id) {
+        try (Connection conn = dataSource.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM Question WHERE id = ?");
+            ps.setInt(1, question_id);
+            ps.executeUpdate();
+            ps.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
