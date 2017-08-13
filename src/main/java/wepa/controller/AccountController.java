@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import wepa.database.AccountDatabase;
+import wepa.service.AccountService;
 import wepa.validator.AccountValidator;
 
 @Profile("production")
@@ -18,12 +19,18 @@ public class AccountController {
 
     @Autowired
     private AccountDatabase accountDatabase;
-    
+
     @Autowired
     private AccountValidator accountValidator;
 
+    @Autowired
+    private AccountService accountService;
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, @RequestParam Map<String, String> params) {
+        if (accountService.getAuthenticatedAccount() != null) {
+            return "redirect:/";
+        }
         if (!params.isEmpty()) {
             model.addAttribute("error", "Wrong username or password!");
         }
@@ -32,6 +39,9 @@ public class AccountController {
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String getSignup() {
+        if (accountService.getAuthenticatedAccount() != null) {
+            return "redirect:/";
+        }
         return "signup";
     }
 
