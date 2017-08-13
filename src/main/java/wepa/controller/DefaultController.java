@@ -40,8 +40,9 @@ public class DefaultController {
     }
     
     @RequestMapping(value = "/question/{id}", method = RequestMethod.GET)
-    public String getAnswerPage(@PathVariable int id) {
+    public String getAnswerPage(Model model, @PathVariable int id) {
         Question q = questionDatabase.findOne(id);
+        model.addAttribute("user", accountService.getAuthenticatedAccount());
         return "answer";
     }
 
