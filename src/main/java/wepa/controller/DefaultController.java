@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +27,7 @@ public class DefaultController {
     
     @Autowired
     private AccountDatabase accountDatabase;
-
+    
     @RequestMapping(method = RequestMethod.GET)
     public String home(Model model) {
         model.addAttribute("user", accountService.getAuthenticatedAccount());
@@ -36,6 +37,12 @@ public class DefaultController {
         }
         model.addAttribute("questions", questions);
         return "index";
+    }
+    
+    @RequestMapping(value = "/question/{id}", method = RequestMethod.GET)
+    public String getAnswerPage(@PathVariable int id) {
+        Question q = questionDatabase.findOne(id);
+        return "answer";
     }
 
 }
