@@ -70,7 +70,7 @@ public class LocalQuestionController {
         return "question";
     }
 
-    @RequestMapping(value = "/{user}/questions/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{user}/questions/{id}/toggle", method = RequestMethod.POST)
     public String toggleQuestion(@RequestParam Long question_id, @PathVariable String user) {
         LocalAccount self = accountService.getAuthenticatedAccount();
         if (!user.equals(self.getUsername())) {
@@ -81,5 +81,6 @@ public class LocalQuestionController {
         questionRepository.save(q);
         return "redirect:/" + self.getUsername() + "/questions/" + q.getId();
     }
+    
 
 }
