@@ -16,20 +16,20 @@
         <div th:replace="fragments/navbar :: navbar"></div>
 
         <div class="container">
-            <h1 class="col-xs-12" th:text="${question.name}"></h1>
+            <h1 class="col-xs-12 col-md-12 text-center" th:text="${question.name}"></h1>
             <div th:if="${account_answer == null}">
                 <form th:method="post" th:action="@{/question/{id}(id=${question.id})}">
-                    <div class="btn-group-vertical col-md-6" data-toggle="buttons">
+                    <div class="btn-group-vertical col-md-12 col-xs-12" data-toggle="buttons" style="margin: auto">
                         <label th:each="option : ${options}" class="btn btn-default" style="outline: none; margin-bottom: 20px">
                             <input type="radio" value="nimi" name="option_id" th:value="${option.id}"/><span th:text="${option.value}">ookoo</span>
                         </label>
                     </div>
-                    <div class="col-xs-12" style="">
-                        <input type="submit" class="btn btn-primary" style="outline: none"/>
+                    <div class="text-center">
+                        <input type="submit" class="btn btn-primary col-xs-12 col-md-12" style="outline: none; margin-left: auto; margin-right: auto" value="Answer!"/>
                     </div>
                 </form>
             </div>
-            <div th:unless="${account_answer == null}">
+            <div th:unless="${account_answer == null}" class="text-center">
                 <p>You choose <span th:text="${account_answer.option.value}">option value</span> which is
                     <span th:if="${account_answer.option.correct}">correct</span><span th:unless="${account_answer.option.correct}">not correct</span></p>
             </div>
