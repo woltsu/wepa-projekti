@@ -5,24 +5,24 @@ import org.springframework.context.annotation.Profile;
 @Profile("production")
 public class Answer {
 
-    private int account;
-    private int option;
+    private Account account;
+    private Option option;
     private int questionId;
     private boolean correct;
 
-    public int getAccount() {
+    public Account getAccount() {
         return account;
     }
 
-    public void setAccount(int account) {
+    public void setAccount(Account account) {
         this.account = account;
     }
 
-    public int getOption() {
+    public Option getOption() {
         return option;
     }
 
-    public void setOption(int option) {
+    public void setOption(Option option) {
         this.option = option;
     }
 

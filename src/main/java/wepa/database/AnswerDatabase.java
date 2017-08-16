@@ -18,6 +18,12 @@ public class AnswerDatabase {
 
     @Autowired
     private BasicDataSource dataSource;
+    
+    @Autowired
+    private AccountDatabase accountDatabase;
+    
+    @Autowired
+    private OptionDatabase optionDatabase;
 
     @PostConstruct
     private void init() {
@@ -59,9 +65,9 @@ public class AnswerDatabase {
             if (!hasOne) {
                 return null;
             }
-            a.setAccount(account.getId());
+            a.setAccount(account);
             a.setCorrect(rs.getBoolean("correct"));
-            a.setOption(rs.getInt("option_id"));
+            a.setOption(optionDatabase.findOne(rs.getInt("option_id")));
             a.setQuestionId(question_id);
             rs.close();
             ps.close();
