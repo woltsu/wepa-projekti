@@ -40,8 +40,8 @@ public class OptionController {
     @RequestMapping(value = "/{user}/questions/{id}", method = RequestMethod.POST)
     public String postOption(Model model, @PathVariable int id, Option option, @PathVariable String user) {
         Account self = accountService.getAuthenticatedAccount();
-        List<String> errors = optionValidator.validateOption(option);
         option.setQuestion_id(questionDatabase.findOne(id).getId());
+        List<String> errors = optionValidator.validateOption(option);
         if (!errors.isEmpty()) {
             model.addAttribute("errors", errors);
             model.addAttribute("question", questionDatabase.findOne(id));
