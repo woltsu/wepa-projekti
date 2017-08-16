@@ -94,13 +94,23 @@ public class QuestionController {
     }
 
     @RequestMapping(value = "/{id}/toggle", method = RequestMethod.POST)
-    public String toggleQuestion(@RequestParam int question_id, @PathVariable String user) {
+    public String toggleQuestion(@RequestParam int question_id, @PathVariable String user, Model model) {
         Account self = accountService.getAuthenticatedAccount();
         if (!user.equals(self.getUsername())) {
             return "redirect:/";
         }
         Question q = questionDatabase.findOne(question_id);
         q.setPublished(!q.isPublished());
+
+        List<String> errors = questionValidator.validateQuestion(q);
+        if (!errors.isEmpty()) {
+            model.addAttribute("errors", errors);
+            model.addAttribute("question", questionDatabase.findOne(question_id));
+            model.addAttribute("user", self);
+            model.addAttribute("options", optionDatabase.findByQuestion(question_id));
+            return "question";
+        }
+
         questionDatabase.save(q);
         return "redirect:/" + self.getUsername() + "/questions/" + q.getId();
     }
