@@ -1,5 +1,6 @@
 package wepa.controller;
 
+import java.util.List;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -15,6 +16,7 @@ import wepa.database.QuestionDatabase;
 import wepa.domain.Account;
 import wepa.domain.Question;
 import wepa.service.AccountService;
+import wepa.validator.QuestionValidator;
 
 @Profile("production")
 @Controller
@@ -29,9 +31,12 @@ public class QuestionController {
 
     @Autowired
     private OptionDatabase optionDatabase;
-    
+
     @Autowired
     private AnswerDatabase answerDatabase;
+
+    @Autowired
+    private QuestionValidator questionValidator;
 
     @RequestMapping(method = RequestMethod.GET)
     public String getQuestions(Model model, @PathVariable String user) {
@@ -55,11 +60,23 @@ public class QuestionController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String postQuestions(@RequestParam String name, @PathVariable String user) {
+    public String postQuestions(@RequestParam String name, @PathVariable String user, Model model) {
         Account self = accountService.getAuthenticatedAccount();
         if (!user.equals(self.getUsername())) {
             return "redirect:/";
         }
+
+        Question q = new Question();
+        q.setName(name);
+
+        List<String> errors = questionValidator.validateQuestion(q);
+        if (!errors.isEmpty()) {
+            model.addAttribute("errors", errors);
+            model.addAttribute("user", self);
+            model.addAttribute("questions", questionDatabase.findByAccount(self.getId()));
+            return "questions";
+        }
+
         questionDatabase.create(name, self.getId());
         return "redirect:/" + self.getUsername() + "/questions";
     }
