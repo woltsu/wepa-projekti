@@ -2,6 +2,7 @@ package wepa.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import wepa.domain.Question;
 import wepa.service.AccountService;
 
 @Profile("production")
+@Controller
 public class AnswerController {
 
     @Autowired

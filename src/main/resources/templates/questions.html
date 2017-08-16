@@ -17,7 +17,7 @@
         <div class='container'>
             <div class="2-cols">
                 <div class='col-1 col-md-6 col-xs-6'>
-                    <h2><span th:text="${user.username}"></span>'s tests</h2>
+                    <h2><span th:text="${user.username}"></span>'s questions</h2>
 
                     <label>New question</label>
                     <form class="form-inline" th:method='post' th:action='@{/{user}/questions(user=${user.username})}'>
