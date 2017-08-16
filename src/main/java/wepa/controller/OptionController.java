@@ -33,7 +33,7 @@ public class OptionController {
 
     @Autowired
     private OptionValidator optionValidator;
-    
+
     @Autowired
     private AccountService accountService;
 
@@ -41,6 +41,7 @@ public class OptionController {
     public String postOption(Model model, @PathVariable int id, Option option, @PathVariable String user) {
         Account self = accountService.getAuthenticatedAccount();
         List<String> errors = optionValidator.validateOption(option);
+        option.setQuestion_id(questionDatabase.findOne(id).getId());
         if (!errors.isEmpty()) {
             model.addAttribute("errors", errors);
             model.addAttribute("question", questionDatabase.findOne(id));
@@ -49,7 +50,6 @@ public class OptionController {
             return "question";
         }
 
-        option.setQuestion_id(questionDatabase.findOne(id).getId());
         optionDatabase.create(option.getValue(), option.isCorrect(), option.getQuestion_id());
         return "redirect:/" + user + "/questions/" + id;
     }
