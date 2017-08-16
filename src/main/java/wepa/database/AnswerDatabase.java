@@ -8,10 +8,12 @@ import javax.annotation.PostConstruct;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 import wepa.domain.Account;
 import wepa.domain.Answer;
 
 @Profile("production")
+@Component
 public class AnswerDatabase {
 
     @Autowired
