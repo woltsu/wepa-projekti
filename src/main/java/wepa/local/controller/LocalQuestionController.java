@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 import wepa.local.domain.LocalAccount;
 import wepa.local.domain.LocalAnswer;
 import wepa.local.domain.LocalOption;
@@ -20,6 +22,7 @@ import wepa.local.repository.LocalAnswerRepository;
 import wepa.local.repository.LocalOptionRepository;
 import wepa.local.service.LocalAccountService;
 import wepa.local.repository.LocalQuestionRepository;
+import wepa.local.validator.LocalQuestionValidator;
 
 @Profile("default")
 @Controller
@@ -39,6 +42,9 @@ public class LocalQuestionController {
 
     @Autowired
     private LocalAnswerRepository answerRepository;
+
+    @Autowired
+    private LocalQuestionValidator questionValidator;
 
     private boolean isCorrectUser(String username) {
         LocalAccount self = accountService.getAuthenticatedAccount();
@@ -84,23 +90,6 @@ public class LocalQuestionController {
         return "redirect:/" + user + "/questions";
     }
 
-    @RequestMapping(value = "/{user}/questions", method = RequestMethod.POST)
-    public String postQuestions(@RequestParam String name, @PathVariable String user) {
-        LocalAccount self = accountService.getAuthenticatedAccount();
-        if (!isCorrectUser(user)) {
-            return "redirect:/";
-        }
-        LocalQuestion q = new LocalQuestion();
-        q.setName(name);
-        q.setLocalAccount(accountService.getAuthenticatedAccount());
-        q.setDate(new Timestamp(System.currentTimeMillis()));
-        q = questionRepository.save(q);
-        self.addQuestion(q);
-        q.setPublished(false);
-        accountRepository.save(self);
-        return "redirect:/" + self.getUsername() + "/questions/" + q.getId();
-    }
-
     @RequestMapping(value = "/{user}/questions/{id}", method = RequestMethod.GET)
     public String getQuestion(Model model, @PathVariable Long id, @PathVariable String user) {
         LocalAccount self = accountService.getAuthenticatedAccount();
@@ -113,46 +102,53 @@ public class LocalQuestionController {
         return "question";
     }
 
+    @RequestMapping(value = "/{user}/questions", method = RequestMethod.POST)
+    public String postQuestions(@RequestParam String name, @PathVariable String user, Model model) {
+        LocalAccount self = accountService.getAuthenticatedAccount();
+        if (!isCorrectUser(user)) {
+            return "redirect:/";
+        }
+        LocalQuestion q = new LocalQuestion();
+        q.setName(name);
+        q.setLocalAccount(accountService.getAuthenticatedAccount());
+        q.setDate(new Timestamp(System.currentTimeMillis()));
+
+        List<String> errors = questionValidator.validateQuestion(q);
+        if (!errors.isEmpty()) {
+            model.addAttribute("errors", errors);
+            model.addAttribute("user", self);
+            model.addAttribute("questions", questionRepository.findByLocalAccount(self));
+            return "questions";
+        }
+
+        q = questionRepository.save(q);
+        self.addQuestion(q);
+        q.setPublished(false);
+        accountRepository.save(self);
+        return "redirect:/" + self.getUsername() + "/questions/" + q.getId();
+    }
+
     @RequestMapping(value = "/{user}/questions/{id}/toggle", method = RequestMethod.POST)
-    public String toggleQuestion(@RequestParam Long question_id, @PathVariable String user) {
+    public String toggleQuestion(@RequestParam Long question_id, @PathVariable String user, Model model) {
+        LocalAccount self = accountService.getAuthenticatedAccount();
         if (!isCorrectUser(user)) {
             return "redirect:/";
         }
         LocalQuestion q = questionRepository.findOne(question_id);
         q.setPublished(!q.isPublished());
+
+        List<String> errors = questionValidator.validateQuestion(q);
+        if (!errors.isEmpty()) {
+            q.setPublished(!q.isPublished());
+            model.addAttribute("errors", errors);
+            model.addAttribute("options", optionRepository.findByLocalQuestion(questionRepository.findOne(question_id)));
+            model.addAttribute("user", self);
+            model.addAttribute("question", questionRepository.findOne(question_id));
+            return "question";
+        }
+
         questionRepository.save(q);
         return "redirect:/" + user + "/questions/" + q.getId();
-    }
-
-    @RequestMapping(value = "/question/{id}", method = RequestMethod.GET)
-    public String getAnswer(Model model, @PathVariable Long id) {
-        if (answerRepository.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id) != null) {
-            model.addAttribute("account_answer", answerRepository.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id));
-        }
-
-        LocalQuestion q = questionRepository.findOne(id);
-        model.addAttribute("user", accountService.getAuthenticatedAccount());
-        model.addAttribute("question", q);
-        model.addAttribute("options", optionRepository.findByLocalQuestion(q));
-        return "answer";
-    }
-
-    @RequestMapping(value = "/question/{id}", method = RequestMethod.POST)
-    public String postAnswer(Model model, @PathVariable Long id, @RequestParam Long option_id) {
-        LocalAnswer a = new LocalAnswer();
-        if (optionRepository.findOne(option_id).isCorrect()) {
-            a.setCorrect(true);
-        } else {
-            a.setCorrect(false);
-        }
-        a.setAccount(accountService.getAuthenticatedAccount());
-        a.setOption(optionRepository.findOne(option_id));
-        a.setQuestionId(id);
-        answerRepository.save(a);
-        LocalOption o = optionRepository.findOne(option_id);
-        o.addAnswer(a);
-        optionRepository.save(o);
-        return "redirect:/question/" + id;
     }
 
 }

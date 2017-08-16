@@ -1,5 +1,6 @@
 package wepa.local.controller;
 
+import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -9,11 +10,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import wepa.local.domain.LocalAccount;
 import wepa.local.domain.LocalOption;
 import wepa.local.domain.LocalQuestion;
 import wepa.local.repository.LocalOptionRepository;
 import wepa.local.repository.LocalQuestionRepository;
+import wepa.local.service.LocalAccountService;
 import wepa.local.service.LocalOptionService;
+import wepa.local.validator.LocalOptionValidator;
 
 @Profile("default")
 @Controller
@@ -28,15 +32,28 @@ public class LocalOptionController {
     @Autowired
     private LocalOptionService optionService;
 
+    @Autowired
+    private LocalOptionValidator optionValidator;
+
+    @Autowired
+    private LocalAccountService accountService;
+
     @RequestMapping(value = "/{user}/questions/{id}", method = RequestMethod.POST)
-    @Transactional
     public String postOption(Model model, @PathVariable Long id, LocalOption option, @PathVariable String user) {
-        if ((optionService.hasAlreadyACorrectOption(id) && option.isCorrect()) || (optionService.hasMaxFalseOptions(id) && !option.isCorrect())) {
-            return "redirect:/" + user + "/questions/" + id;
-        }
+        LocalAccount self = accountService.getAuthenticatedAccount();
         LocalQuestion q = questionRepository.findOne(id);
         q.getOptions().add(option);
         option.setLocalQuestion(questionRepository.findOne(id));
+
+        List<String> errors = optionValidator.validateOption(option);
+        if (!errors.isEmpty()) {
+            model.addAttribute("errors", errors);
+            model.addAttribute("user", self);
+            model.addAttribute("question", questionRepository.findOne(id));
+            model.addAttribute("options", optionRepository.findByLocalQuestion(questionRepository.findOne(id)));
+            return "question";
+        }
+
         optionRepository.save(option);
         return "redirect:/" + user + "/questions/" + id;
     }
@@ -48,6 +65,7 @@ public class LocalOptionController {
         LocalOption o = optionRepository.findOne(option_id);
         q.getOptions().remove(o);
         optionRepository.delete(o);
+        q.setPublished(false);
         return "redirect:/" + user + "/questions/" + id;
     }
 

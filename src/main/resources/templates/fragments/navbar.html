@@ -34,6 +34,16 @@
                     </div>
                 </div>
             </nav>
+            <div class="alert" th:if="${errors}">
+                <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                <div th:each="error : ${errors}">
+                    <span th:text="${error}">error</span>
+                </div>
+            </div>
+            <div class="success" th:if="${success}">
+                <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                <span th:text="${success}">success</span>
+            </div>
         </div>
     </body>
 </html>
