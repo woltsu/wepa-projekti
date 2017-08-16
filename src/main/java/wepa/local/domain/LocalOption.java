@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Profile("default")
-//@Entity
+@Entity
 public class LocalOption extends AbstractPersistable<Long> {
 
-    private String value;
+    private String optionValue;
     private boolean correct;
     @ManyToOne
     private LocalQuestion localQuestion;
@@ -19,11 +19,11 @@ public class LocalOption extends AbstractPersistable<Long> {
     }
 
     public String getValue() {
-        return value;
+        return optionValue;
     }
 
     public void setValue(String value) {
-        this.value = value;
+        this.optionValue = value;
     }
 
     public boolean isCorrect() {

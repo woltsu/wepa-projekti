@@ -57,6 +57,30 @@ public class OptionDatabase {
         return result;
     }
 
+    public Option findOne(int id) {
+        Option o = new Option();
+        try (Connection conn = dataSource.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Option WHERE id = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            boolean hasOne = rs.next();
+            if (!hasOne) {
+                return null;
+            }
+            o.setCorrect(rs.getBoolean("correct"));
+            o.setId(id);
+            o.setQuestion_id(rs.getInt("question_id"));
+            o.setValue(rs.getString("value"));
+            rs.close();
+            ps.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return o;
+
+    }
+
     public void create(String value, boolean correct, int question_id) {
         try (Connection conn = dataSource.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Option (value, correct, question_id) VALUES (?, ?, ?)");
@@ -70,7 +94,7 @@ public class OptionDatabase {
             e.printStackTrace();
         }
     }
-    
+
     public void delete(int option_id) {
         try (Connection conn = dataSource.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("DELETE FROM Option WHERE id = ?");

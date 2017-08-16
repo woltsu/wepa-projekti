@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import wepa.local.domain.LocalAccount;
+import wepa.local.domain.LocalAnswer;
 import wepa.local.domain.LocalOption;
 import wepa.local.domain.LocalQuestion;
 import wepa.local.repository.LocalAccountRepository;
+import wepa.local.repository.LocalAnswerRepository;
 import wepa.local.repository.LocalOptionRepository;
 import wepa.local.service.LocalAccountService;
 import wepa.local.repository.LocalQuestionRepository;
@@ -34,6 +36,9 @@ public class LocalQuestionController {
 
     @Autowired
     private LocalOptionRepository optionRepository;
+    
+    @Autowired
+    private LocalAnswerRepository answerRepository;
     
     private boolean isCorrectUser(String username) {
         LocalAccount self = accountService.getAuthenticatedAccount();
@@ -110,6 +115,34 @@ public class LocalQuestionController {
         q.setPublished(!q.isPublished());
         questionRepository.save(q);
         return "redirect:/" + user + "/questions/" + q.getId();
+    }
+    
+    @RequestMapping(value = "/question/{id}", method = RequestMethod.GET)
+    public String getAnswer(Model model, @PathVariable Long id) {
+        if (answerRepository.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id) != null) {
+            model.addAttribute("account_answer", answerRepository.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id));
+        }
+        
+        LocalQuestion q = questionRepository.findOne(id);
+        model.addAttribute("user", accountService.getAuthenticatedAccount());
+        model.addAttribute("question", q);
+        model.addAttribute("options", optionRepository.findByLocalQuestion(q));
+        return "answer";
+    }
+    
+    @RequestMapping(value = "/question/{id}", method = RequestMethod.POST)
+    public String postAnswer(Model model, @PathVariable Long id, @RequestParam Long option_id) {
+        LocalAnswer a = new LocalAnswer();
+        if (optionRepository.findOne(option_id).isCorrect()) {
+            a.setCorrect(true);
+        } else {
+            a.setCorrect(false);
+        }
+        a.setAccount(accountService.getAuthenticatedAccount());
+        a.setOption(optionRepository.findOne(option_id));
+        a.setQuestionId(id);
+        answerRepository.save(a);
+        return "redirect:/question/" + id;
     }
     
 

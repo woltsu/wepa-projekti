@@ -12,12 +12,27 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
 
-    <body style="background-color: green">
+    <body>
         <div th:replace="fragments/navbar :: navbar"></div>
-        <script>
-            $(document).ready(function() {
-                alert("OLE HYVÄ MIRA!");
-            });
-        </script>
+
+        <div class="container">
+            <h1 class="col-xs-12" th:text="${question.name}"></h1>
+            <div th:if="${account_answer == null}">
+                <form th:method="post" th:action="@{/question/{id}(id=${question.id})}">
+                    <div class="btn-group-vertical col-md-6" data-toggle="buttons">
+                        <label th:each="option : ${options}" class="btn btn-default" style="outline: none; margin-bottom: 20px">
+                            <input type="radio" value="nimi" name="option_id" th:value="${option.id}"/><span th:text="${option.value}">ookoo</span>
+                        </label>
+                    </div>
+                    <div class="col-xs-12" style="">
+                        <input type="submit" class="btn btn-primary" style="outline: none"/>
+                    </div>
+                </form>
+            </div>
+            <div th:unless="${account_answer == null}">
+                <p>You choose <span th:text="${account_answer.option.value}">option value</span> which is
+                    <span th:if="${account_answer.option.correct}">correct</span><span th:unless="${account_answer.option.correct}">not correct</span></p>
+            </div>
+        </div>
     </body>
 </html>
