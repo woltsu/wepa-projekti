@@ -20,6 +20,8 @@ public class LocalAccount extends AbstractPersistable<Long> {
     private String salt;
     @OneToMany(cascade = CascadeType.ALL)
     private List<LocalQuestion> questions;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<LocalAnswer> answers;
 
     public LocalAccount() {
     }
@@ -62,6 +64,14 @@ public class LocalAccount extends AbstractPersistable<Long> {
 
     public List<LocalQuestion> getQuestions() {
         return questions;
+    }
+
+    public List<LocalAnswer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<LocalAnswer> answers) {
+        this.answers = answers;
     }
 
     @Override

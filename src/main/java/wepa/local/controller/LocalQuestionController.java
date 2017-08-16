@@ -36,10 +36,10 @@ public class LocalQuestionController {
 
     @Autowired
     private LocalOptionRepository optionRepository;
-    
+
     @Autowired
     private LocalAnswerRepository answerRepository;
-    
+
     private boolean isCorrectUser(String username) {
         LocalAccount self = accountService.getAuthenticatedAccount();
         if (!username.equals(self.getUsername())) {
@@ -58,7 +58,7 @@ public class LocalQuestionController {
         model.addAttribute("questions", questionRepository.findByLocalAccount(accountService.getAuthenticatedAccount()));
         return "questions";
     }
-    
+
     @RequestMapping(value = "/{user}/questions", method = RequestMethod.DELETE)
     @Transactional
     public String deleteQuestion(@RequestParam Long question_id, @PathVariable String user) {
@@ -71,6 +71,13 @@ public class LocalQuestionController {
         List<LocalOption> options = optionRepository.findByLocalQuestion(q);
         for (LocalOption option : options) {
             q.getOptions().remove(option);
+            List<LocalAnswer> answers = answerRepository.findByOption(option);
+            if (answers != null) {
+                for (LocalAnswer answer : answers) {
+                    option.getAnswers().remove(answer);
+                    answerRepository.delete(answer);
+                }
+            }
             optionRepository.delete(option);
         }
         questionRepository.delete(q);
@@ -116,20 +123,20 @@ public class LocalQuestionController {
         questionRepository.save(q);
         return "redirect:/" + user + "/questions/" + q.getId();
     }
-    
+
     @RequestMapping(value = "/question/{id}", method = RequestMethod.GET)
     public String getAnswer(Model model, @PathVariable Long id) {
         if (answerRepository.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id) != null) {
             model.addAttribute("account_answer", answerRepository.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id));
         }
-        
+
         LocalQuestion q = questionRepository.findOne(id);
         model.addAttribute("user", accountService.getAuthenticatedAccount());
         model.addAttribute("question", q);
         model.addAttribute("options", optionRepository.findByLocalQuestion(q));
         return "answer";
     }
-    
+
     @RequestMapping(value = "/question/{id}", method = RequestMethod.POST)
     public String postAnswer(Model model, @PathVariable Long id, @RequestParam Long option_id) {
         LocalAnswer a = new LocalAnswer();
@@ -142,8 +149,10 @@ public class LocalQuestionController {
         a.setOption(optionRepository.findOne(option_id));
         a.setQuestionId(id);
         answerRepository.save(a);
+        LocalOption o = optionRepository.findOne(option_id);
+        o.addAnswer(a);
+        optionRepository.save(o);
         return "redirect:/question/" + id;
     }
-    
 
 }

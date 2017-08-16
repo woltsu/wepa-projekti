@@ -30,14 +30,6 @@ public class LocalDefaultController {
     
     @Autowired
     private LocalQuestionRepository questionRepository;
-    
-    @PostConstruct
-    public void init() {
-        LocalAccount a = new LocalAccount();
-        a.setUsername("user");
-        a.setPassword("user");
-        accountRepository.save(a);
-    }
 
     @RequestMapping(method = RequestMethod.GET)
     public String home(Model model) {
