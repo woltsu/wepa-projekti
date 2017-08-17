@@ -7,9 +7,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link href="../../css/style.css" th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'  type='text/css'/>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </head>
 
     <body>
@@ -19,15 +24,17 @@
                 <div class="row">
                     <div class='col-md-12 col-xs-12'>
                         <h2><span th:text="${user.username}"></span>'s questions</h2>
-
                         <label>New question</label>
-                        <form class="form-inline" th:method='post' th:action='@{/{user}/questions(user=${user.username})}'>
+                        <form style="margin-bottom: 2%" th:method='post' th:action='@{/{user}/questions(user=${user.username})}'>
                             <div class="form-group">
                                 <input class="form-control" type="text" placeholder="name" name="name"/>
-                                <input class="btn btn-success form-control" type="submit" value="New question"/>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4 col-md-4 col-offset-6 centered" style="">
+                                    <input class="btn btn-success" type="submit" value="Create"/>
+                                </div>
                             </div>
                         </form>
-
                     </div>
                 </div>
                 <div class="row">
