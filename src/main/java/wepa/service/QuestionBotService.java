@@ -34,19 +34,11 @@ public class QuestionBotService {
 
     private RestTemplate restTemplate;
 
-    @PostConstruct
-    public void init() {
-        Account bot = new Account();
-        bot.setUsername("Question bot");
-        bot.setPassword("very secret password");
-        accountDatabase.create(bot.getUsername(), "test");
-    }
-
     public QuestionBotService() {
         this.restTemplate = new RestTemplate();
     }
 
-    @Scheduled(fixedDelay = 30000)
+    @Scheduled(cron = "0 0/20 * * * ?")
     public void getQuestion() {
         JsonNode node = restTemplate.getForObject("https://opentdb.com/api.php?amount=1&type=multiple", JsonNode.class);
         String question = node.get("results").get(0).get("question").asText();

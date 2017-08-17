@@ -25,16 +25,20 @@ public class AccountDatabase {
         try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
             st.executeUpdate("CREATE TABLE Account (id SERIAL PRIMARY KEY, "
-                            + "username varchar(255) NOT NULL, password varchar(255) NOT NULL, "
-                            + "salt varchar(255));");
+                    + "username varchar(255) NOT NULL, password varchar(255) NOT NULL, "
+                    + "salt varchar(255));");
             create("user", "user");
+            Account bot = new Account();
+            bot.setUsername("Question bot");
+            bot.setPassword("very secret password");
+            create(bot.getUsername(), bot.getPassword());
             st.close();
             conn.close();
         } catch (Exception e) {
 //            e.printStackTrace();
         }
     }
-    
+
     public Account findOne(int account_id) {
         Account result = new Account();
         result.setUsername("test");
@@ -76,7 +80,7 @@ public class AccountDatabase {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         if (result.getUsername() == null) {
             return null;
         }
@@ -105,7 +109,7 @@ public class AccountDatabase {
         }
         return users;
     }
-    
+
 //    @Async
     public void create(String username, String password) {
         try {
