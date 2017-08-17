@@ -19,27 +19,28 @@
 
     <body>
         <div th:replace="fragments/navbar :: navbar"></div>
+        <div class="container">
+            <h1>Sign up</h1>
+            <div style="margin: 3% 1% 3% 1%;">
+                <form method="post" th:action="@{/signup}">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input id="username" type="text" class="form-control" name="username" th:value="${username}"/>
+                    </div>
 
-        <h1>Sign up</h1>
-        <div style="margin: 3% 1% 3% 1%;">
-            <form method="post" th:action="@{/signup}">
-                <div class="form-group">
-                    <label>Username</label>
-                    <input id="username" type="text" class="form-control" name="username" th:value="${username}"/>
-                </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input id="password" type="password" class="form-control" name="password"/>
+                    </div>
 
-                <div class="form-group">
-                    <label>Password</label>
-                    <input id="password" type="password" class="form-control" name="password"/>
-                </div>
+                    <div class="form-group">
+                        <label>Password again</label>
+                        <input id="passwordAgain" type="password" class="form-control" name="passwordAgain"/>
+                    </div>
 
-                <div class="form-group">
-                    <label>Password again</label>
-                    <input id="passwordAgain" type="password" class="form-control" name="passwordAgain"/>
-                </div>
-
-                <button type="submit" class="btn btn-primary" style="display: inline-block; margin-right: 10px;">Login</button>
-            </form>
+                    <button type="submit" class="btn btn-primary" style="display: inline-block; margin-right: 10px;">Sign up</button>
+                </form>
+            </div>
         </div>
     </body>
 </html>

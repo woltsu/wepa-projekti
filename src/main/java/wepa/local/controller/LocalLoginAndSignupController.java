@@ -1,5 +1,6 @@
 package wepa.local.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,9 @@ public class LocalLoginAndSignupController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, @RequestParam Map<String, String> params) {
         if (!params.isEmpty()) {
-            model.addAttribute("error", "Wrong username or password!");
+            List<String> errors = new ArrayList();
+            errors.add("Wrong username or password!");
+            model.addAttribute("errors", errors);
         }
         return "login";
     }

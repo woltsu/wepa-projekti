@@ -1,5 +1,6 @@
 package wepa.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,9 @@ public class AccountController {
             return "redirect:/";
         }
         if (!params.isEmpty()) {
-            model.addAttribute("error", "Wrong username or password!");
+            List<String> errors = new ArrayList();
+            errors.add("Wrong username or password!");
+            model.addAttribute("erros", errors);
         }
         return "login";
     }
