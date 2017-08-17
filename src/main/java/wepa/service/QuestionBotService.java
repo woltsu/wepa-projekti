@@ -75,8 +75,7 @@ public class QuestionBotService {
         q.setName(question);
         q.setPublished(true);
         q.setPublisher(accountDatabase.findByUsername("Question bot"));
-        questionDatabase.create(q.getName(), q.getAccount());
-        questionDatabase.save(q);
+        questionDatabase.create(q.getName(), q.getAccount(), true);
 
         for (String value : values) {
             Option o = new Option();

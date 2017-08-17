@@ -73,6 +73,22 @@ public class QuestionDatabase {
             e.printStackTrace();
         }
     }
+    
+    public void create(String name, int account_id, boolean published) {
+        try {
+            Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Question (name, account_id, published, date) "
+                    + "VALUES (?, ?, ?, CURRENT_TIMESTAMP)");
+            ps.setString(1, name);
+            ps.setInt(2, account_id);
+            ps.setBoolean(3, published);
+            ps.execute();
+            conn.close();
+            ps.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public Question findOne(int id) {
         Question q = new Question();
