@@ -17,41 +17,46 @@
         <div th:replace="fragments/navbar :: navbar"></div>
 
         <div class='container'>
-            <div class="3-cols">
-                <div class='col-1 col-md-6 col-xs-6'>
-                    <label>New option</label>
-                    <form class="form-inline" th:method='post' th:action='@{/{user}/questions/{id}(user=${user.username}, id=${question.id})}'>
-                        <div class="form-group">
-                            <input class="form-control" type="text" placeholder="option" name="value"/>
-                        </div>
-                        <input class="btn btn-success" type="submit" value="+"/>
-                        <br/>
-                        <div style="margin-top: 2%">
-                            <div class="radio" style="margin-right: 2%">
-                                <label><input type="radio" value="1" name="correct"/>true</label>
+            <div class="grid">
+                <div class="row">
+                    <div class='col-md-4 col-xs-4'>
+                        <label>New option</label>
+                        <form class="form-inline" th:method='post' th:action='@{/{user}/questions/{id}(user=${user.username}, id=${question.id})}'>
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="option" name="value"/>
                             </div>
-                            <div class="radio">
-                                <label><input type="radio" value="0" name="correct" checked="true"/>false</label>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <div class='col-2 col-md-6 col-xs-6'>
-                    <div class="Row">
-                        <h2 class="Column" th:text="${question.name}" style="overflow: auto; margin-bottom: 6%"></h2>
-                        <form th:action='@{/{user}/questions/{id}/toggle(user=${user.username}, id=${question.id})}' th:method='post'>
-                            <input type='hidden' th:value='${question.id}' name='question_id'/>
-                            <div th:if='${question.published}'>
-                                <input type='submit' class='btn btn-danger' value='set private'/>
-                            </div>
-                            <div th:unless='${question.published}'>
-                                <input type='submit' class='btn btn-primary' value='set public'/>
+                            <input class="btn btn-success" type="submit" value="+"/>
+                            <br/>
+                            <div style="margin-top: 2%">
+                                <div class="radio" style="margin-right: 2%">
+                                    <label><input type="radio" value="1" name="correct"/>correct</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" value="0" name="correct" checked="true"/>incorrect</label>
+                                </div>
                             </div>
                         </form>
                     </div>
-                    <div th:each="option : ${options}">
-                        <div class="panel panel-default" style="overflow: auto; margin-bottom: 1%;">
+
+                    <div class='col-md-8 col-xs-8'>
+                        <div class="">
+                            <h2 class="" th:text="${question.name}" style="overflow: auto; margin-bottom: 0%"></h2>
+                            <br/>
+                            <form style="margin-bottom: 4%" th:action='@{/{user}/questions/{id}/toggle(user=${user.username}, id=${question.id})}' th:method='post'>
+                                <input type='hidden' th:value='${question.id}' name='question_id'/>
+                                <div th:if='${question.published}'>
+                                    <input type='submit' class='btn btn-danger' value='set private'/>
+                                </div>
+                                <div th:unless='${question.published}'>
+                                    <input type='submit' class='btn btn-primary' value='set public'/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div th:each="option : ${options}" style="">
+                        <div class="panel panel-default col-xs-5 col-md-5" style="overflow: auto; margin-bottom: 4%; margin-left: 4%; padding: 0% 0% 0% 0%">
                             <div class="panel-body">
                                 <div th:if="${option.correct}">
                                     <p style="color: green;" th:text="${option.value}"></p>
@@ -67,7 +72,6 @@
                                 </form>
                             </div>
                         </div>
-                        <br/>
                     </div>
                 </div>
             </div>

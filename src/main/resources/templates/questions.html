@@ -15,40 +15,41 @@
     <body>
         <div th:replace="fragments/navbar :: navbar"></div>
         <div class='container'>
-            <div class="2-cols">
-                <div class='col-1 col-md-6 col-xs-6'>
-                    <h2><span th:text="${user.username}"></span>'s questions</h2>
+            <div class="grid">
+                <div class="row">
+                    <div class='col-md-12 col-xs-12'>
+                        <h2><span th:text="${user.username}"></span>'s questions</h2>
 
-                    <label>New question</label>
-                    <form class="form-inline" th:method='post' th:action='@{/{user}/questions(user=${user.username})}'>
-                        <div class="form-group">
-                            <input class="form-control" type="text" placeholder="name" name="name"/>
-                        </div>
-                        <input class="btn btn-success" type="submit" value="Create a new question"/>
-                    </form>
-
-                </div>
-                <div class="col-2 col-md-6 col-xs-6">
-
-                    <div class='text-center' style='margin: 1% 0% 1% 0%' th:each="question : ${questions}">
-                        <a id="link" th:href="@{/{user}/questions/{id}(user=${user.username}, id=${question.id})}">
-                            <div class="panel panel-default" th:href='@{/index}' style='margin: 0% 2% 0% 2%; overflow: auto'>
-                                <div class="panel-body">
-                                    <p th:text="${question.name}"></p>
-                                </div>
-                                <div style="float: right">
-                                    <form th:method="delete" th:action='@{/{user}/questions(user=${user.username}, id=${question.id})}'>
-                                        <input type='hidden' th:value='${question.id}' name='question_id'/>
-                                        <input type='submit' class="btn btn-danger" value='X'/>
-                                    </form>
-                                </div>
+                        <label>New question</label>
+                        <form class="form-inline" th:method='post' th:action='@{/{user}/questions(user=${user.username})}'>
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="name" name="name"/>
+                                <input class="btn btn-success form-control" type="submit" value="New question"/>
                             </div>
-                        </a>
-                    </div>
+                        </form>
 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12" style="">
+                        <div class='text-center' style='margin: 1% 0% 1% 0%' th:each="question : ${questions}">
+                            <a id="link" th:href="@{/{user}/questions/{id}(user=${user.username}, id=${question.id})}">
+                                <div class="panel panel-default" th:href='@{/index}' style='margin: 0% 2% 0% 2%; overflow: auto'>
+                                    <div class="panel-body">
+                                        <div style="float: right">
+                                            <form th:method="delete" th:action='@{/{user}/questions(user=${user.username}, id=${question.id})}'>
+                                                <input type='hidden' th:value='${question.id}' name='question_id'/>
+                                                <input type='submit' class="btn btn-danger" value="X"/>
+                                            </form>
+                                        </div>
+                                        <p th:text="${question.name}"></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
     </body>
 </html>

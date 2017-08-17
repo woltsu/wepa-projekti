@@ -17,20 +17,28 @@
         <div th:replace="fragments/navbar :: navbar" style="background-color: green"></div>
 
         <div class="container">
-            <h2>Hello, <span th:text="${user.username}">user</span></h2>
-            <div th:if="${not #lists.isEmpty(questions)}" style="margin-top: 2%">
-                <h4>Latest questions:</h4>
-                <hr/>
-            </div>
-            <div th:each='question : ${questions}'>
-                <a id="link" th:href="@{/question/{id}(id=${question.id})}">
-                    <div style="margin-top: 1%">
-                        <p th:text='${question.name}'>question's name</p>
-                        <p th:text="${question.publisher.username}">publisher's name</p>
-                        <p th:text='${question.date}'>date</p>
+            <div class="grid">
+                <div class="row">
+                    <h1 class="col-xs-12 col-md-12" style="margin-bottom: 2%">Hello, <span th:text="${user.username}">user</span></h1>
+                </div>
+                <div class="row">
+                    <div th:if="${not #lists.isEmpty(questions)}" style="margin-top: 2%" class="col-xs-12 col-md-12">
+                        <h4>Latest questions:</h4>
+                        <hr/>
                     </div>
-                    <hr/>
-                </a>
+                </div>
+                <div th:each='question : ${questions}'>
+                    <div class="row">
+                        <a id="link" th:href="@{/question/{id}(id=${question.id})}" class="col-xs-12 col-md-12">
+                            <div style="margin-top: 1%">
+                                <p th:text='${question.name}'>question's name</p>
+                                <p th:text="${question.publisher.username}">publisher's name</p>
+                                <p th:text='${question.date}'>date</p>
+                            </div>
+                            <hr/>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
