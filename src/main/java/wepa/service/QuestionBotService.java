@@ -39,7 +39,7 @@ public class QuestionBotService {
         Account bot = new Account();
         bot.setUsername("Question bot");
         bot.setPassword("very secret password");
-        accountDatabase.create(bot.getUsername(), bot.getPassword());
+        accountDatabase.create(bot.getUsername(), "test");
     }
 
     public QuestionBotService() {
