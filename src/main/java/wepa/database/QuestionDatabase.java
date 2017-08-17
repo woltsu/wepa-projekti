@@ -32,7 +32,7 @@ public class QuestionDatabase {
         try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
             st.executeUpdate("CREATE TABLE Question (id SERIAL PRIMARY KEY, "
-                    + "name varchar(100) NOT NULL, published boolean, date timestamp, "
+                    + "name varchar(1000) NOT NULL, published boolean, date timestamp, "
                     + "account_id integer REFERENCES Account ON DELETE CASCADE);");
 //            create("test", 1);
             st.close();

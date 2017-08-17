@@ -46,7 +46,7 @@ public class QuestionBotService {
         this.restTemplate = new RestTemplate();
     }
 
-    @Scheduled(cron = "20 * * * * ?")
+    @Scheduled(fixedDelay = 30000)
     public void getQuestion() {
         JsonNode node = restTemplate.getForObject("https://opentdb.com/api.php?amount=1&type=multiple", JsonNode.class);
         String question = node.get("results").get(0).get("question").asText();
@@ -75,7 +75,6 @@ public class QuestionBotService {
         q.setName(question);
         q.setPublished(true);
         q.setPublisher(accountDatabase.findByUsername("Question bot"));
-        questionDatabase.save(q);
         questionDatabase.create(q.getName(), q.getAccount());
         questionDatabase.save(q);
 
