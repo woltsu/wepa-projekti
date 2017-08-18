@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 import javax.annotation.PostConstruct;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +85,9 @@ public class QuestionDatabase {
             ps.setString(1, name);
             ps.setInt(2, account_id);
             ps.setBoolean(3, published);
-            ps.setDate(4, (Date) Calendar.getInstance().getTime());
+            Calendar cSchedStartCal = Calendar.getInstance(TimeZone.getTimeZone("GMT+3"));
+            cSchedStartCal.setTimeZone(TimeZone.getTimeZone("Europe/Finland"));
+            ps.setDate(4, (Date) cSchedStartCal.getTime());
             ps.execute();
             conn.close();
             ps.close();
