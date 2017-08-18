@@ -28,10 +28,10 @@ public class DefaultController {
     @Autowired
     private AccountDatabase accountDatabase;
     
-//    @RequestMapping(method = RequestMethod.GET)
-//    public String redirectHome() {
-//        return "redirect:/?page=1";
-//    }
+    @RequestMapping(method = RequestMethod.GET)
+    public String redirectHome() {
+        return "redirect:/?page=1";
+    }
     
     @RequestMapping(method = RequestMethod.GET, value = "/")
     public String home(Model model, @RequestParam(defaultValue = "1") int page) {
@@ -44,9 +44,9 @@ public class DefaultController {
         for (Question question : questions) {
             question.setPublisher(accountDatabase.findOne(question.getAccount()));
         }
-//        if (questions.isEmpty() && page > 1) {
-//            return "redirect:/?page=1";
-//        }
+        if (questions.isEmpty() && page > 1) {
+            return "redirect:/?page=1";
+        }
         model.addAttribute("questions", questions);
         return "index";
     }
