@@ -27,6 +27,9 @@ public class AccountValidator {
         if (username == null || username.length() < 3) {
             errors.add("Username must be at least 3 characters long!");
         }
+        if (username.length() > 200) {
+            errors.add("Username too long!");
+        }
         if (accountDatabase.findByUsername(username) != null) {
             errors.add("Username taken!");
         }
@@ -37,6 +40,9 @@ public class AccountValidator {
         List<String> errors = new ArrayList();
         if (password == null || password.length() < 3) {
             errors.add("Password must be at least 3 characters long!");
+        }
+        if (password.length() > 200) {
+            errors.add("Password too long!");
         }
         if (!password.equals(passwordAgain)) {
             errors.add("Passwords didn't match!");

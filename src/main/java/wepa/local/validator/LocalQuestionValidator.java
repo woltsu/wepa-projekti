@@ -22,6 +22,9 @@ public class LocalQuestionValidator {
         if (name == null || name.isEmpty() || name.length() < 3) {
             errors.add("Question's name must be at least 3 characters long!");
         }
+        if (name.length() > 900) {
+            errors.add("Question name too long!");
+        }
         return errors;
     }
     

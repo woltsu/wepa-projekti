@@ -32,6 +32,9 @@ public class OptionValidator {
         if (value == null || value.isEmpty()) {
             errors.add("Option value must not be empty!");
         }
+        if (value.length() > 100) {
+            errors.add("Option value too long!");
+        }
         return errors;
     }
 
