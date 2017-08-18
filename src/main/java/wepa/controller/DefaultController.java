@@ -28,6 +28,11 @@ public class DefaultController {
     @Autowired
     private AccountDatabase accountDatabase;
     
+    @RequestMapping(method = RequestMethod.GET)
+    public String redirectHome() {
+        return "redirect:/?page=1";
+    }
+    
     @RequestMapping(method = RequestMethod.GET, value = "/")
     public String home(Model model, @RequestParam(defaultValue = "1") int page) {
         model.addAttribute("user", accountService.getAuthenticatedAccount());
