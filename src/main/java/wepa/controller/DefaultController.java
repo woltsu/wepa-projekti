@@ -36,8 +36,8 @@ public class DefaultController {
         for (Question question : questions) {
             question.setPublisher(accountDatabase.findOne(question.getAccount()));
         }
-        if (questions.isEmpty()) {
-            return "redirect:/?page=" + (page - 1);
+        if (questions.isEmpty() && page > 1) {
+            return "redirect:/?page=1";
         }
         model.addAttribute("questions", questions);
         return "index";
