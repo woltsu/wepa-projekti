@@ -32,7 +32,7 @@ public class DefaultController {
     public String home(Model model, @RequestParam(defaultValue = "1") int page) {
         model.addAttribute("user", accountService.getAuthenticatedAccount());
         model.addAttribute("page", page);
-        List<Question> questions = questionDatabase.getTenPublishedLatest((page - 1) * 10, (page + 10));
+        List<Question> questions = questionDatabase.getTenPublishedLatest((page - 1) * 10, ((page - 1) * 10 + 10));
         for (Question question : questions) {
             question.setPublisher(accountDatabase.findOne(question.getAccount()));
         }
