@@ -34,7 +34,7 @@
                 </form>
             </div>
             <div th:unless="${account_answer == null}" class="text-center">
-                <p>You choose <span th:text="${account_answer.option.value}">option value</span> which is
+                <p>You chose <span th:text="${account_answer.option.value}">option value</span> which is
                     <span th:if="${account_answer.option.correct}" style="color: green">correct</span><span th:unless="${account_answer.option.correct}" style="color: red">not correct</span></p>
             </div>
         </div>

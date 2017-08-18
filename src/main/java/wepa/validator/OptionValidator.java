@@ -22,7 +22,7 @@ public class OptionValidator {
             errors.add("Question already has a correct option!");
         }
         if (optionService.hasMaxFalseOptions(o.getQuestion_id()) && !o.isCorrect()) {
-            errors.add("Question has maxium number of incorrect options!");
+            errors.add("Question has maximum number of incorrect options!");
         }
         return errors;
     }
