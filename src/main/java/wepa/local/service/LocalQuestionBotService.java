@@ -71,7 +71,7 @@ public class LocalQuestionBotService {
 
         LocalQuestion q = new LocalQuestion();
         q.setDate(Calendar.getInstance().getTime());
-        q.setLocalAccount(accountRepository.findByUsername("bot"));
+        q.setLocalAccount(accountRepository.findByUsername("Question bot"));
         q.setName(question);
         q.setPublished(true);
 
