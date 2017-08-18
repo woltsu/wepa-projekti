@@ -37,14 +37,11 @@ public class DefaultController {
     public String home(Model model, @RequestParam(defaultValue = "1") int page) {
         model.addAttribute("user", accountService.getAuthenticatedAccount());
         model.addAttribute("page", page);
-        if (page < 1) {
-            return "redirect:/?page=1";
-        }
         List<Question> questions = questionDatabase.getTenPublishedLatest((page - 1) * 10);
         for (Question question : questions) {
             question.setPublisher(accountDatabase.findOne(question.getAccount()));
         }
-        if (questions.isEmpty() && page > 1) {
+        if ((questions.isEmpty() && page > 1) || page < 1) {
             return "redirect:/?page=1";
         }
         model.addAttribute("questions", questions);
