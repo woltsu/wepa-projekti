@@ -133,8 +133,8 @@ public class QuestionDatabase {
     public List<Question> getTenPublishedLatest(int offset) {
         List<Question> questions = new ArrayList();
         try (Connection conn = dataSource.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Question WHERE published = true ORDER BY date DESC LIMIT = 10");
-//            ps.setInt(1, offset);
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Question WHERE published = true ORDER BY date DESC LIMIT ?");
+            ps.setInt(1, 10);
             ResultSet rs = ps.executeQuery();
             questions = createQuestions(rs);
             rs.close();
