@@ -35,7 +35,7 @@ public class AccountController {
         if (!params.isEmpty()) {
             List<String> errors = new ArrayList();
             errors.add("Wrong username or password!");
-            model.addAttribute("erros", errors);
+            model.addAttribute("errors", errors);
         }
         return "login";
     }

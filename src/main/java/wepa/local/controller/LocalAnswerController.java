@@ -39,6 +39,9 @@ public class LocalAnswerController {
         }
 
         LocalQuestion q = questionRepository.findOne(id);
+        if (!q.isPublished()) {
+            return "redirect:/";
+        }
         model.addAttribute("user", accountService.getAuthenticatedAccount());
         model.addAttribute("question", q);
         model.addAttribute("options", optionRepository.findByLocalQuestion(q));

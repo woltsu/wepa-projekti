@@ -38,6 +38,9 @@ public class AnswerController {
         }
 
         Question q = questionDatabase.findOne(id);
+        if (!q.isPublished()) {
+            return "redirect:/";
+        }
         model.addAttribute("user", accountService.getAuthenticatedAccount());
         model.addAttribute("question", q);
         model.addAttribute("options", optionDatabase.findByQuestion(q.getId()));
