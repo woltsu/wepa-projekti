@@ -27,7 +27,7 @@ public class LocalSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/authenticate")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/?page=1")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .permitAll();

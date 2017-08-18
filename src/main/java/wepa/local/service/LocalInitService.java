@@ -33,40 +33,42 @@ public class LocalInitService {
         a.setUsername("user");
         a.setPassword("user");
         accountRepository.save(a);
-        
-        LocalQuestion q = new LocalQuestion();
-        q.setDate(Calendar.getInstance().getTime());
-        q.setLocalAccount(a);
-        q.setName("How much is 5 + 5?");
-        q.setPublished(true);
-        q.setOptions(createOptions(q));
-        
-        questionRepository.save(q);
-        optionRepository.save(q.getOptions());
+
+        for (int i = 0; i < 25; i++) {
+            LocalQuestion q = new LocalQuestion();
+            q.setDate(Calendar.getInstance().getTime());
+            q.setLocalAccount(a);
+            q.setName("" + i);
+            q.setPublished(true);
+            q.setOptions(createOptions(q));
+
+            questionRepository.save(q);
+            optionRepository.save(q.getOptions());
+        }
     }
-    
+
     private List<LocalOption> createOptions(LocalQuestion q) {
         List<LocalOption> options = new ArrayList();
         LocalOption first = new LocalOption();
         first.setValue("1");
         first.setCorrect(false);
         first.setLocalQuestion(q);
-        
+
         LocalOption second = new LocalOption();
         second.setValue("2");
         second.setCorrect(false);
         second.setLocalQuestion(q);
-        
+
         LocalOption third = new LocalOption();
         third.setValue("3");
         third.setCorrect(false);
         third.setLocalQuestion(q);
-        
+
         LocalOption fourth = new LocalOption();
         fourth.setValue("10");
         fourth.setCorrect(true);
         fourth.setLocalQuestion(q);
-        
+
         options.add(first);
         options.add(second);
         options.add(third);

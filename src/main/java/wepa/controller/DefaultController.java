@@ -28,15 +28,29 @@ public class DefaultController {
     @Autowired
     private AccountDatabase accountDatabase;
     
-    @RequestMapping(method = RequestMethod.GET)
-    public String home(Model model) {
+    @RequestMapping(method = RequestMethod.GET, value = "/")
+    public String home(Model model, @RequestParam(defaultValue = "1") int page) {
         model.addAttribute("user", accountService.getAuthenticatedAccount());
-        List<Question> questions = questionDatabase.getTenPublishedLatest();
+        model.addAttribute("page", page);
+        List<Question> questions = questionDatabase.getTenPublishedLatest((page - 1) * 10, (page + 10));
         for (Question question : questions) {
             question.setPublisher(accountDatabase.findOne(question.getAccount()));
         }
+        if (questions.isEmpty()) {
+            return "redirect:/?page=" + (page - 1);
+        }
         model.addAttribute("questions", questions);
         return "index";
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/nextPage")
+    public String nextPage(@RequestParam int page) {
+        return "redirect:/?page=" + (page + 1);
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/prevPage")
+    public String prevPage(@RequestParam int page) {
+        return "redirect:/?page=" + (page - 1);
     }
     
 }
