@@ -86,7 +86,6 @@ public class QuestionDatabase {
             ps.setInt(2, account_id);
             ps.setBoolean(3, published);
             Calendar cSchedStartCal = Calendar.getInstance(TimeZone.getTimeZone("GMT+3"));
-            cSchedStartCal.setTimeZone(TimeZone.getTimeZone("Europe/Finland"));
             ps.setDate(4, (Date) cSchedStartCal.getTime());
             ps.execute();
             conn.close();
