@@ -52,10 +52,13 @@ public class QuestionController {
     @RequestMapping(method = RequestMethod.DELETE)
     public String deleteQuestion(@PathVariable String user, @RequestParam int id) {
         Account self = accountService.getAuthenticatedAccount();
-        if (!user.equals(self.getUsername())) {
+        if (!user.equals(self.getUsername()) && !self.isAdmin()) {
             return "redirect:/";
         }
         questionDatabase.delete(id);
+        if (self.isAdmin()) {
+            return "redirect:/";
+        }
         return "redirect:/" + self.getUsername() + "/questions";
     }
 

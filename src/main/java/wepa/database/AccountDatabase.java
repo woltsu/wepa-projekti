@@ -26,7 +26,7 @@ public class AccountDatabase {
             Statement st = conn.createStatement();
             st.executeUpdate("CREATE TABLE Account (id SERIAL PRIMARY KEY, "
                     + "username varchar(255) NOT NULL, password varchar(255) NOT NULL, "
-                    + "salt varchar(255));");
+                    + "salt varchar(255), admin boolean);");
             create("user", "user");
             Account bot = new Account();
             bot.setUsername("Question bot");
@@ -52,6 +52,7 @@ public class AccountDatabase {
             }
             result.setId(account_id);
             result.setUsername(rs.getString("username"));
+            result.setAdmin(rs.getBoolean("admin"));
             rs.close();
             ps.close();
             conn.close();
@@ -73,6 +74,7 @@ public class AccountDatabase {
                 result.setOnlyPassword(rs.getString("password"));
                 result.setSalt(rs.getString("salt"));
                 result.setId(rs.getInt("id"));
+                result.setAdmin(rs.getBoolean("admin"));
             }
             rs.close();
             ps.close();
@@ -99,6 +101,7 @@ public class AccountDatabase {
                 a.setUsername(rs.getString("username"));
                 a.setOnlyPassword(rs.getString("password"));
                 a.setSalt(rs.getString("salt"));
+                a.setAdmin(rs.getBoolean("admin"));
                 users.add(a);
             }
             rs.close();
@@ -111,22 +114,28 @@ public class AccountDatabase {
     }
 
 //    @Async
-    public void create(String username, String password) {
+    public void create(String username, String password, boolean admin) {
         try {
             Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Account (username, password, salt) VALUES (?, ?, ?)");
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Account (username, password, salt, admin) VALUES (?, ?, ?, ?)");
             Account a = new Account();
             a.setUsername(username);
             a.setPassword(password);
+            a.setAdmin(admin);
             ps.setString(1, username);
             ps.setString(2, a.getPassword());
             ps.setString(3, a.getSalt());
+            ps.setBoolean(4, a.isAdmin());
             ps.execute();
             ps.close();
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public void create (String username, String password) {
+        create(username, password, false);
     }
 
 }

@@ -17,7 +17,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private AccountDatabase accountDatabase;
-    
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountDatabase.findByUsername(username);
@@ -25,13 +25,24 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("No such user: " + username);
         }
 
-        return new org.springframework.security.core.userdetails.User(
-                account.getUsername(),
-                account.getPassword(),
-                true,
-                true,
-                true,
-                true,
-                Arrays.asList(new SimpleGrantedAuthority("USER")));
+        if (!account.isAdmin()) {
+            return new org.springframework.security.core.userdetails.User(
+                    account.getUsername(),
+                    account.getPassword(),
+                    true,
+                    true,
+                    true,
+                    true,
+                    Arrays.asList(new SimpleGrantedAuthority("USER")));
+        } else {
+            return new org.springframework.security.core.userdetails.User(
+                    account.getUsername(),
+                    account.getPassword(),
+                    true,
+                    true,
+                    true,
+                    true,
+                    Arrays.asList(new SimpleGrantedAuthority("USER"), new SimpleGrantedAuthority("ADMIN")));
+        }
     }
 }

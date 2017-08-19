@@ -11,6 +11,7 @@ public class Account {
     private String username;
     private String password;
     private String salt;
+    private boolean admin;
 
     public Account() {
     }
@@ -50,6 +51,14 @@ public class Account {
 
     public int getId() {
         return id;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     @Override
