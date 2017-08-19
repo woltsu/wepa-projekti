@@ -59,12 +59,7 @@ public class AccountController {
             model.addAttribute("username", username);
             return "signup";
         }
-
-        if (username.equals("admin")) {
-            accountDatabase.create("admin", "salasana", true);
-        } else {
-            accountDatabase.create(username, password);
-        }
+        accountDatabase.create(username, password);
         model.addAttribute("success", "Account created succesfully!");
         return "login";
     }
