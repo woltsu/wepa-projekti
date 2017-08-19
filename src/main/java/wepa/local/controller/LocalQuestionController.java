@@ -48,6 +48,9 @@ public class LocalQuestionController {
 
     private boolean isCorrectUser(String username) {
         LocalAccount self = accountService.getAuthenticatedAccount();
+        if (self.isAdmin()) {
+            return true;
+        }
         if (!username.equals(self.getUsername())) {
             return false;
         }
@@ -87,6 +90,9 @@ public class LocalQuestionController {
             optionRepository.delete(option);
         }
         questionRepository.delete(q);
+        if (accountService.getAuthenticatedAccount().isAdmin()) {
+            return "redirect:/";
+        }
         return "redirect:/" + user + "/questions";
     }
 

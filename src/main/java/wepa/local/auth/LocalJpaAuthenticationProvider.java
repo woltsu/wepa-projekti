@@ -21,7 +21,7 @@ public class LocalJpaAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
     private LocalAccountRepository accountRepository;
-    
+
     @Override
     public Authentication authenticate(Authentication a) throws AuthenticationException {
         String username = a.getPrincipal().toString();
@@ -41,6 +41,9 @@ public class LocalJpaAuthenticationProvider implements AuthenticationProvider {
 
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
         grantedAuths.add(new SimpleGrantedAuthority("USER"));
+        if (account.isAdmin()) {
+            grantedAuths.add(new SimpleGrantedAuthority("ADMIN"));
+        }
 
         return new UsernamePasswordAuthenticationToken(account.getUsername(), password, grantedAuths);
     }

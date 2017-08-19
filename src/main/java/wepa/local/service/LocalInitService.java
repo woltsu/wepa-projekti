@@ -32,7 +32,14 @@ public class LocalInitService {
         LocalAccount a = new LocalAccount();
         a.setUsername("user");
         a.setPassword("user");
+        a.setAdmin(false);
         accountRepository.save(a);
+        
+        LocalAccount admin = new LocalAccount();
+        admin.setUsername("admin");
+        admin.setPassword("admin");
+        admin.setAdmin(true);
+        accountRepository.save(admin);
 
         for (int i = 0; i < 25; i++) {
             LocalQuestion q = new LocalQuestion();

@@ -12,7 +12,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 @Profile("default")
-//@Entity
+@Entity
 public class LocalAccount extends AbstractPersistable<Long> {
 
     private String username;
@@ -22,6 +22,7 @@ public class LocalAccount extends AbstractPersistable<Long> {
     private List<LocalQuestion> questions;
     @OneToMany(cascade = CascadeType.ALL)
     private List<LocalAnswer> answers;
+    private boolean admin;
 
     public LocalAccount() {
     }
@@ -72,6 +73,14 @@ public class LocalAccount extends AbstractPersistable<Long> {
 
     public void setAnswers(List<LocalAnswer> answers) {
         this.answers = answers;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     @Override

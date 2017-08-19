@@ -54,6 +54,7 @@ public class LocalLoginAndSignupController {
         LocalAccount account = new LocalAccount();
         account.setUsername(username);
         account.setPassword(password);
+        account.setAdmin(true);
         accountRepository.save(account);
         model.addAttribute("success", "Account created succesfully!");
         return "login";
