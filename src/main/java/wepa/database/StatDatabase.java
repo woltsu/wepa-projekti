@@ -72,7 +72,7 @@ public class StatDatabase {
             ps.setInt(1, stat.getCorrectAnswers());
             ps.setInt(2, stat.getWrongAnswers());
             ps.setInt(3, stat.getId());
-            ps.executeUpdate();
+            ps.execute();
             ps.close();
             conn.close();
         } catch (Exception e) {
