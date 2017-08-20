@@ -45,6 +45,7 @@ public class StatDatabase {
             stat.setAccount_id(account_id);
             stat.setCorrectAnswers(rs.getInt("correctAnswers"));
             stat.setWrongAnswers(rs.getInt("wrongAnswers"));
+            stat.setId(rs.getInt("id"));
             rs.close();
             ps.close();
             conn.close();
