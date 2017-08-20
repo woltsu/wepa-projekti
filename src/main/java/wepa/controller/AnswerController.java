@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import wepa.database.AnswerDatabase;
 import wepa.database.OptionDatabase;
 import wepa.database.QuestionDatabase;
+import wepa.database.StatDatabase;
+import wepa.domain.Account;
 import wepa.domain.Answer;
 import wepa.domain.Question;
+import wepa.domain.Stat;
 import wepa.service.AccountService;
 
 @Profile("production")
@@ -30,6 +33,9 @@ public class AnswerController {
 
     @Autowired
     private AccountService accountService;
+    
+    @Autowired
+    private StatDatabase statDatabase;
 
     @RequestMapping(value = "/question/{id}", method = RequestMethod.GET)
     public String getAnswer(Model model, @PathVariable int id) {
@@ -50,12 +56,18 @@ public class AnswerController {
     @RequestMapping(value = "/question/{id}", method = RequestMethod.POST)
     public String postAnswer(Model model, @PathVariable int id, @RequestParam int option_id) {
         boolean isCorrect = false;
+        Account a = accountService.getAuthenticatedAccount();
+        Stat stat = statDatabase.findByAccount(a.getId());
         if (optionDatabase.findOne(option_id).isCorrect()) {
             isCorrect = true;
+            stat.setCorrectAnswers(stat.getCorrectAnswers() + 1);
+        } else {
+            stat.setWrongAnswers(stat.getWrongAnswers() + 1);
         }
         int accountId = accountService.getAuthenticatedAccount().getId();
         int optionId = optionDatabase.findOne(option_id).getId();
         answerDatabase.create(id, accountId, optionId, isCorrect);
+        statDatabase.save(stat);
         return "redirect:/question/" + id;
     }
 

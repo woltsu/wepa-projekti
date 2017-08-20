@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import wepa.database.AccountDatabase;
+import wepa.database.StatDatabase;
 import wepa.service.AccountService;
 import wepa.validator.AccountValidator;
 
@@ -26,6 +27,9 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
+    
+    @Autowired
+    private StatDatabase statDatabase;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, @RequestParam Map<String, String> params) {
@@ -60,6 +64,7 @@ public class AccountController {
             return "signup";
         }
         accountDatabase.create(username, password);
+        statDatabase.create(accountDatabase.findByUsername(username).getId());
         model.addAttribute("success", "Account created succesfully!");
         return "login";
     }

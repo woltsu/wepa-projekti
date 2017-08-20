@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -23,6 +24,8 @@ public class LocalAccount extends AbstractPersistable<Long> {
     @OneToMany(cascade = CascadeType.ALL)
     private List<LocalAnswer> answers;
     private boolean admin;
+    @OneToOne
+    private LocalStat stat;
 
     public LocalAccount() {
     }
@@ -81,6 +84,14 @@ public class LocalAccount extends AbstractPersistable<Long> {
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+
+    public LocalStat getStat() {
+        return stat;
+    }
+
+    public void setStat(LocalStat stat) {
+        this.stat = stat;
     }
 
     @Override

@@ -19,6 +19,9 @@ public class AccountDatabase {
 
     @Autowired
     private BasicDataSource dataSource;
+    
+    @Autowired
+    private StatDatabase statDatabase;
 
     @PostConstruct
     private void init() {
@@ -32,10 +35,13 @@ public class AccountDatabase {
             bot.setUsername("Question bot");
             bot.setPassword("very secret password");
             create(bot.getUsername(), bot.getPassword());
+            create("admin", "salasana", true);
+            statDatabase.create(findByUsername("Question bot").getId());
+            statDatabase.create(findByUsername("admin").getId());
             st.close();
             conn.close();
         } catch (Exception e) {
-//            e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
