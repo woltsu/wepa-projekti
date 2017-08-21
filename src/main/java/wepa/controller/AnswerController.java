@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import wepa.database.AccountDatabase;
 import wepa.database.AnswerDatabase;
 import wepa.database.OptionDatabase;
 import wepa.database.QuestionDatabase;
@@ -36,6 +37,9 @@ public class AnswerController {
     
     @Autowired
     private StatDatabase statDatabase;
+    
+    @Autowired
+    private AccountDatabase accountDatabase;
 
     @RequestMapping(value = "/question/{id}", method = RequestMethod.GET)
     public String getAnswer(Model model, @PathVariable int id) {
@@ -44,6 +48,7 @@ public class AnswerController {
         }
 
         Question q = questionDatabase.findOne(id);
+        q.setPublisher(accountDatabase.findOne(q.getAccount()));
         if (!q.isPublished()) {
             return "redirect:/";
         }
