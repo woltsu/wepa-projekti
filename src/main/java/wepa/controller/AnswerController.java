@@ -48,7 +48,10 @@ public class AnswerController {
         if (answerDatabase.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id) != null) {
             model.addAttribute("account_answer", answerDatabase.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id));
         }
-
+        
+        if (id < 0) {
+            return "redirect:/";
+        }
         Question q = questionDatabase.findOne(id);
         if (q == null) {
             return "redirect:/";
