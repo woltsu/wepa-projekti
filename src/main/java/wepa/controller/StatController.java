@@ -11,6 +11,7 @@ import wepa.database.AccountDatabase;
 import wepa.database.StatDatabase;
 import wepa.domain.Account;
 import wepa.domain.Stat;
+import wepa.service.AccountService;
 import wepa.service.StatService;
 
 @Profile("production")
@@ -27,6 +28,9 @@ public class StatController {
     @Autowired
     private StatService statService;
     
+    @Autowired
+    private AccountService accountService;
+    
     @RequestMapping(method = RequestMethod.GET)
     public String getStats(Model model, @PathVariable String user) {
         Account a = accountDatabase.findByUsername(user);
@@ -34,6 +38,7 @@ public class StatController {
             return "redirect:/";
         }
         Stat s = statDatabase.findByAccount(a.getId());
+        model.addAttribute("user", accountService.getAuthenticatedAccount());
         model.addAttribute("statUser", a);
         model.addAttribute("stat", s);
         model.addAttribute("rank", statService.getRank(a));

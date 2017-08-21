@@ -11,6 +11,7 @@ import wepa.local.domain.LocalAccount;
 import wepa.local.domain.LocalStat;
 import wepa.local.repository.LocalAccountRepository;
 import wepa.local.repository.LocalStatRepository;
+import wepa.local.service.LocalAccountService;
 import wepa.local.service.LocalStatService;
 
 @Profile("default")
@@ -26,6 +27,9 @@ public class LocalStatController {
     
     @Autowired
     private LocalStatService statService;
+    
+    @Autowired
+    private LocalAccountService accountService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String getStats(Model model, @PathVariable String user) {
@@ -34,6 +38,7 @@ public class LocalStatController {
             return "redirect:/";
         }
         LocalStat s = statRepository.findByAccount(a);
+        model.addAttribute("user", accountService.getAuthenticatedAccount());
         model.addAttribute("stat", s);
         model.addAttribute("statUser", a);
         model.addAttribute("rank", statService.getRank(a));
