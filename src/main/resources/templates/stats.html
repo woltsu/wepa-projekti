@@ -22,13 +22,13 @@
         <div class="container">
             <div class="grid text-center">
                 <div class="row">
-                    <h1><span th:text='${user.username}'></span>'s stats</h1>
+                    <h1><span th:text='${statUser.username}'></span>'s stats</h1>
                 </div>
                 <div class='row'>
-                    <h2>Correct answers: <span th:text="${stat.correctAnswers}"></span></h2>
+                    <h2>Correct answers: <span th:text="${statUser.correctAnswers}"></span></h2>
                 </div>
                 <div class="row">
-                    <h2>Wrong answers: <span th:text="${stat.wrongAnswers}"></span></h2>
+                    <h2>Wrong answers: <span th:text="${statUser.wrongAnswers}"></span></h2>
                 </div>
                 <div class="row">
                     <h2>Rank: #<span th:text="${rank}"></span></h2>

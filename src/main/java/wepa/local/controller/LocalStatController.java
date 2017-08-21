@@ -35,7 +35,7 @@ public class LocalStatController {
         }
         LocalStat s = statRepository.findByAccount(a);
         model.addAttribute("stat", s);
-        model.addAttribute("user", a);
+        model.addAttribute("statUser", a);
         model.addAttribute("rank", statService.getRank(a));
         return "stats";
     }

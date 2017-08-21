@@ -34,7 +34,7 @@ public class StatController {
             return "redirect:/";
         }
         Stat s = statDatabase.findByAccount(a.getId());
-        model.addAttribute("user", a);
+        model.addAttribute("statUser", a);
         model.addAttribute("stat", s);
         model.addAttribute("rank", statService.getRank(a));
         return "stats";
