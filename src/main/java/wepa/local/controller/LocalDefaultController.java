@@ -80,7 +80,7 @@ public class LocalDefaultController {
     }
     
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String searchQuestion(@RequestParam int question_id) {
+    public String searchQuestion(@RequestParam(defaultValue = "-1") int question_id) {
         return "redirect:/question/" + question_id;
     }
 

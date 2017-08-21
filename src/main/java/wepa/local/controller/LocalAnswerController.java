@@ -40,16 +40,15 @@ public class LocalAnswerController {
     private LocalStatRepository statRepository;
 
     @RequestMapping(value = "/question/{id}", method = RequestMethod.GET)
-    public String getAnswer(Model model, @PathVariable Long id) {
+    public String getAnswer(Model model, @PathVariable(required = false) Long id) {
         if (answerRepository.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id) != null) {
             model.addAttribute("account_answer", answerRepository.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id));
         }
-
-        LocalQuestion q = questionRepository.findOne(id);
-        if (q == null) {
+        if (id < 0 || id == null) {
             return "redirect:/";
         }
-        if (!q.isPublished()) {
+        LocalQuestion q = questionRepository.findOne(id);
+        if (q == null || !q.isPublished()) {
             return "redirect:/";
         }
         List<LocalOption> options = optionRepository.findByLocalQuestion(q);
