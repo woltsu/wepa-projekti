@@ -18,6 +18,7 @@ import wepa.local.domain.LocalQuestion;
 import wepa.local.repository.LocalAccountRepository;
 import wepa.local.repository.LocalQuestionRepository;
 import wepa.local.service.LocalAccountService;
+import wepa.TimeCount;
 
 @Profile("default")
 @Controller
@@ -32,7 +33,7 @@ public class LocalDefaultController {
 
     @Autowired
     private LocalQuestionRepository questionRepository;
-
+    
     @RequestMapping(method = RequestMethod.GET)
     public String redirectHome() {
         return "redirect:/?page=1";

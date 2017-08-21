@@ -1,8 +1,10 @@
 package wepa.domain;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import wepa.TimeCount;
 import wepa.database.AccountDatabase;
 
 @Profile("production")
@@ -67,6 +69,12 @@ public class Question {
 
     public void setPublisher(Account publisher) {
         this.publisher = publisher;
+    }
+
+    public String getTime() {
+        TimeCount timeCount = new TimeCount();
+        Date d = new Date(date.getTime());
+        return timeCount.howLongAgo(d);
     }
 
 }

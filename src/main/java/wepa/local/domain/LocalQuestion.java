@@ -13,6 +13,7 @@ import javax.persistence.Temporal;
 import org.hibernate.annotations.Cascade;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import wepa.TimeCount;
 
 @Profile("default")
 //@Entity
@@ -77,6 +78,11 @@ public class LocalQuestion extends AbstractPersistable<Long> {
 
     public List<LocalOption> getOptions() {
         return options;
+    }
+    
+    public String getTime() {
+        TimeCount timeCount = new TimeCount();
+        return timeCount.howLongAgo(date);
     }
 
 }
