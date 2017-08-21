@@ -1,5 +1,6 @@
 package wepa.local.controller;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
@@ -48,9 +49,18 @@ public class LocalAnswerController {
         if (!q.isPublished()) {
             return "redirect:/";
         }
+        List<LocalOption> options = optionRepository.findByLocalQuestion(q);
+        LocalOption correctOption = null;
+        for (LocalOption option : options) {
+            if (option.isCorrect()) {
+                correctOption = option;
+                break;
+            }
+        }
         model.addAttribute("user", accountService.getAuthenticatedAccount());
         model.addAttribute("question", q);
-        model.addAttribute("options", optionRepository.findByLocalQuestion(q));
+        model.addAttribute("options", options);
+        model.addAttribute("correctOption", correctOption);
         return "answer";
     }
 

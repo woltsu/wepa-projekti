@@ -1,5 +1,6 @@
 package wepa.controller;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import wepa.database.QuestionDatabase;
 import wepa.database.StatDatabase;
 import wepa.domain.Account;
 import wepa.domain.Answer;
+import wepa.domain.Option;
 import wepa.domain.Question;
 import wepa.domain.Stat;
 import wepa.service.AccountService;
@@ -52,9 +54,18 @@ public class AnswerController {
         if (!q.isPublished()) {
             return "redirect:/";
         }
+        List<Option> options = optionDatabase.findByQuestion(q.getId());
+        Option correctOption = null;
+        for (Option option : options) {
+            if (option.isCorrect()) {
+                correctOption = option;
+                break;
+            }
+        }
         model.addAttribute("user", accountService.getAuthenticatedAccount());
         model.addAttribute("question", q);
-        model.addAttribute("options", optionDatabase.findByQuestion(q.getId()));
+        model.addAttribute("options", options);
+        model.addAttribute("correctOption", correctOption);
         return "answer";
     }
 

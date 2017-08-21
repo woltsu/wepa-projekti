@@ -36,7 +36,7 @@
             </div>
             <div th:unless="${account_answer == null}" class="text-center">
                 <p>You chose <span th:text="${account_answer.option.value}">option value</span> which is
-                    <span th:if="${account_answer.option.correct}" style="color: green">correct</span><span th:unless="${account_answer.option.correct}" style="color: red">not correct</span></p>
+                    <span th:if="${account_answer.option.correct}" style="color: green">correct</span><span th:unless="${account_answer.option.correct}"><span style="color: red">not correct</span><br/> The correct option was <span th:text="${correctOption.value}"></span></span></p>
             </div>
             <div class="text-center">
                 <p>~<a th:href="@{/{user}/stats(user=${question.publisher.username})}"><span th:text="${question.publisher.username}"></span></a></p>

@@ -66,17 +66,22 @@ public class LocalDefaultController {
         return "index";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/nextPage")
+    @RequestMapping(value = "/nextPage", method = RequestMethod.GET)
     public String nextPage(@RequestParam int page) {
         return "redirect:/?page=" + (page + 1);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/prevPage")
+    @RequestMapping(value = "/prevPage", method = RequestMethod.GET)
     public String prevPage(@RequestParam int page) {
         if (page <= 1) {
             page = 2;
         }
         return "redirect:/?page=" + (page - 1);
+    }
+    
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String searchQuestion(@RequestParam int question_id) {
+        return "redirect:/question/" + question_id;
     }
 
 }
