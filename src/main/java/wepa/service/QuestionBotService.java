@@ -50,10 +50,10 @@ public class QuestionBotService {
         firstIncorrectValue = firstIncorrectValue.replaceAll("&quot;", "'");
         secondIncorrectValue = secondIncorrectValue.replaceAll("&quot;", "'");
         thirdIncorrectValue = thirdIncorrectValue.replaceAll("&quot;", "'");
-        question = question.replaceAll("&#039;s", "'");
-        firstIncorrectValue = firstIncorrectValue.replaceAll("&#039;s", "'");
-        secondIncorrectValue = secondIncorrectValue.replaceAll("&#039;s", "'");
-        thirdIncorrectValue = thirdIncorrectValue.replaceAll("&#039;s", "'");
+        question = question.replaceAll("&#039;", "'");
+        firstIncorrectValue = firstIncorrectValue.replaceAll("&#039;", "'");
+        secondIncorrectValue = secondIncorrectValue.replaceAll("&#039;", "'");
+        thirdIncorrectValue = thirdIncorrectValue.replaceAll("&#039;", "'");
 
         List<String> values = new ArrayList();
         values.add(correctValue);
