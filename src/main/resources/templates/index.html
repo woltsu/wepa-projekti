@@ -36,7 +36,7 @@
                         <a id="link" th:href="@{/question/{id}(id=${question.id})}" class="col-xs-12 col-md-12">
                             <div style="margin-top: 1%">
                                 <p th:text='${question.name}'>question's name</p>
-                                <p th:text="${question.publisher.username}">publisher's name</p>
+                                <p><span th:text="${question.publisher.username}"></span><span style="float: right" class="glyphicon glyphicon-menu-right"></span></p>
                                 <p th:text='${question.time}'>date</p>
                             </div>
                             <hr/>
@@ -48,7 +48,7 @@
                         <form th:method="get" th:action="@{/prevPage}" name="previous">
                             <input type="hidden" name="page" th:value="${page}"/>
                         </form>
-                        <a id="link" href="#" onclick="document.forms['previous'].submit();" style="float: left"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                        <a id="link" href="#" onclick="document.forms['previous'].submit();" style="float: left"><span class="glyphicon glyphicon-triangle-left"></span></a>
                     </div>
                     <div class="col-xs-2 col-md-2 text-center">
                         <span th:text="${page}">page num</span>
@@ -57,7 +57,7 @@
                         <form th:method="get" th:action="@{/nextPage}" name="next">
                             <input type="hidden" name="page" th:value="${page}"/>
                         </form>
-                        <a id="link" href="#" onclick="document.forms['next'].submit();" style="float: right"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                        <a id="link" href="#" onclick="document.forms['next'].submit();" style="float: right"><span class="glyphicon glyphicon-triangle-right"></span></a>
                     </div>
                 </div>
             </div>
