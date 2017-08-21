@@ -33,7 +33,7 @@
                 </div>
                 <div th:each='question : ${questions}'>
                     <div class="row">
-                        <a id="link" th:href="@{/question/{id}(id=${question.id})}" class="col-xs-12 col-md-12">
+                        <a id="link" th:href="@{/question/{id}?lastPage={page}(id=${question.id}, page=${page})}" class="col-xs-12 col-md-12">
                             <div style="margin-top: 1%">
                                 <p th:text='${question.name}'>question's name</p>
                                 <p><span th:text="${question.publisher.username}"></span><span style="float: right" class="glyphicon glyphicon-menu-right"></span></p>

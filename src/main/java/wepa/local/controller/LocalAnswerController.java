@@ -40,7 +40,7 @@ public class LocalAnswerController {
     private LocalStatRepository statRepository;
 
     @RequestMapping(value = "/question/{id}", method = RequestMethod.GET)
-    public String getAnswer(Model model, @PathVariable(required = false) Long id) {
+    public String getAnswer(Model model, @PathVariable Long id, @RequestParam(defaultValue = "1") int lastPage){
         if (answerRepository.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id) != null) {
             model.addAttribute("account_answer", answerRepository.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id));
         }
@@ -63,6 +63,7 @@ public class LocalAnswerController {
         model.addAttribute("question", q);
         model.addAttribute("options", options);
         model.addAttribute("correctOption", correctOption);
+        model.addAttribute("lastPage", lastPage);
         return "answer";
     }
 

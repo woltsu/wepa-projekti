@@ -44,7 +44,7 @@ public class AnswerController {
     private AccountDatabase accountDatabase;
 
     @RequestMapping(value = "/question/{id}", method = RequestMethod.GET)
-    public String getAnswer(Model model, @PathVariable int id) {
+    public String getAnswer(Model model, @PathVariable int id, @RequestParam(defaultValue = "1") int lastPage) {
         if (answerDatabase.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id) != null) {
             model.addAttribute("account_answer", answerDatabase.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id));
         }
@@ -72,6 +72,7 @@ public class AnswerController {
         model.addAttribute("question", q);
         model.addAttribute("options", options);
         model.addAttribute("correctOption", correctOption);
+        model.addAttribute("lastPage", lastPage);
         return "answer";
     }
 
