@@ -24,8 +24,9 @@
             <div th:if="${account_answer == null}">
                 <form th:method="post" th:action="@{/question/{id}(id=${question.id})}">
                     <div class="btn-group-vertical col-md-12 col-xs-12" data-toggle="buttons" style="margin: auto">
-                        <label th:each="option : ${options}" class="btn btn-default" style="outline: none; margin-bottom: 20px; padding: 1% 0% 1% 0%">
-                            <input type="radio" value="nimi" name="option_id" th:value="${option.id}"/><span th:text="${option.value}">ookoo</span>
+                        <label th:each="option : ${options}" class="btn btn-default" style="outline: none; margin-bottom: 20px; padding: 1% 0% 1% 0%; overflow: auto">
+                            <input type="radio" value="nimi" name="option_id" th:value="${option.id}"/>
+                            <span th:text="${option.value}">ookoo</span>
                         </label>
                     </div>
                     <div class="text-center">
