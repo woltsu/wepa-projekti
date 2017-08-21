@@ -9,7 +9,6 @@ import javax.annotation.PostConstruct;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import wepa.domain.Account;
 
@@ -19,9 +18,6 @@ public class AccountDatabase {
 
     @Autowired
     private BasicDataSource dataSource;
-    
-    @Autowired
-    private StatDatabase statDatabase;
 
     @PostConstruct
     private void init() {
@@ -36,8 +32,6 @@ public class AccountDatabase {
             bot.setPassword("very secret password");
             create(bot.getUsername(), bot.getPassword());
             create("admin", "salasana", true);
-            statDatabase.create(findByUsername("Question bot").getId());
-            statDatabase.create(findByUsername("admin").getId());
             st.close();
             conn.close();
         } catch (Exception e) {

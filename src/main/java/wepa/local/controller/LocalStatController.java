@@ -30,6 +30,9 @@ public class LocalStatController {
     @RequestMapping(method = RequestMethod.GET)
     public String getStats(Model model, @PathVariable String user) {
         LocalAccount a = accountRepository.findByUsername(user);
+        if (a == null) {
+            return "redirect:/";
+        }
         LocalStat s = statRepository.findByAccount(a);
         model.addAttribute("stat", s);
         model.addAttribute("user", a);

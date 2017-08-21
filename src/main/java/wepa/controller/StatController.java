@@ -30,6 +30,9 @@ public class StatController {
     @RequestMapping(method = RequestMethod.GET)
     public String getStats(Model model, @PathVariable String user) {
         Account a = accountDatabase.findByUsername(user);
+        if (a == null) {
+            return "redirect:/";
+        }
         Stat s = statDatabase.findByAccount(a.getId());
         model.addAttribute("user", a);
         model.addAttribute("stat", s);

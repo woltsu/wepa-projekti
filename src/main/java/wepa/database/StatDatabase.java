@@ -19,6 +19,9 @@ public class StatDatabase {
 
     @Autowired
     private BasicDataSource dataSource;
+    
+    @Autowired
+    private AccountDatabase accountDatabase;
 
     @PostConstruct
     public void init() {
@@ -27,13 +30,15 @@ public class StatDatabase {
             st.executeUpdate("CREATE TABLE Stat (id SERIAL PRIMARY KEY, "
                     + "correctAnswers int, wrongAnswers int, "
                     + "account_id integer REFERENCES Account ON DELETE CASCADE);");
+            create(accountDatabase.findByUsername("Question bot").getId());
+            create(accountDatabase.findByUsername("admin").getId());
             st.close();
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     public List<Stat> getRanks() {
         List<Stat> orderedByStats = new ArrayList();
         try (Connection conn = dataSource.getConnection()) {
