@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,28 @@ public class StatDatabase {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public List<Stat> getRanks() {
+        List<Stat> orderedByStats = new ArrayList();
+        try (Connection conn = dataSource.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Stat ORDER BY correctAnswers DESC");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Stat s = new Stat();
+                s.setAccount_id(rs.getInt("account_id"));
+                s.setCorrectAnswers(rs.getInt("correctAnswers"));
+                s.setWrongAnswers(rs.getInt("wrongAnswers"));
+                s.setId(rs.getInt("id"));
+                orderedByStats.add(s);
+            }
+            rs.close();
+            ps.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return orderedByStats;
     }
 
     public Stat findByAccount(int account_id) {

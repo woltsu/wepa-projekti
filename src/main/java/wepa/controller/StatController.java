@@ -11,6 +11,7 @@ import wepa.database.AccountDatabase;
 import wepa.database.StatDatabase;
 import wepa.domain.Account;
 import wepa.domain.Stat;
+import wepa.service.StatService;
 
 @Profile("production")
 @Controller
@@ -23,12 +24,16 @@ public class StatController {
     @Autowired
     private AccountDatabase accountDatabase;
     
+    @Autowired
+    private StatService statService;
+    
     @RequestMapping(method = RequestMethod.GET)
     public String getStats(Model model, @PathVariable String user) {
         Account a = accountDatabase.findByUsername(user);
         Stat s = statDatabase.findByAccount(a.getId());
         model.addAttribute("user", a);
         model.addAttribute("stat", s);
+        model.addAttribute("rank", statService.getRank(a));
         return "stats";
     }
     
