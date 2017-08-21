@@ -50,6 +50,9 @@ public class AnswerController {
         }
 
         Question q = questionDatabase.findOne(id);
+        if (q == null) {
+            return "redirect:/";
+        }
         q.setPublisher(accountDatabase.findOne(q.getAccount()));
         if (!q.isPublished()) {
             return "redirect:/";

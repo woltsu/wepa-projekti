@@ -46,6 +46,9 @@ public class LocalAnswerController {
         }
 
         LocalQuestion q = questionRepository.findOne(id);
+        if (q == null) {
+            return "redirect:/";
+        }
         if (!q.isPublished()) {
             return "redirect:/";
         }
