@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import org.hibernate.annotations.Cascade;
 import org.springframework.context.annotation.Profile;
@@ -18,6 +19,7 @@ import wepa.TimeCount;
 
 @Profile("default")
 @Entity
+@Table(name = "Question")
 public class LocalQuestion extends AbstractPersistable<Long> {
 
     @Id

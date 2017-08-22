@@ -3,11 +3,13 @@ package wepa.local.domain;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Profile("default")
 @Entity
+@Table(name = "Stat")
 public class LocalStat extends AbstractPersistable<Long> {
 
     @Id

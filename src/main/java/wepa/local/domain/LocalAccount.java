@@ -8,12 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 @Profile("default")
 @Entity
+@Table(name = "Account")
 public class LocalAccount extends AbstractPersistable<Long> {
 
     private String username;

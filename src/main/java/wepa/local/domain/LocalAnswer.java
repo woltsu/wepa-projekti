@@ -3,11 +3,13 @@ package wepa.local.domain;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Profile("default")
 @Entity
+@Table(name = "Answer")
 public class LocalAnswer extends AbstractPersistable<Long> {
 
     @ManyToOne
