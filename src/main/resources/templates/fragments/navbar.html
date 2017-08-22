@@ -28,7 +28,7 @@
                             </li>
                             <li sec:authorize="isAnonymous()"><a id="signup" th:href="@{/signup}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                             <li sec:authorize="isAnonymous()"><a th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                            <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                            <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" name="logout" id="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                         </ul>
                         <div sec:authorize="isAuthenticated()" class="col-sm-2 col-md-2 pull-right">
                             <form class="navbar-form" role="search" th:method="get" th:action="@{/search}" id="search">

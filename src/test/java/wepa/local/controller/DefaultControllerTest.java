@@ -1,5 +1,6 @@
 package wepa.local.controller;
 
+import java.util.concurrent.TimeUnit;
 import org.fluentlenium.adapter.FluentTest;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -53,10 +54,10 @@ public class DefaultControllerTest extends FluentTest {
     @Test
     public void testClickQuestions() {
         login();
-        assertTrue(pageSource().contains("0"));
+        assertTrue(pageSource().contains("question0"));
         assertTrue(pageSource().contains("user"));
         click(find("#link").first());
-        assertTrue(pageSource().contains("0"));
+        assertTrue(pageSource().contains("question0"));
         assertTrue(pageSource().contains("1"));
         assertTrue(pageSource().contains("2"));
         assertTrue(pageSource().contains("3"));
@@ -66,18 +67,20 @@ public class DefaultControllerTest extends FluentTest {
     @Test
     public void testChangePage() throws Exception {
         login();
-        click(find(By.name("previousPage")).first());
-        assertTrue(pageSource().contains("0"));
-        assertTrue(pageSource().contains("9"));
-        click(find(By.name("nextPage")).first());
-        assertTrue(pageSource().contains("10"));
-        assertFalse(pageSource().contains("1"));
-
+        assertTrue(pageSource().contains("question0"));
+        assertTrue(pageSource().contains("question9"));
+        assertFalse(pageSource().contains("question19"));
+        goTo(localHost + port + "?page=2");
+        assertTrue(pageSource().contains("question19"));
+        assertFalse(pageSource().contains("question0"));
     }
 
     @Test
     public void testLogout() {
-
+        login();
+        click(find("#logout").first());
+        assertTrue(pageSource().contains("question0"));
+        assertTrue(pageSource().contains("username"));
     }
 
     @Test

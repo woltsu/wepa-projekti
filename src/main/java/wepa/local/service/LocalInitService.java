@@ -62,7 +62,7 @@ public class LocalInitService {
             LocalQuestion q = new LocalQuestion();
             q.setDate(Calendar.getInstance().getTime());
             q.setLocalAccount(a);
-            q.setName("" + i);
+            q.setName("question" + i);
             q.setPublished(true);
             q.setOptions(createOptions(q));
 
