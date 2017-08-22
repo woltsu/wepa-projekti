@@ -47,7 +47,7 @@
                         <form th:method="get" th:action="@{/prevPage}" name="previous">
                             <input type="hidden" name="page" th:value="${page}"/>
                         </form>
-                        <a id="link" href="#" onclick="document.forms['previous'].submit();" style="float: left"><span class="glyphicon glyphicon-triangle-left"></span></a>
+                        <a name="previousPage" id="link" href="#" onclick="document.forms['previous'].submit();" style="float: left"><span class="glyphicon glyphicon-triangle-left"></span></a>
                     </div>
                     <div class="col-xs-2 col-md-2 text-center">
                         <span th:text="${page}">page num</span>
@@ -56,7 +56,7 @@
                         <form th:method="get" th:action="@{/nextPage}" name="next">
                             <input type="hidden" name="page" th:value="${page}"/>
                         </form>
-                        <a id="link" href="#" onclick="document.forms['next'].submit();" style="float: right"><span class="glyphicon glyphicon-triangle-right"></span></a>
+                        <a name="nextPage" id="link" href="#" onclick="document.forms['next'].submit();" style="float: right"><span class="glyphicon glyphicon-triangle-right"></span></a>
                     </div>
                 </div>
             </div>

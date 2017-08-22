@@ -1,6 +1,5 @@
 package wepa.local.controller;
 
-import javax.annotation.PostConstruct;
 import org.fluentlenium.adapter.FluentTest;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
@@ -43,7 +42,41 @@ public class LoginAndSignupControllerTest extends FluentTest {
         submit(find("form").first());
         assertTrue(pageSource().contains("Hello, "));
     }
-    
-    //TODO: testing validators
+
+    @Test
+    public void testSignUpBlank() {
+        goTo(localHost + port);
+        click(find("#signup"));
+        submit(find("form").first());
+        assertTrue(pageSource().contains("Username must be at least 3 characters long!"));
+        assertTrue(pageSource().contains("Password must be at least 3 characters long!"));
+    }
+
+    @Test
+    public void testSignUpUsernameTaken() {
+        goTo(localHost + port);
+        click(find("#signup"));
+        fill(find("#username")).with("user");
+        submit(find("form").first());
+        assertTrue(pageSource().contains("Username taken!"));
+    }
+
+    @Test
+    public void testSignUpPasswordsDontMatch() {
+        goTo(localHost + port);
+        click(find("#signup"));
+        fill(find("#username")).with("test");
+        fill(find("#password")).with("aaa");
+        fill(find("#passwordAgain")).with("bbb");
+        submit(find("form").first());
+        assertTrue(pageSource().contains("Passwords didn't match!"));
+    }
+
+    @Test
+    public void testLoginBlank() {
+        goTo(localHost + port);
+        submit(find("form").first());
+        assertTrue(pageSource().contains("Wrong username or password!"));
+    }
 
 }
