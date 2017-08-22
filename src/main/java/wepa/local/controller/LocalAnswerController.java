@@ -98,7 +98,7 @@ public class LocalAnswerController {
         option.addAnswer(answer);
         optionRepository.save(option);
         statRepository.save(stat);
-        return "redirect:/question/" + id;
+        return "redirect:/question/" + id + "?lastPage=" + lastPage;
     }
 
 }

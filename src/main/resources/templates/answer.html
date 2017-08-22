@@ -23,7 +23,7 @@
             <a style="float: left; color: black; text-decoration: none; font-size: 180%" th:href="@{/?page={page}(page=${lastPage})}" class="glyphicon glyphicon-menu-left col-xs-12 col-md-12"></a>
             <h2 class="col-xs-12 col-md-12 text-center" style="margin-bottom: 4%; overflow: auto"><span th:text="${question.name}"></span></h2>
             <div th:if="${account_answer == null}">
-                <form th:method="post" th:action="@{/question/{id}(id=${question.id})}">
+                <form th:method="post" th:action="@{/question/{id}?lastPage={page}(id=${question.id}, page=${lastPage})}">
                     <div class="btn-group-vertical col-md-12 col-xs-12" data-toggle="buttons" style="margin: auto">
                         <label th:each="option : ${options}" class="btn btn-default" style="outline: none; margin-bottom: 20px; padding: 1% 0% 1% 0%; overflow: auto">
                             <input type="radio" value="nimi" name="option_id" th:value="${option.id}"/>

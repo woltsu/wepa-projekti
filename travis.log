@@ -46,3 +46,14 @@ Command line:
     Please use the -p flag to specify an input trajectory in the command line.
 
     Enter the file name of the trajectory file to open: [Quit] 
+
+*** SIGHUP caught: Trying to ignore hangup ^^ ***
+
+Error while reading input from stdin (probably end of input file reached).
+
+Your redirected input file seems to have not enough lines.
+The Operating System does not allow console applications with redirected input
+to access the keyboard, so you cannot enter the missing lines per hand.
+
+TRAVIS has to stop here. I'm sorry. Use the -i flag instead for reading input files.
+
