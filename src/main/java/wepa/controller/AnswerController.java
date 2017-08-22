@@ -1,5 +1,6 @@
 package wepa.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -44,7 +45,8 @@ public class AnswerController {
     private AccountDatabase accountDatabase;
 
     @RequestMapping(value = "/question/{id}", method = RequestMethod.GET)
-    public String getAnswer(Model model, @PathVariable int id, @RequestParam(defaultValue = "1") int lastPage) {
+    public String getAnswer(Model model, @PathVariable int id, @RequestParam(defaultValue = "1") int lastPage, 
+            @RequestParam(defaultValue = "false") boolean err) {
         if (answerDatabase.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id) != null) {
             model.addAttribute("account_answer", answerDatabase.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id));
         }
@@ -68,6 +70,11 @@ public class AnswerController {
                 break;
             }
         }
+        if (err) {
+            List<String> errors = new ArrayList();
+            errors.add("Please choose an option");
+            model.addAttribute("errors", errors);
+        }
         model.addAttribute("user", accountService.getAuthenticatedAccount());
         model.addAttribute("question", q);
         model.addAttribute("options", options);
@@ -77,7 +84,11 @@ public class AnswerController {
     }
 
     @RequestMapping(value = "/question/{id}", method = RequestMethod.POST)
-    public String postAnswer(Model model, @PathVariable int id, @RequestParam int option_id) {
+    public String postAnswer(Model model, @PathVariable int id, @RequestParam(defaultValue = "-1") int option_id, 
+            @RequestParam(defaultValue = "1") int lastPage) {
+        if (option_id < 0) {
+            return "redirect:/question/" + id + "?lastPage=" + lastPage + "&err=true";
+        }
         boolean isCorrect = false;
         Account a = accountService.getAuthenticatedAccount();
         Stat stat = statDatabase.findByAccount(a.getId());

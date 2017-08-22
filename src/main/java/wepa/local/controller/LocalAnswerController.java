@@ -1,5 +1,6 @@
 package wepa.local.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -40,7 +41,8 @@ public class LocalAnswerController {
     private LocalStatRepository statRepository;
 
     @RequestMapping(value = "/question/{id}", method = RequestMethod.GET)
-    public String getAnswer(Model model, @PathVariable Long id, @RequestParam(defaultValue = "1") int lastPage){
+    public String getAnswer(Model model, @PathVariable Long id, @RequestParam(defaultValue = "1") int lastPage, 
+            @RequestParam(defaultValue = "false") boolean err) {
         if (answerRepository.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id) != null) {
             model.addAttribute("account_answer", answerRepository.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id));
         }
@@ -59,6 +61,11 @@ public class LocalAnswerController {
                 break;
             }
         }
+        if (err) {
+            List<String> errors = new ArrayList();
+            errors.add("Please choose an option");
+            model.addAttribute("errors", errors);
+        }
         model.addAttribute("user", accountService.getAuthenticatedAccount());
         model.addAttribute("question", q);
         model.addAttribute("options", options);
@@ -68,7 +75,11 @@ public class LocalAnswerController {
     }
 
     @RequestMapping(value = "/question/{id}", method = RequestMethod.POST)
-    public String postAnswer(Model model, @PathVariable Long id, @RequestParam Long option_id) {
+    public String postAnswer(Model model, @PathVariable Long id,
+            @RequestParam(defaultValue = "-1") Long option_id, @RequestParam(defaultValue = "1") int lastPage) {
+        if (option_id < 0) {
+            return "redirect:/question/" + id + "?lastPage=" + lastPage + "&err=true";
+        }
         LocalAnswer answer = new LocalAnswer();
         LocalAccount self = accountService.getAuthenticatedAccount();
         LocalStat stat = statRepository.findByAccount(self);
