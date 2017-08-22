@@ -70,7 +70,7 @@ public class LocalQuestionController {
 
     @RequestMapping(value = "/{user}/questions", method = RequestMethod.DELETE)
     @Transactional
-    public String deleteQuestion(@RequestParam Long question_id, @PathVariable String user) {
+    public String deleteQuestion(@RequestParam Long question_id, @PathVariable String user, @RequestParam(defaultValue = "1") int page) {
         if (!isCorrectUser(user)) {
             return "redirect:/";
         }
@@ -91,7 +91,7 @@ public class LocalQuestionController {
         }
         questionRepository.delete(q);
         if (accountService.getAuthenticatedAccount().isAdmin()) {
-            return "redirect:/";
+            return "redirect:/?page=" + page;
         }
         return "redirect:/" + user + "/questions";
     }

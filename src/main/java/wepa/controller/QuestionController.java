@@ -50,14 +50,14 @@ public class QuestionController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public String deleteQuestion(@PathVariable String user, @RequestParam int question_id) {
+    public String deleteQuestion(@PathVariable String user, @RequestParam int question_id, @RequestParam(defaultValue = "1") int page) {
         Account self = accountService.getAuthenticatedAccount();
         if (!user.equals(self.getUsername()) && !self.isAdmin()) {
             return "redirect:/";
         }
         questionDatabase.delete(question_id);
         if (self.isAdmin()) {
-            return "redirect:/";
+            return "redirect:/?page=" + page;
         }
         return "redirect:/" + self.getUsername() + "/questions";
     }
