@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -18,6 +19,9 @@ import wepa.TimeCount;
 @Profile("default")
 @Entity
 public class LocalQuestion extends AbstractPersistable<Long> {
+
+    @Id
+    private Long id;
 
     private String name;
     @ManyToOne
@@ -83,6 +87,14 @@ public class LocalQuestion extends AbstractPersistable<Long> {
     public String getTime() {
         TimeCount timeCount = new TimeCount();
         return timeCount.howLongAgo(date);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

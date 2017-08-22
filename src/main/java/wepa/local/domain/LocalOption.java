@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import org.springframework.context.annotation.Profile;
@@ -19,6 +20,8 @@ public class LocalOption extends AbstractPersistable<Long> {
     private LocalQuestion localQuestion;
     @OneToMany(cascade = CascadeType.ALL)
     private List<LocalAnswer> answers;
+    @Id
+    private Long id;
 
     public LocalOption() {
         this.answers = new ArrayList();
@@ -61,6 +64,14 @@ public class LocalOption extends AbstractPersistable<Long> {
             this.answers = new ArrayList();
         }
         this.answers.add(a);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

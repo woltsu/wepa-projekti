@@ -1,6 +1,7 @@
 package wepa.local.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -18,6 +19,8 @@ public class LocalAnswer extends AbstractPersistable<Long> {
     private Long questionId;
 
     private boolean correct;
+    @Id
+    private Long id;
 
     public LocalAnswer() {
     }
@@ -52,6 +55,14 @@ public class LocalAnswer extends AbstractPersistable<Long> {
 
     public void setQuestionId(Long questionId) {
         this.questionId = questionId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

@@ -6,6 +6,7 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import org.springframework.context.annotation.Profile;
@@ -26,6 +27,8 @@ public class LocalAccount extends AbstractPersistable<Long> {
     private boolean admin;
     @OneToOne
     private LocalStat stat;
+    @Id
+    private Long id;
 
     public LocalAccount() {
     }
@@ -117,6 +120,14 @@ public class LocalAccount extends AbstractPersistable<Long> {
             return false;
         }
         return true;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }
