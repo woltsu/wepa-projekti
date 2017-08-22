@@ -7,7 +7,7 @@ import wepa.local.domain.LocalAccount;
 import wepa.local.domain.LocalAnswer;
 import wepa.local.domain.LocalOption;
 
-@Profile("default")
+//@Profile("default")
 public interface LocalAnswerRepository extends JpaRepository<LocalAnswer, Long> {
 
     List<LocalAnswer> findByOption(LocalOption option);

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import wepa.local.domain.LocalAccount;
 import wepa.local.domain.LocalQuestion;
 
-@Profile("default")
+//@Profile("default")
 public interface LocalQuestionRepository extends JpaRepository<LocalQuestion, Long> {
 
     List<LocalQuestion> findByLocalAccount(LocalAccount a);
