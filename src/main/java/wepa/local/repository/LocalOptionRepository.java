@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import wepa.local.domain.LocalOption;
 import wepa.local.domain.LocalQuestion;
 
-//@Profile("default")
+@Profile("default")
 public interface LocalOptionRepository extends JpaRepository<LocalOption, Long> {
 
     List<LocalOption> findByLocalQuestion(LocalQuestion q);

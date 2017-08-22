@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import wepa.local.domain.LocalAccount;
 import wepa.local.domain.LocalStat;
 
-//@Profile("default")
+@Profile("default")
 public interface LocalStatRepository extends JpaRepository<LocalStat, Long> {
 
     LocalStat findByAccount(LocalAccount a);

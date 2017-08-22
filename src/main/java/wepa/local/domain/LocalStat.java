@@ -7,8 +7,8 @@ import javax.persistence.Table;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-//@Profile("default")
-@Entity
+@Profile("default")
+@Entity(name = "stat")
 @Table(name = "stat")
 public class LocalStat extends AbstractPersistable<Long> {
 
