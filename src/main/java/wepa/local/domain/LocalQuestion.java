@@ -18,8 +18,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import wepa.TimeCount;
 
 @Profile("default")
-@Entity(name = "question")
-@Table(name = "question")
+//@Entity
 public class LocalQuestion extends AbstractPersistable<Long> {
 
     @Id
