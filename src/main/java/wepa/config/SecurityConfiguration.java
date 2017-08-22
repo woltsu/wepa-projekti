@@ -44,6 +44,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login")
                 .permitAll()
                 .invalidateHttpSession(true);
+
+        http.requiresChannel().anyRequest().requiresSecure();
     }
 
     @Autowired
