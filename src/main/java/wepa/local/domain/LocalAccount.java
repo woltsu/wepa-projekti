@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
-@Profile("default")
+@Profile("defaul")
 @Entity(name = "account")
 @Table(name = "account")
 public class LocalAccount extends AbstractPersistable<Long> {
