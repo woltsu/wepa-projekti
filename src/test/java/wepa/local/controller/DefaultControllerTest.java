@@ -1,13 +1,9 @@
 package wepa.local.controller;
 
-import java.util.concurrent.TimeUnit;
 import org.fluentlenium.adapter.FluentTest;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +11,10 @@ import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.junit.Before;
+import org.junit.Test;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -85,7 +81,10 @@ public class DefaultControllerTest extends FluentTest {
 
     @Test
     public void testFindQuestion() {
-
+        login();
+        fill(find("#questionId")).with("2");
+        submit(find("#questionSearch").first());
+        assertTrue(pageSource().contains("question1"));
     }
 
 }
