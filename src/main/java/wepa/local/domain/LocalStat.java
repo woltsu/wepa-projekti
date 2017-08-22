@@ -18,6 +18,9 @@ public class LocalStat extends AbstractPersistable<Long> {
     @OneToOne
     private LocalAccount account;
 
+    public LocalStat() {
+    }
+
     public int getCorrectAnswers() {
         return correctAnswers;
     }

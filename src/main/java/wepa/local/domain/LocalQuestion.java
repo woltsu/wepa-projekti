@@ -33,6 +33,9 @@ public class LocalQuestion extends AbstractPersistable<Long> {
     private Date date;
     private boolean published;
 
+    public LocalQuestion() {
+    }
+
     public String getName() {
         return name;
     }
@@ -83,7 +86,7 @@ public class LocalQuestion extends AbstractPersistable<Long> {
     public List<LocalOption> getOptions() {
         return options;
     }
-    
+
     public String getTime() {
         TimeCount timeCount = new TimeCount();
         return timeCount.howLongAgo(date);
