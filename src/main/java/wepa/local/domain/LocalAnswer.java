@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-@Profile("defaul")
+@Profile("default")
 @Entity(name = "answer")
 @Table(name = "answer")
 public class LocalAnswer extends AbstractPersistable<Long> {

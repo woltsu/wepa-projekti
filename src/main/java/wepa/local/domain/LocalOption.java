@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-@Profile("defaul")
+@Profile("default")
 @Entity(name = "option")
 @Table(name = "option")
 public class LocalOption extends AbstractPersistable<Long> {
