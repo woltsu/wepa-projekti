@@ -78,8 +78,8 @@ public class DefaultControllerTest extends FluentTest {
     @Test
     public void testLogout() {
         login();
-        click(find("#logout").first());
         assertTrue(pageSource().contains("question0"));
+        click(find("#logout").first());
         assertTrue(pageSource().contains("username"));
     }
 
