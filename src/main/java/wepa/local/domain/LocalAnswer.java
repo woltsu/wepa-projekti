@@ -9,7 +9,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Profile("default")
 @Entity
-@Table(name = "Answer")
+@Table(name = "answer")
 public class LocalAnswer extends AbstractPersistable<Long> {
 
     @ManyToOne

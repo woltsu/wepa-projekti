@@ -9,7 +9,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Profile("default")
 @Entity
-@Table(name = "Stat")
+@Table(name = "stat")
 public class LocalStat extends AbstractPersistable<Long> {
 
     @Id

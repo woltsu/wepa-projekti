@@ -13,7 +13,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Profile("default")
 @Entity
-@Table(name = "Option")
+@Table(name = "option")
 public class LocalOption extends AbstractPersistable<Long> {
 
     private String optionValue;

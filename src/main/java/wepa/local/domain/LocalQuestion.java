@@ -19,7 +19,7 @@ import wepa.TimeCount;
 
 @Profile("default")
 @Entity
-@Table(name = "Question")
+@Table(name = "question")
 public class LocalQuestion extends AbstractPersistable<Long> {
 
     @Id

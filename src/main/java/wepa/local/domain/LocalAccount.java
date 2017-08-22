@@ -15,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 
 @Profile("default")
 @Entity
-@Table(name = "Account")
+@Table(name = "account")
 public class LocalAccount extends AbstractPersistable<Long> {
 
     private String username;
