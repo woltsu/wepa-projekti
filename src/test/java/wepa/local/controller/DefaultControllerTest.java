@@ -6,28 +6,14 @@ import static org.junit.Assert.assertTrue;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-import org.junit.Before;
 import org.junit.Test;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DefaultControllerTest extends FluentTest {
-
-    @Autowired
-    private WebApplicationContext webAppContext;
-    private MockMvc mockMvc;
-
-    @Before
-    public void setUp() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(webAppContext).build();
-    }
 
     public WebDriver webDriver = new HtmlUnitDriver();
     private final String localHost = "http://localhost:";
