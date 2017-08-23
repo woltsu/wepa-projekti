@@ -102,7 +102,7 @@ public class AnswerController {
         int optionId = optionDatabase.findOne(option_id).getId();
         answerDatabase.create(id, accountId, optionId, isCorrect);
         statDatabase.save(stat);
-        return "redirect:/question/" + id + "/?page=" + lastPage;
+        return "redirect:/question/" + id + "/?lastPage=" + lastPage;
     }
 
 }
