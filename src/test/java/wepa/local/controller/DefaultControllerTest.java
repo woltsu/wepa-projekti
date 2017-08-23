@@ -1,6 +1,7 @@
 package wepa.local.controller;
 
 import org.fluentlenium.adapter.FluentTest;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.runner.RunWith;
@@ -36,14 +37,11 @@ public class DefaultControllerTest extends FluentTest {
     @Test
     public void testClickQuestions() {
         login();
+        assertEquals("Front page", title());
         assertTrue(pageSource().contains("question0"));
         assertTrue(pageSource().contains("user"));
         click(find("#link").first());
-        assertTrue(pageSource().contains("question0"));
-        assertTrue(pageSource().contains("1"));
-        assertTrue(pageSource().contains("2"));
-        assertTrue(pageSource().contains("3"));
-        assertTrue(pageSource().contains("10"));
+        assertTrue(pageSource().contains("Answer!"));
     }
 
     @Test
@@ -55,14 +53,17 @@ public class DefaultControllerTest extends FluentTest {
         goTo(localHost + port + "?page=2");
         assertTrue(pageSource().contains("question19"));
         assertFalse(pageSource().contains("question0"));
+        assertEquals("Front page", title());
     }
 
     @Test
     public void testLogout() {
         login();
         assertTrue(pageSource().contains("question0"));
+        assertEquals("Front page", title());
         click(find("#logout").first());
         assertTrue(pageSource().contains("username"));
+        assertEquals("Login", title());
     }
 
     @Test
@@ -71,6 +72,7 @@ public class DefaultControllerTest extends FluentTest {
         fill(find("#questionId")).with("2");
         submit(find("#questionSearch").first());
         assertTrue(pageSource().contains("question1"));
+        assertEquals("Answer", title());
     }
 
 }

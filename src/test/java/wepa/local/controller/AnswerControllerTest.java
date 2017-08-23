@@ -11,6 +11,8 @@ import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -33,19 +35,25 @@ public class AnswerControllerTest extends FluentTest {
         fill(find("#password")).with("user");
         submit(find("form").first());
     }
-    
-    //admin
-    
-    //vastaaminen:
-    
-    //oikein
-    
-    //väärin
-    
-    //pääsee statseihin
-    
-    //ei voi vastata tyhjää
-    
-    
 
+    //admin
+    //vastaaminen:
+    @Test
+    public void testAnswerQuestionWrong() {
+        login();
+        click(find("#link").first());
+        assertEquals("Answer", title());
+        assertTrue(pageSource().contains("Answer!"));
+
+//        WebElement radioBtn = (WebElement) find("#option").first();
+//        radioBtn.click();
+//
+//        submit(find("form").get(1));
+//        assertTrue(pageSource().contains("not correct"));
+//        assertTrue(pageSource().contains("The correct option was 10"));
+    }
+    //oikein
+
+    //pääsee statseihin
+    //ei voi vastata tyhjää
 }

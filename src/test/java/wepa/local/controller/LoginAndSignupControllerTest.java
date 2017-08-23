@@ -1,6 +1,7 @@
 package wepa.local.controller;
 
 import org.fluentlenium.adapter.FluentTest;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +29,7 @@ public class LoginAndSignupControllerTest extends FluentTest {
     @Test
     public void canSignUpAndLogin() {
         goTo(localHost + port);
+        assertEquals("Login", title());
         click(find("#signup"));
         assertTrue(pageSource().contains("Password again"));
 
