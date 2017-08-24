@@ -30,7 +30,7 @@ public class AccountValidatorTest {
     }
 
     @Test
-    public void validateUsername() {
+    public void testValidateUsername() {
         List<String> errors = new ArrayList();
         errors = accountValidator.validateAccount("", "password", "password");
         assertEquals("Username must be at least 3 characters long!", errors.get(0));
@@ -51,7 +51,7 @@ public class AccountValidatorTest {
     }
 
     @Test
-    public void validatePassword() {
+    public void testValidatePassword() {
         List<String> errors = new ArrayList();
         errors = accountValidator.validateAccount("jonas", "", "");
         assertEquals("Password must be at least 3 characters long!", errors.get(0));
