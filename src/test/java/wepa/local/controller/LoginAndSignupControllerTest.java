@@ -80,5 +80,5 @@ public class LoginAndSignupControllerTest extends FluentTest {
         submit(find("form").first());
         assertTrue(pageSource().contains("Wrong username or password!"));
     }
-
+    
 }

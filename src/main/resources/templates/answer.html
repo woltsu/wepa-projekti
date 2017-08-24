@@ -20,18 +20,18 @@
         <div th:replace="fragments/navbar :: navbar"></div>
 
         <div class="container">
-            <a style="float: left; color: black; text-decoration: none; font-size: 180%" th:href="@{/?page={page}(page=${lastPage})}" class="glyphicon glyphicon-menu-left col-xs-12 col-md-12"></a>
+            <a id="goBack" style="float: left; color: black; text-decoration: none; font-size: 180%" th:href="@{/?page={page}(page=${lastPage})}" class="glyphicon glyphicon-menu-left col-xs-12 col-md-12"></a>
             <h2 class="col-xs-12 col-md-12 text-center" style="margin-bottom: 4%; overflow: auto"><span th:text="${question.name}"></span></h2>
             <div th:if="${account_answer == null}">
                 <form id="answer" th:method="post" th:action="@{/question/{id}?lastPage={page}(id=${question.id}, page=${lastPage})}">
-                    <div id="option" class="btn-group-vertical col-md-12 col-xs-12" data-toggle="buttons" style="margin: auto">
+                    <div class="btn-group-vertical col-md-12 col-xs-12" data-toggle="buttons" style="margin: auto">
                         <label th:each="option : ${options}" class="btn btn-default" style="outline: none; margin-bottom: 20px; padding: 1% 0% 1% 0%; overflow: auto">
-                            <input type="radio" value="nimi" name="option_id" th:value="${option.id}"/>
+                            <input id="option" type="radio" value="nimi" name="option_id" th:value="${option.id}"/>
                             <span th:text="${option.value}">ookoo</span>
                         </label>
                     </div>
                     <div class="text-center">
-                        <input type="submit" class="btn btn-primary col-xs-12 col-md-12" style="outline: none; padding: 1% 0% 1% 0%" value="Answer!"/>
+                        <input id="submit" type="submit" class="btn btn-primary col-xs-12 col-md-12" style="outline: none; padding: 1% 0% 1% 0%" value="Answer!"/>
                     </div>
                 </form>
             </div>
@@ -40,10 +40,10 @@
                     <span th:if="${account_answer.option.correct}" style="color: green">correct</span><span th:unless="${account_answer.option.correct}"><span style="color: red">not correct</span><br/> The correct option was <span th:text="${correctOption.value}"></span></span></p>
             </div>
             <div class="text-center">
-                <p>~<a th:href="@{/{user}/stats(user=${question.publisher.username})}"><span th:text="${question.publisher.username}"></span></a></p>
+                <p>~<a id="stats" th:href="@{/{user}/stats(user=${question.publisher.username})}"><span th:text="${question.publisher.username}"></span></a></p>
             </div>
             <div sec:authorize="hasAuthority('ADMIN')" class="col-xs-12 col-md-12 text-center" style="margin-top: 3%">
-                <form th:method="delete" th:action="@{/admin/questions}">
+                <form id="adminDelete" th:method="delete" th:action="@{/admin/questions}">
                     <input type="hidden" th:value="${question.id}" name="question_id"/>
                     <input type="submit" value="delete" class="btn btn-danger"/>
                 </form>
