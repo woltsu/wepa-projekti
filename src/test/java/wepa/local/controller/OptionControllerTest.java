@@ -133,11 +133,11 @@ public class OptionControllerTest extends FluentTest {
         assertFalse(pageSource().contains("Question must have 4 options before you can publish it!"));
         assertFalse(pageSource().contains("set public"));
         assertTrue(pageSource().contains("set private"));
-        goTo(localHost + port + "/?page=3");
+        goTo(localHost + port);
         assertTrue(pageSource().contains("emptyQuestion"));
         goToAQuestion();
         submit(find("form").get(2));
-        goTo(localHost + port + "/?page=3");
+        goTo(localHost + port);
         assertFalse(pageSource().contains("emptyQuestion"));
     }
 }

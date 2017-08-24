@@ -103,10 +103,10 @@ public class AnswerControllerTest extends FluentTest {
     public void testGoBackPageSaves() {
         login();
         goTo(localHost + port + "?page=2");
-        assertTrue(pageSource().contains("question11"));
+        assertTrue(pageSource().contains("question9"));
         click(find("#link").get(0));
         click(find("#goBack").first());
-        assertTrue(pageSource().contains("question11"));
+        assertTrue(pageSource().contains("question9"));
     }
 
 //    @Test

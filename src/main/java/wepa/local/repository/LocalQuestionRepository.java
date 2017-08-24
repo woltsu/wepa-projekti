@@ -12,6 +12,6 @@ public interface LocalQuestionRepository extends JpaRepository<LocalQuestion, Lo
 
     List<LocalQuestion> findByLocalAccount(LocalAccount a);
     
-    @Query("SELECT q FROM LocalQuestion q WHERE q.published = true ORDER BY q.date DESC")
+    @Query("SELECT q FROM LocalQuestion q WHERE q.published = true ORDER BY q.date ASC")
     public List<LocalQuestion> getLatestQuestions();
 }

@@ -38,7 +38,7 @@ public class DefaultControllerTest extends FluentTest {
     public void testClickQuestions() {
         login();
         assertEquals("Front page", title());
-        assertTrue(pageSource().contains("question0"));
+        assertTrue(pageSource().contains("question20"));
         assertTrue(pageSource().contains("user"));
         click(find("#link").first());
         assertTrue(pageSource().contains("Answer!"));
@@ -47,19 +47,19 @@ public class DefaultControllerTest extends FluentTest {
     @Test
     public void testChangePage() {
         login();
-        assertTrue(pageSource().contains("question0"));
-        assertTrue(pageSource().contains("question9"));
-        assertFalse(pageSource().contains("question19"));
+        assertTrue(pageSource().contains("question20"));
+        assertTrue(pageSource().contains("question18"));
+        assertFalse(pageSource().contains("question9"));
         goTo(localHost + port + "?page=2");
-        assertTrue(pageSource().contains("question19"));
-        assertFalse(pageSource().contains("question0"));
+        assertTrue(pageSource().contains("question9"));
+        assertFalse(pageSource().contains("question20"));
         assertEquals("Front page", title());
     }
 
     @Test
     public void testLogout() {
         login();
-        assertTrue(pageSource().contains("question0"));
+        assertTrue(pageSource().contains("question20"));
         assertEquals("Front page", title());
         click(find("#logout").first());
         assertTrue(pageSource().contains("username"));

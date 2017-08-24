@@ -1,5 +1,7 @@
 package wepa.local.repository;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,9 +22,13 @@ public class AccountRepositoryTest {
         LocalAccount a = new LocalAccount();
         a.setUsername("username");
         a.setPassword("password");
+        a.setAdmin(false);
         localAccountRepository.save(a);
         LocalAccount retrieved = localAccountRepository.findByUsername("username");
         assertNotNull(retrieved);
+        assertEquals("username", retrieved.getUsername());
+        assertFalse(retrieved.isAdmin());
+        assertNotNull(retrieved.getId());
     }
     
 }

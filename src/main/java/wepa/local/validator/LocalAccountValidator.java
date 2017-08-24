@@ -41,7 +41,7 @@ public class LocalAccountValidator {
             errors.add("Password must be at least 3 characters long!");
         }
         if (password.length() > 200) {
-            errors.add("Passwords didn't match!");
+            errors.add("Password too long!");
         }
         if (!password.equals(passwordAgain)) {
             errors.add("Passwords didn't match!");
