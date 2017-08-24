@@ -16,12 +16,12 @@ import org.junit.Test;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DefaultControllerTest extends FluentTest {
 
-    public WebDriver webDriver = new HtmlUnitDriver();
+    public WebDriver driver = new HtmlUnitDriver();
     private final String localHost = "http://localhost:";
 
     @Override
     public WebDriver getDefaultDriver() {
-        return webDriver;
+        return driver;
     }
 
     @LocalServerPort
@@ -45,7 +45,7 @@ public class DefaultControllerTest extends FluentTest {
     }
 
     @Test
-    public void testChangePage() throws Exception {
+    public void testChangePage() {
         login();
         assertTrue(pageSource().contains("question0"));
         assertTrue(pageSource().contains("question9"));

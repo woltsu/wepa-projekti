@@ -59,7 +59,6 @@ public class LocalOptionController {
     }
 
     @RequestMapping(value = "/{user}/questions/{id}", method = RequestMethod.DELETE)
-    @Transactional
     public String deleteOption(Model model, @PathVariable Long id, @RequestParam Long option_id, @PathVariable String user) {
         LocalQuestion q = questionRepository.findOne(id);
         LocalOption o = optionRepository.findOne(option_id);

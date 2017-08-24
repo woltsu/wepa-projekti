@@ -77,6 +77,7 @@ public class LocalQuestionController {
         LocalQuestion q = questionRepository.findOne(question_id);
         LocalAccount a = accountRepository.findByUsername(user);
         a.getQuestions().remove(q);
+        accountRepository.save(a);
         List<LocalOption> options = optionRepository.findByLocalQuestion(q);
         for (LocalOption option : options) {
             q.getOptions().remove(option);
@@ -118,6 +119,7 @@ public class LocalQuestionController {
         q.setName(name);
         q.setLocalAccount(accountService.getAuthenticatedAccount());
         q.setDate(new Timestamp(System.currentTimeMillis()));
+        q.setPublished(false);
 
         List<String> errors = questionValidator.validateQuestion(q);
         if (!errors.isEmpty()) {
@@ -129,9 +131,8 @@ public class LocalQuestionController {
 
         q = questionRepository.save(q);
         self.addQuestion(q);
-        q.setPublished(false);
         accountRepository.save(self);
-        return "redirect:/" + self.getUsername() + "/questions/" + q.getId();
+        return "redirect:/" + self.getUsername() + "/questions";
     }
 
     @RequestMapping(value = "/{user}/questions/{id}/toggle", method = RequestMethod.POST)

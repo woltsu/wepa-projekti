@@ -25,7 +25,7 @@
                         <label>New question</label>
                         <form style="margin-bottom: 2%" th:method='post' th:action='@{/{user}/questions(user=${user.username})}'>
                             <div class="form-group">
-                                <input class="form-control" type="text" placeholder="name" name="name"/>
+                                <input id="newQuestion" class="form-control" type="text" placeholder="name" name="name"/>
                             </div>
                             <div class="row">
                                 <div class="col-xs-4 col-md-4 col-offset-6 centered" style="">

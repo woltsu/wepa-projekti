@@ -27,8 +27,6 @@ public class LocalAccount extends AbstractPersistable<Long> {
     private boolean admin;
     @OneToOne
     private LocalStat stat;
-    @Id
-    private Long id;
 
     public LocalAccount() {
     }
@@ -120,14 +118,6 @@ public class LocalAccount extends AbstractPersistable<Long> {
             return false;
         }
         return true;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
 }

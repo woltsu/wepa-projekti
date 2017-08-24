@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class LocalInitService {
 
     @Autowired
     private LocalOptionRepository optionRepository;
-    
+
     @Autowired
     private LocalStatRepository statRepository;
 
@@ -39,19 +40,19 @@ public class LocalInitService {
         a.setPassword("user");
         a.setAdmin(false);
         accountRepository.save(a);
-        
+
         LocalStat stat1 = new LocalStat();
         stat1.setAccount(a);
         stat1.setCorrectAnswers(0);
         stat1.setWrongAnswers(0);
         statRepository.save(stat1);
-        
+
         LocalAccount admin = new LocalAccount();
         admin.setUsername("admin");
         admin.setPassword("admin");
         admin.setAdmin(true);
         accountRepository.save(admin);
-        
+
         LocalStat stat2 = new LocalStat();
         stat2.setAccount(admin);
         stat2.setCorrectAnswers(0);
@@ -64,40 +65,58 @@ public class LocalInitService {
             q.setLocalAccount(a);
             q.setName("question" + i);
             q.setPublished(true);
-            q.setOptions(createOptions(q));
+            a.addQuestion(q);
 
             questionRepository.save(q);
-            optionRepository.save(q.getOptions());
+            accountRepository.save(a);
+        }
+
+        LocalQuestion q = new LocalQuestion();
+        q.setDate(Calendar.getInstance().getTime());
+        q.setLocalAccount(a);
+        q.setName("emptyQuestion");
+        q.setPublished(false);
+        a.addQuestion(q);
+        questionRepository.save(q);
+        accountRepository.save(a);
+        
+        for (LocalQuestion localQuestion : questionRepository.findAll()) {
+            if (localQuestion.getName().equals("emptyQuestion")) {
+                continue;
+            }
+            createOptions(localQuestion);
         }
     }
 
-    private List<LocalOption> createOptions(LocalQuestion q) {
-        List<LocalOption> options = new ArrayList();
+    private void createOptions(LocalQuestion q) {
         LocalOption first = new LocalOption();
         first.setValue("1");
         first.setCorrect(false);
         first.setLocalQuestion(q);
+//        q.addOption(first);
 
         LocalOption second = new LocalOption();
         second.setValue("2");
         second.setCorrect(false);
         second.setLocalQuestion(q);
+//        q.addOption(second);
 
         LocalOption third = new LocalOption();
         third.setValue("3");
         third.setCorrect(false);
         third.setLocalQuestion(q);
+//        q.addOption(third);
 
         LocalOption fourth = new LocalOption();
         fourth.setValue("10");
         fourth.setCorrect(true);
         fourth.setLocalQuestion(q);
-
-        options.add(first);
-        options.add(second);
-        options.add(third);
-        options.add(fourth);
-        return options;
+//        q.addOption(fourth);
+        
+        optionRepository.save(first);
+        optionRepository.save(second);
+        optionRepository.save(third);
+        optionRepository.save(fourth);
     }
 
 }

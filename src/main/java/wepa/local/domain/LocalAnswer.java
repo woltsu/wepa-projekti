@@ -20,8 +20,6 @@ public class LocalAnswer extends AbstractPersistable<Long> {
     private Long questionId;
 
     private boolean correct;
-    @Id
-    private Long id;
 
     public LocalAnswer() {
     }
@@ -56,14 +54,6 @@ public class LocalAnswer extends AbstractPersistable<Long> {
 
     public void setQuestionId(Long questionId) {
         this.questionId = questionId;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
 }

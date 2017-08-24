@@ -21,15 +21,11 @@ import wepa.TimeCount;
 @Entity
 public class LocalQuestion extends AbstractPersistable<Long> {
 
-    @Id
-    private Long id;
-
     private String name;
     @ManyToOne
     private LocalAccount localAccount;
     @OneToMany(cascade = CascadeType.ALL)
     private List<LocalOption> options;
-    @Column(name = "POST_DATE")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date date;
     private boolean published;
@@ -91,14 +87,6 @@ public class LocalQuestion extends AbstractPersistable<Long> {
     public String getTime() {
         TimeCount timeCount = new TimeCount();
         return timeCount.howLongAgo(date);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
 }

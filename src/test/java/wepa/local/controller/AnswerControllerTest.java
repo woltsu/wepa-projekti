@@ -3,8 +3,6 @@ package wepa.local.controller;
 import java.util.List;
 import static org.junit.Assert.*;
 import org.fluentlenium.adapter.FluentTest;
-import org.fluentlenium.core.domain.FluentWebElement;
-import static org.fluentlenium.core.filter.FilterConstructor.withText;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.runner.RunWith;
@@ -16,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -112,20 +109,20 @@ public class AnswerControllerTest extends FluentTest {
         assertTrue(pageSource().contains("question11"));
     }
 
-    @Test
-    public void testAdminCanDeleteQuestions() {
-        try {
-            click(find("#logout").first());
-        } catch (Exception e) {
-        }
-        goTo(localHost + port);
-        fill(find("#username")).with("admin");
-        fill(find("#password")).with("admin");
-        submit(find("form").first());
-        click(find("#link").get(0));
-        assertTrue(pageSource().contains("delete"));
-        submit(find("form").get(2));
-        assertEquals("Front page", title());
-        assertFalse(pageSource().contains("question0"));
-    }
+//    @Test
+//    public void testAdminCanDeleteQuestions() {
+//        try {
+//            click(find("#logout").first());
+//        } catch (Exception e) {
+//        }
+//        goTo(localHost + port);
+//        fill(find("#username")).with("admin");
+//        fill(find("#password")).with("admin");
+//        submit(find("form").first());
+//        click(find("#link").get(0));
+//        assertTrue(pageSource().contains("delete"));
+//        submit(find("form").get(2));
+//        assertEquals("Front page", title());
+//        assertFalse(pageSource().contains("question0"));
+//    }
 }

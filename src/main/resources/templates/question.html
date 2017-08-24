@@ -26,16 +26,16 @@
                         <label>New option</label>
                         <form class="form-inline" th:method='post' th:action='@{/{user}/questions/{id}(user=${user.username}, id=${question.id})}'>
                             <div class="form-group">
-                                <input class="form-control" type="text" placeholder="option" name="value"/>
+                                <input id="optionName" class="form-control" type="text" placeholder="option" name="value"/>
                             </div>
                             <input class="btn btn-success" type="submit" value="+"/>
                             <br/>
                             <div style="margin-top: 2%">
                                 <div class="radio" style="margin-right: 2%">
-                                    <label><input type="radio" value="1" name="correct"/>correct</label>
+                                    <label><input id="correct" type="radio" value="1" name="correct"/>correct</label>
                                 </div>
                                 <div class="radio">
-                                    <label><input type="radio" value="0" name="correct" checked="true"/>incorrect</label>
+                                    <label><input id="incorrect" type="radio" value="0" name="correct" checked="true"/>incorrect</label>
                                 </div>
                             </div>
                         </form>

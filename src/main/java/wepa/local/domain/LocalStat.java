@@ -11,9 +11,6 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 public class LocalStat extends AbstractPersistable<Long> {
 
-    @Id
-    private Long id;
-
     private int correctAnswers;
     private int wrongAnswers;
     @OneToOne
@@ -44,14 +41,6 @@ public class LocalStat extends AbstractPersistable<Long> {
 
     public void setAccount(LocalAccount account) {
         this.account = account;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
 }
