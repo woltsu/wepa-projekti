@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import wepa.domain.Account;
 import wepa.domain.Answer;
 
+//Stores answers into heroku's database.
 @Profile("production")
 @Component
 public class AnswerDatabase {
@@ -25,6 +26,7 @@ public class AnswerDatabase {
     @Autowired
     private OptionDatabase optionDatabase;
 
+    //On initialization creates the table.
     @PostConstruct
     private void init() {
         try (Connection conn = dataSource.getConnection()) {
@@ -39,6 +41,7 @@ public class AnswerDatabase {
         }
     }
 
+    //Inserts an answer into the database.
     public void create(int question_id, int account_id, int option_id, boolean correct) {
         try (Connection conn = dataSource.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Answer (question_id, account_id, option_id, correct) VALUES (?, ?, ?, ?)");
@@ -54,6 +57,7 @@ public class AnswerDatabase {
         }
     }
 
+    //Finds an answer using account and question_id
     public Answer findByAccountAndQuestionId(Account account, int question_id) {
         Answer a = new Answer();
         try (Connection conn = dataSource.getConnection()) {

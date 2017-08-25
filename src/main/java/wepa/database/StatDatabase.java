@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import wepa.domain.Stat;
 
+//Stores stats to database
 @Profile("production")
 @Component
 public class StatDatabase {
@@ -23,6 +24,7 @@ public class StatDatabase {
     @Autowired
     private AccountDatabase accountDatabase;
 
+    //On initialization creates the table and inserts stats from premade accounts (bot, admin and test user).
     @PostConstruct
     public void init() {
         try (Connection conn = dataSource.getConnection()) {
@@ -40,6 +42,7 @@ public class StatDatabase {
         }
     }
 
+    //Gets all of the stats ordered by correct answers.
     public List<Stat> getRanks() {
         List<Stat> orderedByStats = new ArrayList();
         try (Connection conn = dataSource.getConnection()) {
@@ -62,6 +65,7 @@ public class StatDatabase {
         return orderedByStats;
     }
 
+    //Uses an account to find a specific stat
     public Stat findByAccount(int account_id) {
         Stat stat = new Stat();
         try (Connection conn = dataSource.getConnection()) {
@@ -85,6 +89,7 @@ public class StatDatabase {
         return stat;
     }
 
+    //Creates a stat
     public void create(int account_id) {
         try (Connection conn = dataSource.getConnection()) {
             PreparedStatement ps = conn.prepareCall("INSERT INTO Stat (correctAnswers, wrongAnswers, account_id) VALUES (0, 0, ?)");
@@ -97,6 +102,7 @@ public class StatDatabase {
         }
     }
 
+    //Updates a stat
     public void save(Stat stat) {
         try (Connection conn = dataSource.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("UPDATE Stat SET correctAnswers = ?, wrongAnswers = ? WHERE id = ?");

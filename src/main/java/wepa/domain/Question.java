@@ -67,10 +67,12 @@ public class Question {
         return publisher;
     }
 
+    //Question's account. Makes thymeleaf easier.
     public void setPublisher(Account publisher) {
         this.publisher = publisher;
     }
 
+    //Gets a nicer time format using TimeCount class
     public String getTime() {
         TimeCount timeCount = new TimeCount();
         Date d = new Date(date.getTime());

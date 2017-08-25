@@ -15,6 +15,7 @@ public class StatService {
     @Autowired
     private StatDatabase statDatabase;
     
+    //Returns the rank of an account
     public int getRank(Account account) {
         List<Stat> orderedByStats = statDatabase.getRanks();
         int i = 1;

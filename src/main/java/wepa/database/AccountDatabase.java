@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import wepa.domain.Account;
 
+//Stores accounts into heroku's database
 @Profile("production")
 @Component
 public class AccountDatabase {
@@ -19,6 +20,7 @@ public class AccountDatabase {
     @Autowired
     private BasicDataSource dataSource;
 
+    //On initialization creates an account table. Also creates a test account, account for bot and an admin account.
     @PostConstruct
     private void init() {
         try (Connection conn = dataSource.getConnection()) {
@@ -39,6 +41,7 @@ public class AccountDatabase {
         }
     }
 
+    //Finds one account from the database using account_id.
     public Account findOne(int account_id) {
         Account result = new Account();
         result.setUsername("test");
@@ -62,6 +65,7 @@ public class AccountDatabase {
         return result;
     }
 
+    //Finds an account from the database using account's username.
     public Account findByUsername(String username) {
         Account result = new Account();
         try {
@@ -90,6 +94,7 @@ public class AccountDatabase {
         return result;
     }
 
+    //Returns all of the accounts.
     public ArrayList<Account> getUsers() {
         ArrayList<Account> users = new ArrayList();
         try {
@@ -113,13 +118,14 @@ public class AccountDatabase {
         return users;
     }
 
-//    @Async
+    //Creates an account.
     public void create(String username, String password, boolean admin) {
         try {
             Connection conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Account (username, password, salt, admin) VALUES (?, ?, ?, ?)");
             Account a = new Account();
             a.setUsername(username);
+            //Password must first be sit in order for BCrypt to work.
             a.setPassword(password);
             a.setAdmin(admin);
             ps.setString(1, username);
@@ -134,6 +140,7 @@ public class AccountDatabase {
         }
     }
     
+    //Creates an account without the admin parameter (false by default)
     public void create (String username, String password) {
         create(username, password, false);
     }

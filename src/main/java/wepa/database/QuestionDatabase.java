@@ -14,6 +14,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import wepa.domain.Question;
 
+//Stores questions into the database
 @Profile("production")
 @Component
 public class QuestionDatabase {
@@ -23,10 +24,7 @@ public class QuestionDatabase {
 
     private Connection conn;
 
-    public QuestionDatabase() {
-//        this.conn = dataSource.getConnection();
-    }
-
+    //On initialization creates the table
     @PostConstruct
     private void init() {
         try (Connection conn = dataSource.getConnection()) {
@@ -34,14 +32,14 @@ public class QuestionDatabase {
             st.executeUpdate("CREATE TABLE Question (id SERIAL PRIMARY KEY, "
                     + "name varchar(1000) NOT NULL, published boolean, date timestamp, "
                     + "account_id integer REFERENCES Account ON DELETE CASCADE);");
-//            create("test", 1);
             st.close();
             conn.close();
         } catch (Exception e) {
-//            e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
+    //Finds a question using an account's id
     public List<Question> findByAccount(int account_id) {
         List<Question> questions = new ArrayList();
         try (Connection conn = dataSource.getConnection()) {
@@ -58,22 +56,12 @@ public class QuestionDatabase {
         return questions;
     }
 
-//    @Async
+    //Creates a not published question
     public void create(String name, int account_id) {
-        try {
-            Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Question (name, account_id, published, date) "
-                    + "VALUES (?, ?, false, CURRENT_TIMESTAMP)");
-            ps.setString(1, name);
-            ps.setInt(2, account_id);
-            ps.execute();
-            conn.close();
-            ps.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        create(name, account_id, false);
     }
-    
+
+    //Creates a question, can be set published manually
     public void create(String name, int account_id, boolean published) {
         try {
             Connection conn = dataSource.getConnection();
@@ -90,6 +78,7 @@ public class QuestionDatabase {
         }
     }
 
+    //Finds a question
     public Question findOne(int id) {
         Question q = new Question();
         try (Connection conn = dataSource.getConnection()) {
@@ -117,6 +106,7 @@ public class QuestionDatabase {
         return q;
     }
 
+    //Changes question to public/private
     public void save(Question q) {
         try (Connection conn = dataSource.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("UPDATE Question SET published = ? WHERE id = ?");
@@ -130,6 +120,7 @@ public class QuestionDatabase {
         }
     }
 
+    //Gets 10 questions ordered by date. Offset is used to get different questions from different pages.
     public List<Question> getTenPublishedLatest(int offset) {
         List<Question> questions = new ArrayList();
         try (Connection conn = dataSource.getConnection()) {
@@ -147,6 +138,7 @@ public class QuestionDatabase {
         return questions;
     }
 
+    //A help method that creates questions from result set.
     private List<Question> createQuestions(ResultSet rs) {
         List<Question> questions = new ArrayList();
         try {

@@ -10,11 +10,9 @@ public class Account {
     private int id;
     private String username;
     private String password;
+    //Used in BCrypt
     private String salt;
     private boolean admin;
-
-    public Account() {
-    }
 
     public String getUsername() {
         return username;
@@ -28,6 +26,7 @@ public class Account {
         return password;
     }
 
+    //BCrypt protects the password
     public void setPassword(String password) {
         this.salt = BCrypt.gensalt();
         this.password = BCrypt.hashpw(password, this.salt);

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import wepa.database.AccountDatabase;
 import wepa.domain.Account;
 
+//Used to get an authenticated account.
 @Profile("production")
 @Service
 public class AccountService {

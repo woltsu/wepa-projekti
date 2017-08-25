@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import wepa.domain.Option;
 
+//Stores options into the database.
 @Profile("production")
 @Component
 public class OptionDatabase {
@@ -20,6 +21,7 @@ public class OptionDatabase {
     @Autowired
     private BasicDataSource dataSource;
 
+    //On initialization creates the table.
     @PostConstruct
     private void init() {
         try (Connection conn = dataSource.getConnection()) {
@@ -34,6 +36,7 @@ public class OptionDatabase {
         }
     }
 
+    //Finds options by question
     public List<Option> findByQuestion(int question_id) {
         List<Option> result = new ArrayList();
         try (Connection conn = dataSource.getConnection()) {
@@ -57,6 +60,7 @@ public class OptionDatabase {
         return result;
     }
 
+    //Finds one option using id
     public Option findOne(int id) {
         Option o = new Option();
         try (Connection conn = dataSource.getConnection()) {
@@ -81,6 +85,7 @@ public class OptionDatabase {
 
     }
 
+    //Creates an option
     public void create(String value, boolean correct, int question_id) {
         try (Connection conn = dataSource.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Option (value, correct, question_id) VALUES (?, ?, ?)");
@@ -95,6 +100,7 @@ public class OptionDatabase {
         }
     }
 
+    //Deletes an option
     public void delete(int option_id) {
         try (Connection conn = dataSource.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("DELETE FROM Option WHERE id = ?");

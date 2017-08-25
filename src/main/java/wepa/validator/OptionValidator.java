@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import wepa.domain.Option;
 import wepa.service.OptionService;
 
+//Validates an option. Returns errors if there are any.
 @Profile("production")
 @Component
 public class OptionValidator {
@@ -15,6 +16,7 @@ public class OptionValidator {
     @Autowired
     private OptionService optionService;
 
+    //Also uses option service to validate.
     public List<String> validateOption(Option o) {
         List<String> errors = new ArrayList();
         errors.addAll(validateValue(o.getValue()));
@@ -27,6 +29,7 @@ public class OptionValidator {
         return errors;
     }
 
+    //Validates an option's value
     private List<String> validateValue(String value) {
         List<String> errors = new ArrayList();
         if (value == null || value.isEmpty()) {

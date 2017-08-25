@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import wepa.database.AccountDatabase;
 import wepa.domain.Account;
 
+//Validates an account. Returns errors if there are any.
 @Profile("production")
 @Component
 public class AccountValidator {
@@ -22,6 +23,7 @@ public class AccountValidator {
         return errors;
     }
 
+    //Checks that account's username fills the requirements.
     private List<String> validateUsername(String username) {
         List<String> errors = new ArrayList();
         if (username == null || username.length() < 3) {
@@ -36,6 +38,7 @@ public class AccountValidator {
         return errors;
     }
 
+    //Checks that account's password fills the requirements.
     private List<String> validatePassword(String password, String passwordAgain) {
         List<String> errors = new ArrayList();
         if (password == null || password.length() < 3) {

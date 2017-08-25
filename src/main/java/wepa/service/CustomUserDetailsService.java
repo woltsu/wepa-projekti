@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import wepa.database.AccountDatabase;
 import wepa.domain.Account;
 
+//Used to get the 'remember me' function to work
 @Profile("production")
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -18,6 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private AccountDatabase accountDatabase;
 
+    //Checks if the user is admin aswell
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountDatabase.findByUsername(username);

@@ -18,6 +18,7 @@ public class OptionService {
     @Autowired
     private QuestionDatabase questionDatabase;
     
+    //If a question already has a correct option, returns true. Else returns false.
     public boolean hasAlreadyACorrectOption(int question_id) {
         List<Option> options = optionDatabase.findByQuestion(question_id);
         for (Option option : options) {
@@ -28,6 +29,7 @@ public class OptionService {
         return false;
     }
     
+    //If a question already has 3 false options, returns true. Else returns false.
     public boolean hasMaxFalseOptions(int question_id) {
         List<Option> options = optionDatabase.findByQuestion(question_id);
         int howMany = 0;
