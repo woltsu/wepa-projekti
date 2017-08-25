@@ -32,6 +32,7 @@ public class StatDatabase {
                     + "account_id integer REFERENCES Account ON DELETE CASCADE);");
             create(accountDatabase.findByUsername("Question bot").getId());
             create(accountDatabase.findByUsername("admin").getId());
+            create(accountDatabase.findByUsername("user").getId());
             st.close();
             conn.close();
         } catch (Exception e) {

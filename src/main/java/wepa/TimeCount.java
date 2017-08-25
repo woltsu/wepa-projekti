@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+//This class is used to change timestamps into a bit nicer format
 @Profile("default")
 public class TimeCount {
 
