@@ -65,6 +65,7 @@ public class LocalOptionController {
         q.getOptions().remove(o);
         optionRepository.delete(o);
         q.setPublished(false);
+        questionRepository.save(q);
         return "redirect:/" + user + "/questions/" + id;
     }
 

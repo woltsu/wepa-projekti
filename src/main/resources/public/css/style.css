@@ -37,6 +37,11 @@
     font-family: 'Open Sans', sans-serif;
 }
 
+.link {
+    color: black;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+}
 
 .crop {width:100px;overflow:hidden;height:50px;line-height:50px;}
 
@@ -54,14 +59,13 @@ body::-webkit-scrollbar-thumb {
     outline: 1px solid slategrey;
 }
 
-.Row
-{
-    display: table;
-    width: 100%; /*Optional*/
-    table-layout: fixed; /*Optional*/
-    border-spacing: 10px; /*Optional*/
+*, *:before, *:after {
+    box-sizing: border-box;
 }
-.Column
-{
-    display: table-cell;
+
+.myBox {
+    width: 300px;
+    border: 25px solid green;
+    padding: 25px;
+    margin: 25px;
 }
