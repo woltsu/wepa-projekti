@@ -7,7 +7,7 @@ My project is a website in which users can:
 
 An admin can delete questions from the answer page.  
 
-**My webpage**: https://multiple-choices.herokuapp.com/login  
+**My webpage**: https://multiple-choices.herokuapp.com/login (If the app hasn't been used for a while, it may take a moment to start)  
 **Test account**: user user  
 **Travis**: https://travis-ci.org/woltsu/wepa-projekti  
 
