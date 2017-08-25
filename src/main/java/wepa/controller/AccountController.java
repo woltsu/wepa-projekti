@@ -15,6 +15,7 @@ import wepa.database.StatDatabase;
 import wepa.service.AccountService;
 import wepa.validator.AccountValidator;
 
+//Account controller
 @Profile("production")
 @Controller
 public class AccountController {
@@ -31,12 +32,14 @@ public class AccountController {
     @Autowired
     private StatDatabase statDatabase;
 
+    //Login page. If the user is already logged in, the controller redirects them to the front page.
+    //If the controller detects error params in the url, it will alert of errors.
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, @RequestParam Map<String, String> params) {
         if (accountService.getAuthenticatedAccount() != null) {
             return "redirect:/";
         }
-        if (!params.isEmpty()) {
+        if (params.containsKey("error")) {
             List<String> errors = new ArrayList();
             errors.add("Wrong username or password!");
             model.addAttribute("errors", errors);
@@ -44,6 +47,7 @@ public class AccountController {
         return "login";
     }
 
+    //Sign up page. If the user is already logged in, they will be redirected to the front page.
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String getSignup() {
         if (accountService.getAuthenticatedAccount() != null) {
@@ -52,6 +56,9 @@ public class AccountController {
         return "signup";
     }
 
+    //Account creating. If account validator detects problems, the account won't be created and the user will be alerted
+    //of what went wrong. If there are no problems with the account, the user will be redirected to the login page with a
+    //success message.
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String postSignup(Model model, @RequestParam String username,
             @RequestParam String password,

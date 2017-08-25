@@ -31,6 +31,8 @@ public class StatController {
     @Autowired
     private AccountService accountService;
     
+    //Account's stats. If the account doesn't exist, they will be redirected to another page.
+    //Uses stat service to get the rank of an user.
     @RequestMapping(method = RequestMethod.GET)
     public String getStats(Model model, @PathVariable String user) {
         Account a = accountDatabase.findByUsername(user);

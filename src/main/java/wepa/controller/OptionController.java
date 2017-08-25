@@ -37,6 +37,7 @@ public class OptionController {
     @Autowired
     private AccountService accountService;
 
+    //Creates an option. Checks for errors.
     @RequestMapping(value = "/{user}/questions/{id}", method = RequestMethod.POST)
     public String postOption(Model model, @PathVariable int id, Option option, @PathVariable String user) {
         Account self = accountService.getAuthenticatedAccount();
@@ -54,6 +55,7 @@ public class OptionController {
         return "redirect:/" + user + "/questions/" + id;
     }
 
+    //Deletes an option.
     @RequestMapping(value = "/{user}/questions/{id}", method = RequestMethod.DELETE)
     public String deleteOption(Model model, @PathVariable int id, @RequestParam int option_id, @PathVariable String user) {
         optionDatabase.delete(option_id);

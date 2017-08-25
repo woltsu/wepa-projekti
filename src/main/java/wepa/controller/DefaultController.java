@@ -24,15 +24,17 @@ public class DefaultController {
 
     @Autowired
     private QuestionDatabase questionDatabase;
-    
+
     @Autowired
     private AccountDatabase accountDatabase;
-    
+
+    //If the user tries to go to a non-existing page, they will be redirected to the front page.
     @RequestMapping(method = RequestMethod.GET)
     public String redirectHome() {
         return "redirect:/?page=1";
     }
-    
+
+    //Front page. 1 page contains 10 questions ordered by date. If page is invalid, it will be changed to 1.
     @RequestMapping(method = RequestMethod.GET, value = "/")
     public String home(Model model, @RequestParam(defaultValue = "1") int page) {
         model.addAttribute("user", accountService.getAuthenticatedAccount());
@@ -47,20 +49,23 @@ public class DefaultController {
         model.addAttribute("questions", questions);
         return "index";
     }
-    
+
+    //Changes the page with +1
     @RequestMapping(value = "/nextPage", method = RequestMethod.GET)
     public String nextPage(@RequestParam int page) {
         return "redirect:/?page=" + (page + 1);
     }
     
+    //Changes the page with -1
     @RequestMapping(value = "/prevPage", method = RequestMethod.GET)
     public String prevPage(@RequestParam int page) {
         return "redirect:/?page=" + (page - 1);
     }
-    
+
+    //Used to search questions. If invalid, the default value will be -1 which notifies future controller of a wrong id.
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String searchQuestion(@RequestParam(defaultValue = "-1") int question_id) {
         return "redirect:/question/" + question_id;
     }
-    
+
 }

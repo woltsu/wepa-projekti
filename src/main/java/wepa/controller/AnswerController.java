@@ -44,8 +44,10 @@ public class AnswerController {
     @Autowired
     private AccountDatabase accountDatabase;
 
+    //Question answer page. If user tries to answer with an empty answer, they will be notified. Method also checks that 
+    //question id is a proper id and the question is published.
     @RequestMapping(value = "/question/{id}", method = RequestMethod.GET)
-    public String getAnswer(Model model, @PathVariable int id, @RequestParam(defaultValue = "1") int lastPage, 
+    public String getAnswerPage(Model model, @PathVariable int id, @RequestParam(defaultValue = "1") int lastPage, 
             @RequestParam(defaultValue = "false") boolean err) {
         if (answerDatabase.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id) != null) {
             model.addAttribute("account_answer", answerDatabase.findByAccountAndQuestionId(accountService.getAuthenticatedAccount(), id));
@@ -83,6 +85,10 @@ public class AnswerController {
         return "answer";
     }
 
+    //Used to actually answer a question. Detects if user hasn't chosen any of the available options. Also updated 
+    //account's stats with +1 correct answer or +1 wrong answer. Keeps track of the page from which user originally came from
+    //so the user can smoothly go back to the correct page and doesn't have to browse f.ex. 5 pages again to get back to the
+    //next available question.
     @RequestMapping(value = "/question/{id}", method = RequestMethod.POST)
     public String postAnswer(Model model, @PathVariable int id, @RequestParam(defaultValue = "-1") int option_id, 
             @RequestParam(defaultValue = "1") int lastPage) {

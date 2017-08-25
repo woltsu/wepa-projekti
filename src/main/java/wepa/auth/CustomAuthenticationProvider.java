@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import wepa.database.AccountDatabase;
 import wepa.domain.Account;
 
+//This class is used to authenticate an user
 @Profile("production")
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
@@ -40,7 +41,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         }
 
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
+        
         grantedAuths.add(new SimpleGrantedAuthority("USER"));
+        //If the account is an admin's account, it will be granted admin 'rights'
         if (account.isAdmin()) {
             grantedAuths.add(new SimpleGrantedAuthority("ADMIN"));
         }

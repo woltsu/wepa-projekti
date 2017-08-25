@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+
+//This class is for heroku's postgres database
 @Profile("production")
 @Configuration
 public class MainConfig {

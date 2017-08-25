@@ -31,7 +31,7 @@ public class LocalLoginAndSignupController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, @RequestParam Map<String, String> params) {
-        if (!params.isEmpty()) {
+        if (params.containsKey("error")) {
             List<String> errors = new ArrayList();
             errors.add("Wrong username or password!");
             model.addAttribute("errors", errors);

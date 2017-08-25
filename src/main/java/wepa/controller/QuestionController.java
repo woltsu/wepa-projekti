@@ -38,6 +38,7 @@ public class QuestionController {
     @Autowired
     private QuestionValidator questionValidator;
 
+    //User's personal questions. Checks that an user doesn't try to access someone else's questions.
     @RequestMapping(method = RequestMethod.GET)
     public String getQuestions(Model model, @PathVariable String user) {
         Account self = accountService.getAuthenticatedAccount();
@@ -49,6 +50,8 @@ public class QuestionController {
         return "questions";
     }
 
+    //Deletes a question. Checks that the user is the owner of the questions or an admin. If the user is an admin, they will be
+    //redirected back to the page where they came from.
     @RequestMapping(method = RequestMethod.DELETE)
     public String deleteQuestion(@PathVariable String user, @RequestParam int question_id, @RequestParam(defaultValue = "1") int page) {
         Account self = accountService.getAuthenticatedAccount();
@@ -62,6 +65,7 @@ public class QuestionController {
         return "redirect:/" + self.getUsername() + "/questions";
     }
 
+    //Creating a question. Checks for errors.
     @RequestMapping(method = RequestMethod.POST)
     public String postQuestions(@RequestParam String name, @PathVariable String user, Model model) {
         Account self = accountService.getAuthenticatedAccount();
@@ -84,6 +88,7 @@ public class QuestionController {
         return "redirect:/" + self.getUsername() + "/questions";
     }
 
+    //Opening a question editing page. Checks that user is correct.
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getQuestion(Model model, @PathVariable int id, @PathVariable String user) {
         Account self = accountService.getAuthenticatedAccount();
@@ -96,6 +101,7 @@ public class QuestionController {
         return "question";
     }
 
+    //Setting the question public/private. Checks for errors.
     @RequestMapping(value = "/{id}/toggle", method = RequestMethod.POST)
     public String toggleQuestion(@RequestParam int question_id, @PathVariable String user, Model model) {
         Account self = accountService.getAuthenticatedAccount();
