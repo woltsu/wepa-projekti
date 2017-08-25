@@ -1,9 +1,7 @@
 package wepa.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -15,7 +13,6 @@ import org.springframework.web.client.RestTemplate;
 import wepa.database.AccountDatabase;
 import wepa.database.OptionDatabase;
 import wepa.database.QuestionDatabase;
-import wepa.domain.Account;
 import wepa.domain.Option;
 import wepa.domain.Question;
 
@@ -34,7 +31,8 @@ public class QuestionBotService {
 
     private RestTemplate restTemplate;
 
-    public QuestionBotService() {
+    @PostConstruct
+    public void init() {
         this.restTemplate = new RestTemplate();
     }
 
@@ -69,7 +67,7 @@ public class QuestionBotService {
         q.setPublisher(accountDatabase.findByUsername("Question bot"));
         questionDatabase.create(q.getName(), q.getAccount(), true);
 
-        for (String value : values) {
+        values.stream().map((value) -> {
             Option o = new Option();
             o.setValue(value);
             List<Question> questions = questionDatabase.findByAccount(accountDatabase.findByUsername("Question bot").getId());
@@ -79,8 +77,10 @@ public class QuestionBotService {
             } else {
                 o.setCorrect(false);
             }
+            return o;
+        }).forEachOrdered((o) -> {
             optionDatabase.create(o.getValue(), o.isCorrect(), o.getQuestion_id());
-        }
+        });
     }
 
 }
