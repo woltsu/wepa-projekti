@@ -25,15 +25,17 @@
                         <div class="form-group">
                             <input id="optionName" class="form-control" type="text" placeholder="option" name="value"/>
                         </div>
-                        <input class="btn btn-success" type="submit" value="+"/>
+                        <button class="btn btn-success" type="submit"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         <br/>
-                        <div style="margin-top: 2%" class="row">
+                        <div style="margin-top: 2%" class="col">
                             <div class="btn-group" data-toggle="buttons">
                                 <label class="btn btn-outline-success">
-                                    <input type="radio" id="correct" name="correct" value="1" autocomplete="off"/> Correct
+                                    <input type="radio" id="correct" name="correct" value="1" autocomplete="off"/>
+                                    <i class="fa fa-check" aria-hidden="true"></i>
                                 </label>
                                 <label class="btn btn-outline-danger active">
-                                    <input type="radio" id="incorrect" name="correct" value="0" autocomplete="off" checked="true"/> Incorrect
+                                    <input type="radio" id="incorrect" name="correct" value="0" autocomplete="off" checked="true"/>
+                                    <i class="fa fa-times" aria-hidden="true"></i>
                                 </label>
                             </div>
                         </div>
@@ -41,7 +43,7 @@
                 </div>
                 <div class='col-8'>
                     <div class="">
-                        <h2 class="" th:text="${question.name}" style="overflow: auto; padding: 1% 1% 2% 1%"></h2>
+                        <h2 class="" th:text="${question.name}" style="overflow: auto; padding: 1% 1% 1% 1%"></h2>
                         <div class="row">
                             <form style="margin-top: 2%" th:action='@{/{user}/questions/{id}/toggle(user=${user.username}, id=${question.id})}' th:method='post'>
                                 <input type='hidden' th:value='${question.id}' name='question_id'/>
