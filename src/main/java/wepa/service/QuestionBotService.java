@@ -37,7 +37,7 @@ public class QuestionBotService {
         this.restTemplate = new RestTemplate();
     }
 
-    @Scheduled(cron = "0 0/01 * * * ?")
+    @Scheduled(cron = "0 0/15 * * * ?")
     public void getQuestion() {
         //Gets a random question from the api
         JsonNode node = restTemplate.getForObject("https://opentdb.com/api.php?amount=1&type=multiple", JsonNode.class);
