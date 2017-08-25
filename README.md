@@ -12,4 +12,4 @@ An admin can delete questions from the answer page.
 **Travis**: https://travis-ci.org/woltsu/wepa-projekti  
 **Api** that the bot uses to get random questions: https://opentdb.com/api_config.php  
 
-The project is programmed with Java using Spring framework. The database in Heroku uses PostgreSQL. Tests use Fluentlenium and Selenium. If all tests pass when the project is pushed to Github, Travis automatically pushes the project into Heroku. The website utilizes many Bootstrap components and rescales quite nicely to other platforms as well. Accounts' passwords are protected using BCrypt and the website can only be used with a https connection.
+The project is programmed in Java using Spring framework. The database in Heroku uses PostgreSQL. Tests use Fluentlenium and Selenium. If all tests pass when the project is pushed to Github, Travis automatically pushes the project into Heroku. The website utilizes many Bootstrap components and rescales quite nicely to other platforms as well. Accounts' passwords are protected using BCrypt and the website can only be used with a https connection.
