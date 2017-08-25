@@ -38,48 +38,54 @@ public class QuestionBotService {
         this.restTemplate = new RestTemplate();
     }
 
-    @Scheduled(cron = "0 0/05 * * * ?")
+    @Scheduled(cron = "0 0/01 * * * ?")
     public void getQuestion() {
-        JsonNode node = restTemplate.getForObject("https://opentdb.com/api.php?amount=2&type=multiple", JsonNode.class);
-        String question = node.get("results").get(0).get("question").asText();
-        String correctValue = node.get("results").get(0).get("correct_answer").asText();
-        String firstIncorrectValue = node.get("results").get(0).get("incorrect_answers").get(0).asText();
-        String secondIncorrectValue = node.get("results").get(0).get("incorrect_answers").get(1).asText();
-        String thirdIncorrectValue = node.get("results").get(0).get("incorrect_answers").get(2).asText();
-        question = question.replaceAll("&quot;", "'");
-        firstIncorrectValue = firstIncorrectValue.replaceAll("&quot;", "'");
-        secondIncorrectValue = secondIncorrectValue.replaceAll("&quot;", "'");
-        thirdIncorrectValue = thirdIncorrectValue.replaceAll("&quot;", "'");
-        question = question.replaceAll("&#039;", "'");
-        firstIncorrectValue = firstIncorrectValue.replaceAll("&#039;", "'");
-        secondIncorrectValue = secondIncorrectValue.replaceAll("&#039;", "'");
-        thirdIncorrectValue = thirdIncorrectValue.replaceAll("&#039;", "'");
+        while (true) {
+            try {
+                JsonNode node = restTemplate.getForObject("https://opentdb.com/api.php?amount=2&type=multiple", JsonNode.class);
+                String question = node.get("results").get(0).get("question").asText();
+                String correctValue = node.get("results").get(0).get("correct_answer").asText();
+                String firstIncorrectValue = node.get("results").get(0).get("incorrect_answers").get(0).asText();
+                String secondIncorrectValue = node.get("results").get(0).get("incorrect_answers").get(1).asText();
+                String thirdIncorrectValue = node.get("results").get(0).get("incorrect_answers").get(2).asText();
+                question = question.replaceAll("&quot;", "'");
+                firstIncorrectValue = firstIncorrectValue.replaceAll("&quot;", "'");
+                secondIncorrectValue = secondIncorrectValue.replaceAll("&quot;", "'");
+                thirdIncorrectValue = thirdIncorrectValue.replaceAll("&quot;", "'");
+                question = question.replaceAll("&#039;", "'");
+                firstIncorrectValue = firstIncorrectValue.replaceAll("&#039;", "'");
+                secondIncorrectValue = secondIncorrectValue.replaceAll("&#039;", "'");
+                thirdIncorrectValue = thirdIncorrectValue.replaceAll("&#039;", "'");
 
-        List<String> values = new ArrayList();
-        values.add(correctValue);
-        values.add(firstIncorrectValue);
-        values.add(secondIncorrectValue);
-        values.add(thirdIncorrectValue);
-        Collections.shuffle(values);
+                List<String> values = new ArrayList();
+                values.add(correctValue);
+                values.add(firstIncorrectValue);
+                values.add(secondIncorrectValue);
+                values.add(thirdIncorrectValue);
+                Collections.shuffle(values);
 
-        Question q = new Question();
-        q.setAccount(accountDatabase.findByUsername("Question bot").getId());
-        q.setName(question);
-        q.setPublished(true);
-        q.setPublisher(accountDatabase.findByUsername("Question bot"));
-        questionDatabase.create(q.getName(), q.getAccount(), true);
+                Question q = new Question();
+                q.setAccount(accountDatabase.findByUsername("Question bot").getId());
+                q.setName(question);
+                q.setPublished(true);
+                q.setPublisher(accountDatabase.findByUsername("Question bot"));
+                questionDatabase.create(q.getName(), q.getAccount(), true);
 
-        for (String value : values) {
-            Option o = new Option();
-            o.setValue(value);
-            List<Question> questions = questionDatabase.findByAccount(accountDatabase.findByUsername("Question bot").getId());
-            o.setQuestion_id(questions.get(questions.size() - 1).getId());
-            if (value.equals(correctValue)) {
-                o.setCorrect(true);
-            } else {
-                o.setCorrect(false);
+                for (String value : values) {
+                    Option o = new Option();
+                    o.setValue(value);
+                    List<Question> questions = questionDatabase.findByAccount(accountDatabase.findByUsername("Question bot").getId());
+                    o.setQuestion_id(questions.get(questions.size() - 1).getId());
+                    if (value.equals(correctValue)) {
+                        o.setCorrect(true);
+                    } else {
+                        o.setCorrect(false);
+                    }
+                    optionDatabase.create(o.getValue(), o.isCorrect(), o.getQuestion_id());
+                }
+                break;
+            } catch (Exception e) {
             }
-            optionDatabase.create(o.getValue(), o.isCorrect(), o.getQuestion_id());
         }
     }
 
