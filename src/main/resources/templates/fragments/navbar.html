@@ -7,7 +7,7 @@
     </head>
     <body>
         <div th:fragment="navbar">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" th:href="@{/index}">Front page</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -16,22 +16,22 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                     </ul>
-                    <div sec:authorize="isAuthenticated()" class="nav-item dropdown">
-                        <a class="link nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-user" aria-hidden="true"></i> Profile                            </a>
+                    <div sec:authorize="isAuthenticated()" class="nav-item dropdown" style="color: white">
+                        <a class="link nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white">
+                            <i class="fa fa-user" aria-hidden="true" style="color: white"></i> Profile</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" th:href="@{/{user}/questions(user=${user.username})}" id="myQuestions">My questions</a>
                             <a class="dropdown-item" th:href="@{/{user}/stats(user=${user.username})}" id="myStats">My stats</a>
                         </div>
                     </div>
                     <div class="nav-item">
-                        <a sec:authorize="isAuthenticated()" th:href="@{/logout}" name="logout" id="logout" class="nav-link link"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                        <a sec:authorize="isAuthenticated()" th:href="@{/logout}" name="logout" id="logout" class="nav-link link" style="color: white"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
                     </div>
                     <div class="nav-item">
-                        <a sec:authorize="isAnonymous()" th:href="@{/login}" class="link nav-link"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+                        <a sec:authorize="isAnonymous()" th:href="@{/login}" class="link nav-link"><i class="fa fa-sign-in" aria-hidden="true" style="color: white"></i> Login</a>
                     </div>
                     <div class="nav-item">
-                        <a sec:authorize="isAnonymous()" class="link nav-link" id="signup" th:href="@{/signup}"><i class="fa fa-user" aria-hidden="true"></i> Sign Up</a>
+                        <a sec:authorize="isAnonymous()" class="link nav-link" id="signup" th:href="@{/signup}" style="color: white"><i class="fa fa-user" aria-hidden="true"></i> Sign Up</a>
                     </div>
 
                     <div sec:authorize="isAuthenticated()">
@@ -39,7 +39,7 @@
                             <div class="input-group">
                                 <input id="questionId" type="text" class="form-control" placeholder="Question id" name="question_id" pattern="[0-9.]+" oninvalid="this.setCustomValidity('Please check that your input is a positive number')" oninput="setCustomValidity('')"/>
                                 <div class="input-group-btn">
-                                    <button class="btn btn-outline-primary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                    <button class="btn btn-outline-success" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                                 </div>
                             </div>
                         </form>
