@@ -40,7 +40,7 @@ public class QuestionBotService {
 
     @Scheduled(cron = "0 0/05 * * * ?")
     public void getQuestion() {
-        JsonNode node = restTemplate.getForObject("https://opentdb.com/api.php?amount=1&type=multiple", JsonNode.class);
+        JsonNode node = restTemplate.getForObject("https://opentdb.com/api.php?amount=2&type=multiple", JsonNode.class);
         String question = node.get("results").get(0).get("question").asText();
         String correctValue = node.get("results").get(0).get("correct_answer").asText();
         String firstIncorrectValue = node.get("results").get(0).get("incorrect_answers").get(0).asText();
