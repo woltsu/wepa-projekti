@@ -8,4 +8,5 @@ and gain score in order to be #1. The project is written with Java using Spring 
 
 The project utilizes many Bootstrap components and also nicely rescales to other platforms. Accounts' passwords are protected with BCrypting and the webpage can only be used with a https connection. The project is linked to Travis which automatically pushes the changes to Heroku if all tests pass.  
 
-[Database diagram](wepa-projekti/documentation/database diagram.png)
+**Database diagram**
+![Database diagram](/documentation/database_diagram.png)
