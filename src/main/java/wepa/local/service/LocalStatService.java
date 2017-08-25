@@ -19,7 +19,7 @@ public class LocalStatService {
         List<LocalStat> rankList = statRepository.getRankList();
         int i = 1;
         for (LocalStat localStat : rankList) {
-            if (localStat.getAccount() == account) {
+            if (localStat.getAccount().getId() == account.getId()) {
                 return i;
             }
             i++;
