@@ -16,7 +16,7 @@ import wepa.database.QuestionDatabase;
 import wepa.domain.Option;
 import wepa.domain.Question;
 
-//A bot service that posts a question automatically. Suddenly stopped working for some odd reason right before the deadline :-).
+//A bot service that posts a question automatically.
 @Profile("production")
 @Service
 public class QuestionBotService {
