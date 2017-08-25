@@ -85,7 +85,7 @@ public class QuestionBotService {
                 }
                 break;
             } catch (Exception e) {
-                continue;
+                return;
             }
         }
     }
