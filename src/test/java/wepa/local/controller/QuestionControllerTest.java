@@ -97,7 +97,7 @@ public class QuestionControllerTest extends FluentTest {
     public void testCantPublishAQuestionWithNoOptions() {
         login();
         goTo(localHost + port + "/user/questions/26");
-        submit(find("form").get(2));
+        submit(find("form").get(1));
         assertTrue(pageSource().contains("Question must have 4 options before you can publish it!"));
     }
 }

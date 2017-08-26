@@ -53,7 +53,7 @@ public class OptionControllerTest extends FluentTest {
         assertFalse(pageSource().contains("correctOption"));
         fill(find("#optionName")).with("correctOption");
         click(find("#correct"));
-        submit(find("form").get(1));
+        submit(find("form").get(2));
         assertTrue(pageSource().contains("correctOption"));
     }
 
@@ -61,7 +61,7 @@ public class OptionControllerTest extends FluentTest {
     public void testCantCreateAnEmptyOption() {
         login();
         goToAQuestion();
-        submit(find("form").get(1));
+        submit(find("form").get(2));
         assertTrue(pageSource().contains("Option value must not be empty!"));
     }
 
@@ -74,10 +74,10 @@ public class OptionControllerTest extends FluentTest {
         }
         fill(find("#optionName")).with("correctOption");
         click(find("#correct"));
-        submit(find("form").get(1));
+        submit(find("form").get(2));
         fill(find("#optionName")).with("correctOption");
         click(find("#correct"));
-        submit(find("form").get(1));
+        submit(find("form").get(2));
         assertTrue(pageSource().contains("Question already has a correct option!"));
     }
 
@@ -90,17 +90,17 @@ public class OptionControllerTest extends FluentTest {
         }
         fill(find("#optionName")).with("falseOption");
         click(find("#incorrect"));
-        submit(find("form").get(1));
+        submit(find("form").get(2));
         fill(find("#optionName")).with("falseOption");
         click(find("#incorrect"));
-        submit(find("form").get(1));
+        submit(find("form").get(2));
         fill(find("#optionName")).with("falseOption");
         click(find("#incorrect"));
-        submit(find("form").get(1));
+        submit(find("form").get(2));
         assertFalse(pageSource().contains("Question has maximum number of incorrect options!"));
         fill(find("#optionName")).with("falseOption");
         click(find("#incorrect"));
-        submit(find("form").get(1));
+        submit(find("form").get(2));
         assertTrue(pageSource().contains("Question has maximum number of incorrect options!"));
     }
 
@@ -113,30 +113,30 @@ public class OptionControllerTest extends FluentTest {
         }
         fill(find("#optionName")).with("falseOption");
         click(find("#incorrect"));
-        submit(find("form").get(1));
         submit(find("form").get(2));
+        submit(find("form").get(1));
         assertTrue(pageSource().contains("Question must have 4 options before you can publish it!"));
         fill(find("#optionName")).with("falseOption");
         click(find("#incorrect"));
-        submit(find("form").get(1));
         submit(find("form").get(2));
+        submit(find("form").get(1));
         assertTrue(pageSource().contains("Question must have 4 options before you can publish it!"));
         fill(find("#optionName")).with("falseOption");
         click(find("#incorrect"));
-        submit(find("form").get(1));
         submit(find("form").get(2));
+        submit(find("form").get(1));
         assertTrue(pageSource().contains("Question must have 4 options before you can publish it!"));
         fill(find("#optionName")).with("correctOption");
         click(find("#correct"));
-        submit(find("form").get(1));
         submit(find("form").get(2));
+        submit(find("form").get(1));
         assertFalse(pageSource().contains("Question must have 4 options before you can publish it!"));
         assertFalse(pageSource().contains("set public"));
         assertTrue(pageSource().contains("set private"));
         goTo(localHost + port);
         assertTrue(pageSource().contains("emptyQuestion"));
         goToAQuestion();
-        submit(find("form").get(2));
+        submit(find("form").get(1));
         goTo(localHost + port);
         assertFalse(pageSource().contains("emptyQuestion"));
     }
