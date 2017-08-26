@@ -19,64 +19,60 @@
         <div th:replace="fragments/navbar :: navbar"></div>
         <div class='container' style="margin-top: 3%">
             <div class="row">
-                <div class="col-4">
-                    <label>New option</label>
-                    <form class="form-inline" th:method='post' th:action='@{/{user}/questions/{id}(user=${user.username}, id=${question.id})}'>
-                        <div class="form-group">
-                            <input id="optionName" class="form-control" type="text" placeholder="option" name="value"/>
+                <div class="col">
+                    <h2 class="text-center" th:text="${question.name}" style="overflow: auto; padding: 2% 0% 1% 1%"></h2>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col">
+                    <form style="margin-top: 0%" th:action='@{/{user}/questions/{id}/toggle(user=${user.username}, id=${question.id})}' th:method='post'>
+                        <input type='hidden' th:value='${question.id}' name='question_id'/>
+                        <div th:if='${question.published}'>
+                            <input type='submit' class='btn btn-outline-danger' value='set private'/>
                         </div>
-                        <button class="btn btn-success" type="submit"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                        <br/>
-                        <div style="margin-top: 2%" class="col">
-                            <div class="btn-group" data-toggle="buttons">
-                                <label class="btn btn-outline-success">
-                                    <input type="radio" id="correct" name="correct" value="1" autocomplete="off"/>
-                                    <i class="fa fa-check" aria-hidden="true"></i>
-                                </label>
-                                <label class="btn btn-outline-danger active">
-                                    <input type="radio" id="incorrect" name="correct" value="0" autocomplete="off" checked="true"/>
-                                    <i class="fa fa-times" aria-hidden="true"></i>
-                                </label>
-                            </div>
+                        <div th:unless='${question.published}'>
+                            <input type='submit' class='btn btn-outline-primary' value='set public'/>
                         </div>
                     </form>
                 </div>
-                <div class='col-8'>
-                    <div class="">
-                        <h2 class="" th:text="${question.name}" style="overflow: auto; padding: 1% 1% 1% 1%"></h2>
-                        <div class="row">
-                            <form style="margin-top: 2%" th:action='@{/{user}/questions/{id}/toggle(user=${user.username}, id=${question.id})}' th:method='post'>
-                                <input type='hidden' th:value='${question.id}' name='question_id'/>
-                                <div th:if='${question.published}'>
-                                    <input type='submit' class='btn btn-danger' value='set private'/>
-                                </div>
-                                <div th:unless='${question.published}'>
-                                    <input type='submit' class='btn btn-primary' value='set public'/>
-                                </div>
-                            </form>
-                        </div>
+            </div>
+        </div>
+        <div class="col">
+            <label>New option</label>
+        </div>
+        <form class="form-inline" th:method='post' th:action='@{/{user}/questions/{id}(user=${user.username}, id=${question.id})}'>
+            <div class="col-12">
+                <div class="input-group">
+                    <input id="optionName" class="form-control" type="text" placeholder="option" name="value"/>
+                    <div class="input-group-btn">
+                        <button class="btn btn-success" type="submit"><i class="fa fa-plus" aria-hidden="true"></i></button>
                     </div>
                 </div>
             </div>
-            <div th:each="option : ${options}">
-                <div class="row" style="overflow: auto; margin-top: 3%">
-                    <div style="margin-right: 3%">
-                        <div th:if="${option.correct}">
-                            <p style="color: green;" th:text="${option.value}"></p>
-                        </div>
-                        <div th:unless="${option.correct}">
-                            <p style="color: red;" th:text="${option.value}"></p>
-                        </div>
-                    </div>
-                    <div>
-                        <form th:method="delete" th:action='@{/{user}/questions/{id}(user=${user.username}, id=${question.id})}'>
-                            <input type='hidden' th:value='${option.id}' name='option_id'/>
-                            <input type='submit' class="btn btn-danger" value='X'/>
-                        </form>
-                    </div>
+            <div class="col-12">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-outline-success">
+                        <input type="radio" id="correct" name="correct" value="1" autocomplete="off"/>
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                    </label>
+                    <label class="btn btn-outline-danger active">
+                        <input type="radio" id="incorrect" name="correct" value="0" autocomplete="off" checked="true"/>
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </label>
                 </div>
-                <br/>
-                <hr/>
+            </div>
+        </form>
+        <div th:each="option : ${options}">
+            <hr/>
+            <div class="col" style="overflow: auto; margin-top: 3%;">
+                <div style="margin-right: 3%" class="">
+                    <form th:method="delete" th:action='@{/{user}/questions/{id}(user=${user.username}, id=${question.id})}'>
+                        <input type='hidden' th:value='${option.id}' name='option_id'/>
+                        <input style="float: right" type='submit' class="btn btn-danger" value='X'/>
+                    </form>
+                    <p th:if="${option.correct}" style="color: green;" th:text="${option.value}"></p>
+                    <p th:unless="${option.correct}" style="color: red;" th:text="${option.value}"></p>
+                </div>
             </div>
         </div>
     </body>

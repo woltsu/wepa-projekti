@@ -41,21 +41,21 @@
                     </a>
                 </div>
             </div>
-            <div class="row" style="margin-bottom: 4%">
+            <div class="row" style="margin-bottom: 4%; margin-top: 4%">
                 <div class='col-5'>
                     <form th:method="get" th:action="@{/prevPage}" name="previous">
                         <input type="hidden" name="page" th:value="${page}"/>
                     </form>
-                    <a name="previousPage" id="link" href="#" onclick="document.forms['previous'].submit();" style="float: left"><i class="fa fa-caret-left" aria-hidden="true"></i></a>
+                    <a name="previousPage" id="link" href="#" onclick="document.forms['previous'].submit();" style="float: left; font-size: 130%"><i class="fa fa-caret-left" aria-hidden="true"></i></a>
                 </div>
                 <div class="col-2 text-center">
-                    <span th:text="${page}">page num</span>
+                    <span th:text="${page}" style="font-size: 120%">page num</span>
                 </div>
                 <div class='col-5'>
                     <form th:method="get" th:action="@{/nextPage}" name="next">
                         <input type="hidden" name="page" th:value="${page}"/>
                     </form>
-                    <a id="link" href="#" onclick="document.forms['next'].submit();" style="float: right"><i class="fa fa-caret-right" aria-hidden="true"></i></a>
+                    <a id="link" href="#" onclick="document.forms['next'].submit();" style="float: right; font-size: 130%"><i class="fa fa-caret-right" aria-hidden="true"></i></a>
                 </div>
             </div>
         </div>
