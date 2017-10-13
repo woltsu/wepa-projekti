@@ -51,10 +51,10 @@ public class TimeCount {
         
         int differenceInMonths = (int) (differenceInDays / 365);
         if (differenceInMonths < 12) {
-            if (differenceInMonths == 1) {
+            if (differenceInMonths == 0) {
                 return "1 month ago";
             } else {
-                return differenceInMonths + " months ago";
+                return (differenceInMonths + 1) + " months ago";
             }
         }
         
